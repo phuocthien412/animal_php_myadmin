@@ -14,12 +14,21 @@ require_once __DIR__ . '/../../config/env.php';
 include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
-  <section id="explore" class="explore py-5">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start">
-            <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+    <section class="ClassAnimal">
+        <div class="hero-container">
+            <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
+            <div class="hero-overlay">
+                <h1 class="textclassanimalName">Khám phá các nhóm động vật</h1>
+                <h1 class="textclassanimalInfo">Chọn một nhóm để xem danh sách loài động vật tương ứng theo từng lớp.</h1>
+            </div>
         </div>
+
+        <section id="explore" class="explore py-5">
+            <div class="container">
+                <div class="row g-4 align-items-stretch">
+                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start d-flex align-items-center">
+                        <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+                </div>
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="flip-container">
                 <a href="<?= $base ?>/classanimal/detail/1" class="card">
@@ -83,9 +92,10 @@ include '../header.php';
         <div class="col-lg-3 d-none d-lg-block text-center">
             <img src="<?= $base ?>/images/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
         </div>
-      </div>
-    </div>
-  </section>
+                </div>
+            </div>
+        </section>
+    </section>
 </section>
 <?php
 include '../footer.php';

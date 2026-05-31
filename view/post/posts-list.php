@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -54,7 +54,7 @@ if ($showOnlyMyPosts) {
     ?>
     <section layout:fragment="content" style="padding: 0;">
         <section class="Post">
-            <div class="hero-container" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 0;">
+            <div class="hero-container">
                 <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
                 <div class="hero-overlay">
                     <h1 class="display-3 fw-bold text-white text-center" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Cộng đồng</h1>
@@ -83,7 +83,7 @@ if ($showOnlyMyPosts) {
                 <!-- The Modal -->
                 <div id="modalDialog" class="modal">
                     <div class="modal-content animate-top"
-                        style="background-image: url('/animal_php/images/Explore/bg.png');object-fit: cover; border-radius: 20px;">
+                        style="background-image: url('<?= $base ?>/images/Explore/bg.png'); object-fit: cover; border-radius: 20px;">
                         <div class="modal-header border-0">
                             <h4 class="modal-title fw-bold" style="color:white; text-shadow: 1px 1px 2px black;">Đăng bài viết mới</h4>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1; text-shadow: 1px 1px 2px black;">
@@ -142,7 +142,7 @@ if ($showOnlyMyPosts) {
                                 <div class="card h-100 shadow-lg border-0 premium-glass-card overflow-hidden">
                                     <div class="d-flex justify-content-between align-items-center p-3 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">
                                         <div class="d-flex align-items-center">
-                                            <img src="/animal_php/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:40px;width:40px;object-fit:cover; border: 2px solid rgba(255,255,255,0.2);">
+                                            <img src="<?= $base ?>/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:40px;width:40px;object-fit:cover; border: 2px solid rgba(255,255,255,0.2);">
                                             <span class="fw-bold text-white ms-3 fs-6" style="letter-spacing: 0.5px;"><?= htmlspecialchars($username) ?></span>
                                         </div>
                                         <div class="text-white-50 small">
@@ -150,7 +150,7 @@ if ($showOnlyMyPosts) {
                                         </div>
                                     </div>
                                     <div class="position-relative overflow-hidden" style="height: 250px;">
-                                        <img src="/animal_php/images/<?= htmlspecialchars($post['image']) ?>" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                        <img src="<?= $base ?>/images/<?= htmlspecialchars($post['image']) ?>" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title text-white fw-bold mb-0 text-truncate" style="line-height: 1.5; font-family: 'Be Vietnam Pro', sans-serif;"><?= htmlspecialchars($post['title']) ?></h5>

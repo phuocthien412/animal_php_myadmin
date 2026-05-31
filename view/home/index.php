@@ -11,6 +11,83 @@ require_once __DIR__ . '/../../config/env.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
+        .home-intro-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            width: min(1100px, 100%);
+            margin: 0 auto;
+        }
+
+        .home-logo {
+            width: min(380px, 72vw);
+            height: auto;
+            max-width: 100%;
+        }
+
+        .home-hero {
+            margin-top: 0 !important;
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+        }
+
+        .home-intro-copy,
+        .home-intro-visual {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .home-intro-copy p,
+        .home-intro-copy img {
+            max-width: 100%;
+        }
+
+        .intro-mobile-text {
+            font-size: clamp(18px, 4.5vw, 30px) !important;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 767.98px) {
+            .home-hero {
+                margin-top: 0 !important;
+                padding-top: 2.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+
+            .home-logo {
+                width: min(240px, 72vw);
+            }
+
+            .home-intro-row {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .home-intro-row img {
+                margin-left: 0 !important;
+            }
+
+            .home-intro-copy {
+                width: 100%;
+            }
+
+            .home-intro-visual {
+                width: 100%;
+            }
+
+            .home-intro-row .intro-mobile-text {
+                font-size: clamp(18px, 5vw, 24px) !important;
+            }
+
+            .support-card {
+                padding: 1.25rem !important;
+            }
+
+            .support-card .btn {
+                width: 100%;
+            }
+        }
+
         .introjs-tooltip {
             background-color: transparent !important; /* Semi-transparent background */
             border: none !important; /* Remove border */
@@ -59,8 +136,8 @@ include '../header.php';
         </ul>
     </nav>
 
-    <section id="home" class="home" style="margin-top: -100px;">
-        <img src="<?= $base ?>/images/Home/logo.png" class="logo1" data-aos="fade-up" data-aos-duration="1500"/>
+    <section id="home" class="home home-hero">
+        <img src="<?= $base ?>/images/Home/logo.png" class="logo1 home-logo" data-aos="fade-up" data-aos-duration="1500"/>
         <h1 class="texthome" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
     </section>
 
@@ -98,7 +175,7 @@ include '../header.php';
 
     <section id="explore" class="explore py-5">
         <div class="container">
-            <div class="row g-4 align-items-center">
+            <div class="row g-4 align-items-stretch">
             <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start" data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
             </div>
@@ -247,13 +324,13 @@ include '../header.php';
                         element: document.querySelector('#someElement0'),
                         intro: `
                         <div style="display: flex; align-items: center; text-align: left;">
-                            <div style="flex: 1; padding: 10px;height: auto;min-width: 500px;margin-left: -200px" >
-                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                            <div class="home-intro-copy" style="padding: 10px; height: auto;" >
+                                <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
                                     Xin chào mình là Lily trợ lý của NEKOPARA.
                                 </p>
                             </div>
-                            <div style="flex: 1;">
-                            <img src="<?= $base ?>/images/trailer1.gif" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
+                            <div class="home-intro-visual">
+                            <img src="<?= $base ?>/images/trailer1.gif" alt="Description of Image" style="max-width: 100%; width: min(500px, 100%); height: auto; object-fit: cover; margin-left: 0;" >
                             </div>
                         </div>
                     `
@@ -262,13 +339,13 @@ include '../header.php';
                         element: document.querySelector('#someElement2'),
                         intro: `
                         <div style="display: flex; align-items: center; text-align: left;">
-                            <div style="flex: 1; padding: 10px;height: auto;min-width: 500px;margin-left: -200px" >
-                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                            <div class="home-intro-copy" style="padding: 10px; height: auto;" >
+                                <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
                                    Hôm nay mình sẽ dẫn bạn đi tham quan một vòng trang web của tụi mình nhé!
                                 </p>
                             </div>
-                            <div style="flex: 1;">
-                            <img src="<?= $base ?>/images/trailer2.png" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
+                            <div class="home-intro-visual">
+                            <img src="<?= $base ?>/images/trailer2.png" alt="Description of Image" style="max-width: 100%; width: min(500px, 100%); height: auto; object-fit: cover; margin-left: 0;" >
                             </div>
                         </div>
                     `
@@ -294,9 +371,9 @@ include '../header.php';
                     {
                         element: document.querySelector('.test2'),
                         intro: `
-                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   ThÃ´ng tin vá» NEKOPARA.
-                                </p>
+                                                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                                                                     Thông tin về NEKOPARA.
+                                                                </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },

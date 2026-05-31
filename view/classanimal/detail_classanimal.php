@@ -71,6 +71,52 @@ $animals = $classAnimalController->getAnimalsByClassAnimalId($id);
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
         }
+
+        .classanimal-toolbar {
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .classanimal-toolbar .btn-group {
+            flex-wrap: wrap;
+        }
+
+        .classanimal-toolbar .btn {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 767.98px) {
+            .static-button {
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .static-button img {
+                width: 48px;
+            }
+
+            .click-me {
+                font-size: 18px !important;
+                margin-top: 2px;
+            }
+
+            .classanimal-toolbar {
+                justify-content: center !important;
+            }
+
+            .classanimal-toolbar .btn-group {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .classanimal-toolbar .btn-group .btn {
+                flex: 1 1 auto;
+            }
+
+            .animal-card-link {
+                max-width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -88,7 +134,7 @@ include '../header.php';
         </div>
         <div class="container mt-5">
             <!-- Layout Toolbar -->
-            <div class="d-flex justify-content-end mb-4">
+            <div class="d-flex justify-content-end mb-4 classanimal-toolbar">
                 <div class="btn-group shadow-sm bg-white rounded-pill p-1" role="group">
                     <button type="button" class="btn btn-light rounded-pill px-3 layout-btn active" data-layout="col-md-4" title="3 Hình/Hàng">
                         <i class="fas fa-th"></i> 3
@@ -155,11 +201,11 @@ include '../header.php';
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
-    <div class="static-button" id="startIntro" style="margin-right: -100px">
+    <div class="static-button" id="startIntro">
         <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
-             style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
+             style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 30px;">
             Bạn cần trợ giúp ?
         </div>
     </div>

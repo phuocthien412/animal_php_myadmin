@@ -73,7 +73,7 @@ include '../header.php';
                         <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" class="itemListimg" style="">
                     </figure>
 
-                    <div class="slide" style="">
+                    <div class="slide">
     <?php foreach ($animalImages as $image) { ?>
         <img src="<?= $base ?>/images/Animal/ListImage/<?php echo htmlspecialchars($image['animalimage']); ?>" alt=""/>
     <?php } ?>
@@ -90,7 +90,7 @@ include '../header.php';
             </div>
         </div>
         <div class="row" style="margin-top:80px">
-            <h1 class="texttitle" style="text-align:left;margin-left:100px;margin-top:50px;">
+            <h1 class="texttitle" style="text-align:left;margin-left:0;margin-top:50px;">
                 Lớp động vật:
             </h1>
             </h1>
@@ -139,12 +139,12 @@ include '../header.php';
             <div class="col-md-6 animal3d">
                 <div class="listimage">
                     <figure class="scan3d">
-                        <img src="<?= $base ?>/images/Animal/3DQR/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="margin-top:50px;width:500px;height:500px;">
+                        <img src="<?= $base ?>/images/Animal/3DQR/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="margin-top:50px; max-width: 100%; height: auto;">
                     </figure>
                     <h1 class="texttitle" style="text-align:center;margin-top:20px;">
                         AR animal scan!
                     </h1>
-                    <div class="popup" style="">
+                    <div class="popup">
                         <!-- Trigger/Open The Modal -->
                         <a id="mbtn" class="button" style="margin-top:-10px">
                             <span class="content">Hướng dẫn</span>
@@ -162,7 +162,7 @@ include '../header.php';
                                     <p style="text-align:justify">
                                         <span>B1:</span> Quét mã QR dưới đây và cài đặt phần mềm trên điện thoại.
                                     </p>
-                                    <img src="<?= $base ?>/images/QRScan.png" alt="" class="itemListimg" style="width:400px;height:400px;">
+                                    <img src="<?= $base ?>/images/QRScan.png" alt="" class="itemListimg" style="max-width: 100%; height: auto;">
                                     <p style="text-align:justify">
                                         <span>B2:</span> Chạy phần mềm và nhấn vào nút Scan Animal.
                                     </p>

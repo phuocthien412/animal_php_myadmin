@@ -6,6 +6,24 @@ body {
     overflow-x: hidden;
 }
 
+.navbar .container-fluid {
+    margin-left: 100px !important;
+    margin-right: 0;
+    padding-right: 1rem;
+}
+
+@media (max-width: 991.98px) {
+    .navbar .container-fluid {
+        margin-left: 0 !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .navbar .navbar-collapse {
+        margin-top: 1rem;
+    }
+}
+
 .secondary-nav {
     display: flex;
     justify-content: center;
@@ -116,7 +134,7 @@ h1.textfooter {
 }
 
 section {
-    padding: 30% 0;
+    padding: 0;
     text-align: center;
 }
 
@@ -188,6 +206,14 @@ section {
     overflow: hidden;
 }
 
+.Post .hero-container {
+    width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -199,6 +225,89 @@ section {
     justify-content: center;
     padding: 0 10%;
     background: rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 767.98px) {
+    .hero-container,
+    .classbg {
+        height: 280px;
+    }
+
+    section.home,
+    section.about,
+    section.explore,
+    section.support,
+    section.ClassAnimal,
+    section.AnimalDetail,
+    section.Post {
+        background-attachment: scroll;
+        background-size: cover;
+    }
+
+    section.home,
+    section.about,
+    section.explore,
+    section.support,
+    section.ClassAnimal,
+    section.AnimalDetail,
+    section.Post {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .hero-overlay {
+        padding: 0 1rem;
+    }
+
+    h1.texthome {
+        font-size: clamp(30px, 8vw, 50px);
+        margin-top: 0;
+    }
+
+    h1.textclassanimalName {
+        font-size: clamp(24px, 7vw, 36px);
+    }
+
+    h1.textclassanimalInfo {
+        font-size: 16px;
+    }
+
+    .itemAvatar,
+    .itemListimg {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .input-box {
+        margin: 0 0.75rem;
+        max-width: calc(100vw - 1.5rem);
+    }
+
+    .input-box.open {
+        max-width: calc(100vw - 1.5rem);
+    }
+
+    .secondary-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .button {
+        width: 160px;
+        height: 54px;
+    }
+
+    .button .content {
+        line-height: 54px;
+    }
+
+    .static-button {
+        right: 12px;
+        bottom: 12px;
+        transform: scale(0.9);
+        transform-origin: bottom right;
+    }
 }
 
 .glass-upload-card {
@@ -239,13 +348,15 @@ section {
 }
 
 .itemAvatar {
-    height: 400px;
-    width: 400px;
+    height: auto;
+    width: 100%;
+    max-width: 400px;
     object-fit: cover;
 }
 .itemListimg {
-    height: 500px;
-    width: 700px;
+    height: auto;
+    width: 100%;
+    max-width: 700px;
     object-fit: cover;
     border-radius:20px;
 }
@@ -403,6 +514,14 @@ section.explore .flip-container {
     width: 100%;
     max-width: 280px;
     margin: 0 auto;
+}
+
+@media (max-width: 767.98px) {
+    section.explore .card,
+    section.explore .flip-container {
+        height: 300px;
+        max-width: 100%;
+    }
 }
 
 .input-box {

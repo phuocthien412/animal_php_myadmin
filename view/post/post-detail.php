@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -40,8 +40,9 @@ foreach ($comments as $key => $comment) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Post</title>
-    <link rel="stylesheet" href="/animal_php/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" />
 </head>
 
 <body>
@@ -123,10 +124,9 @@ foreach ($comments as $key => $comment) {
                         <img src="<?= $base ?>/images/<?= htmlspecialchars($post['image']) ?>" class="w-100" style="height: 400px; object-fit: cover;">
                         
                         <!-- Floating Author Badge -->
-                        <div class="position-absolute top-0 start-0 m-4 d-flex align-items-center px-3 py-2 rounded-pill shadow-sm" 
-                             style="background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15);">
-                            <img src="/animal_php/images/Footer/nekoparalogo.png" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover; border: 1px solid rgba(255,255,255,0.5);">
-                            <span class="ms-2 fw-bold text-white small" style="letter-spacing: 0.5px;"><?= htmlspecialchars($post['username']) ?></span>
+                        <div class="position-absolute top-0 start-0 m-4 d-flex align-items-center mb-4">
+                            <img src="<?= $base ?>/images/Footer/nekoparalogo.png" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover; border: 1px solid rgba(255,255,255,0.5);">
+                            <span class="ms-2 fw-bold text-white fs-5" style="letter-spacing: 0.5px;"><?= htmlspecialchars($post['username']) ?></span>
                         </div>
                         
                         <!-- Floating Date Badge -->
@@ -189,7 +189,7 @@ foreach ($comments as $key => $comment) {
                                 <?php foreach ($comments as $key => $comment): ?>
                                     <div class="d-flex mb-3">
                                         <!-- Avatar -->
-                                        <img src="/animal_php/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-2 flex-shrink-0" style="height: 40px; width: 40px; object-fit: cover;">
+                                        <img src="<?= $base ?>/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-2 flex-shrink-0" style="height: 40px; width: 40px; object-fit: cover;">
                                         
                                         <!-- Comment Content -->
                                         <div class="d-flex flex-column align-items-start" style="max-width: 85%;">
@@ -253,7 +253,7 @@ foreach ($comments as $key => $comment) {
                 const commentHtml = `
                     <div class="d-flex mb-3">
                         <!-- Avatar -->
-                        <img src="/animal_php/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-2 flex-shrink-0" style="height: 40px; width: 40px; object-fit: cover;">
+                        <img src="<?= $base ?>/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-2 flex-shrink-0" style="height: 40px; width: 40px; object-fit: cover;">
                         
                         <!-- Comment Content -->
                         <div class="d-flex flex-column align-items-start" style="max-width: 85%;">

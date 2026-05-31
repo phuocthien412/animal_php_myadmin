@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Chỉnh sửa lớp động vật</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        form { width: 400px; margin: auto; }
+        form { width: min(400px, 100%); margin: auto; }
         label, input, textarea { display: block; width: 100%; margin-bottom: 10px; }
         button { padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #0056b3; }

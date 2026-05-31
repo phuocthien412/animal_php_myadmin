@@ -140,7 +140,7 @@ require_once __DIR__ . '/../config/env.php';
     
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color:#F7F7F7;">
-            <div class="container-fluid" style="margin-left:100px">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="<?= $base ?>/Home">
                     <div class="logo">
                         <img src="<?= $base ?>/images/Header/logo.png" width="120px" height="80px">
