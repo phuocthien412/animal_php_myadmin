@@ -1,71 +1,87 @@
+<?php
+$success = isset($_GET['success']) ? $_GET['success'] : '';
+$error   = isset($_GET['error'])   ? $_GET['error']   : '';
+?>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
-    <title>Class Animals List</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>NEKOPARA — Lớp động vật</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-    <?php
-    // Include the admin header
-    include '../../headerAdmin.php';
+<?php
+include '../../headerAdmin.php';
 
-    // Include the ClassAnimalController
-    require_once '../../../controller/ClassAnimalController.php';
+require_once '../../../controller/ClassAnimalController.php';
+$classAnimalController = new ClassAnimalController();
+$classAnimals = $classAnimalController->getAllClassAnimals();
+$isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
+?>
 
-    // Initialize ClassAnimalController
-    $classAnimalController = new ClassAnimalController();
+<div class="page-header">
+    <h1><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:10px;font-size:20px;"></i>Lớp động vật</h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Lớp động vật</div>
+</div>
 
-    // Fetch class animals from the database
-    $classAnimals = $classAnimalController->getAllClassAnimals();
+<?php if ($success): ?>
+    <div class="alert-admin success"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert-admin danger"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
 
-    // Check if the current user has the "ADMIN" role
-    $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
-    ?>
-    <section style="padding: 0;">
-        <div class="container mt-4">
-            <h1>Class Animals List</h1>
-
-            <!-- Display success or error messages -->
-            <?php if (isset($_GET['success'])): ?>
-                <div class="alert alert-success">
-                    <?= htmlspecialchars($_GET['success']) ?>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($_GET['error'])): ?>
-                <div class="alert alert-danger">
-                    <?= htmlspecialchars($_GET['error']) ?>
-                </div>
-            <?php endif; ?>
-
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Info</th>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($classAnimals as $classAnimal): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($classAnimal['id_class']) ?></td>
-                            <td><?= htmlspecialchars($classAnimal['info']) ?></td>
-                            <td><?= htmlspecialchars($classAnimal['name']) ?></td>
-                            <td>
-                                <?php if ($isAdmin): ?>
-                                    <a href="/animal_php/classanimal/detail/<?= urlencode($classAnimal['id_class']) ?>"
-                                        class="btn btn-warning btn-sm">View</a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<div class="card table-card">
+    <div class="card-header">
+        <div>
+            <div class="card-title"><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:8px;"></i>Danh sách lớp động vật</div>
+            <div class="card-subtitle">Tổng cộng <?= count($classAnimals) ?> lớp phân loại</div>
         </div>
-    </section>
-</body>
+    </div>
+    <div class="table-responsive-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Tên lớp</th>
+                    <th>Thông tin</th>
+                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($classAnimals)): ?>
+                <tr><td colspan="4">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <p>Chưa có lớp động vật nào</p>
+                    </div>
+                </td></tr>
+                <?php else: ?>
+                <?php foreach ($classAnimals as $cls): ?>
+                <tr>
+                    <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($cls['id_class']) ?></span></td>
+                    <td><strong><?= htmlspecialchars($cls['name']) ?></strong></td>
+                    <td style="max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--text-secondary);">
+                        <?= htmlspecialchars(substr($cls['info'] ?? '', 0, 100)) ?>...
+                    </td>
+                    <?php if ($isAdmin): ?>
+                    <td>
+                        <div class="action-btns">
+                            <a href="<?= $base ?>/classanimal/detail/<?= urlencode($cls['id_class']) ?>"
+                               class="action-btn view" title="Xem lớp">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <?php endif; ?>
+                </tr>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
+<?php include '../../footerAdmin.php'; ?>
+</body>
 </html>

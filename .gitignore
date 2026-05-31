@@ -1,1 +1,4 @@
 view/design/ClassAnimal/Background/*
+
+# Environment config — không commit lên git
+.env

@@ -1,75 +1,127 @@
+<?php
+$success = isset($_GET['success']) ? $_GET['success'] : '';
+$error   = isset($_GET['error'])   ? $_GET['error']   : '';
+?>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
-    <title>Comment List</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>NEKOPARA — Quản lý bình luận</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-    <?php
-    // Include the admin header
-    include '../../headerAdmin.php';
+<?php
+include '../../headerAdmin.php';
 
-    // Include the CommentController
-    require_once '../../../controller/CommentController.php';
+require_once '../../../controller/CommentController.php';
+require_once '../../../controller/UserController.php';
+require_once '../../../controller/PostController.php';
 
-    // Initialize CommentController
-    $commentController = new CommentController();
+$commentController = new CommentController();
+$userController    = new UserController();
+$postController    = new PostController();
+$comments = $commentController->getAllComments();
+$isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
+?>
 
-    // Fetch comments from the database
-    $comments = $commentController->getAllComments();
+<div class="page-header">
+    <h1><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:10px;font-size:20px;"></i>Quản lý bình luận</h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Bình luận</div>
+</div>
 
-    // Check if the current user has the "ADMIN" role
-    $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
-    ?>
-    <section style="padding: 0;">
-        <div class="container mt-4">
-            <h1>Comment List</h1>
+<?php if ($success): ?>
+    <div class="alert-admin success"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert-admin danger"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
 
-            <!-- Display success or error messages -->
-            <?php if (isset($_GET['success'])): ?>
-                <div class="alert alert-success">
-                    <?= htmlspecialchars($_GET['success']) ?>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($_GET['error'])): ?>
-                <div class="alert alert-danger">
-                    <?= htmlspecialchars($_GET['error']) ?>
-                </div>
-            <?php endif; ?>
-
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Post ID</th>
-                        <th>User ID</th>
-                        <th>Comment</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($comments as $comment): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($comment['id_cmt']) ?></td>
-                            <td><?= htmlspecialchars($comment['post_id']) ?></td>
-                            <td><?= htmlspecialchars($comment['user_id']) ?></td>
-                            <td><?= htmlspecialchars($comment['chat_data']) ?></td>
-                            <td><?= htmlspecialchars($comment['date_time']) ?></td>
-                            <td>
-                                <?php if ($isAdmin): ?>
-                                    <a href="/animal_php/view/admin/comments/delete-comment.php?id=<?= urlencode($comment['id_cmt']) ?>"
-    class="btn btn-danger btn-sm">Delete</a>    
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<div class="card table-card">
+    <div class="card-header">
+        <div>
+            <div class="card-title"><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:8px;"></i>Danh sách bình luận</div>
+            <div class="card-subtitle">Tổng cộng <?= count($comments) ?> bình luận trong hệ thống</div>
         </div>
-    </section>
-</body>
+    </div>
+    <div class="table-toolbar">
+        <div class="table-search">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="commentSearch" placeholder="Tìm nội dung bình luận..." />
+        </div>
+    </div>
+    <div class="table-responsive-wrap">
+        <table class="admin-table" id="commentsTable">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Người bình luận</th>
+                    <th>Bài viết #</th>
+                    <th>Nội dung</th>
+                    <th>Thời gian</th>
+                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($comments)): ?>
+                <tr><td colspan="6">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-comments-slash"></i>
+                        <p>Chưa có bình luận nào</p>
+                    </div>
+                </td></tr>
+                <?php else: ?>
+                <?php foreach ($comments as $comment): ?>
+                <tr>
+                    <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($comment['id_cmt']) ?></span></td>
+                    <td>
+                        <?php $uname = $userController->getUsernameById($comment['user_id']); ?>
+                        <div class="user-cell" style="gap:7px;">
+                            <div class="user-initials" style="width:28px;height:28px;font-size:11px;">
+                                <?= strtoupper(mb_substr($uname ?? 'U', 0, 1)) ?>
+                            </div>
+                            <?= htmlspecialchars($uname ?? '#'.$comment['user_id']) ?>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="role-badge default">Bài #<?= htmlspecialchars($comment['post_id']) ?></span>
+                    </td>
+                    <td style="max-width:260px;">
+                        <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;">
+                            <?= htmlspecialchars($comment['chat_data']) ?>
+                        </div>
+                    </td>
+                    <td style="font-size:13px;color:var(--text-muted);white-space:nowrap;">
+                        <i class="fa-regular fa-clock" style="margin-right:4px;"></i>
+                        <?= htmlspecialchars($comment['date_time'] ?? '—') ?>
+                    </td>
+                    <?php if ($isAdmin): ?>
+                    <td>
+                        <div class="action-btns">
+                            <a href="<?= $base ?>/view/admin/comments/delete-comment.php?id=<?= urlencode($comment['id_cmt']) ?>"
+                               class="action-btn delete" title="Xoá bình luận"
+                               onclick="return confirm('Bạn có chắc muốn xoá bình luận này?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <?php endif; ?>
+                </tr>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
+<script>
+document.getElementById('commentSearch')?.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#commentsTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+</script>
+
+<?php include '../../footerAdmin.php'; ?>
+</body>
 </html>
