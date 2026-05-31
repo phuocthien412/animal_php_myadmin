@@ -1,6 +1,8 @@
 <?php
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
+require_once __DIR__ . '/../../../config/env.php';
+$base = BASE_URL;
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -20,7 +22,14 @@ require_once '../../../controller/PostController.php';
 $commentController = new CommentController();
 $userController    = new UserController();
 $postController    = new PostController();
-$comments = $commentController->getAllComments();
+$allComments = $commentController->getAllComments();
+$perPage = 10;
+$currentPage = max(1, (int)($_GET['page'] ?? 1));
+$totalComments = count($allComments);
+$totalPages = max(1, (int)ceil($totalComments / $perPage));
+$currentPage = min($currentPage, $totalPages);
+$offset = ($currentPage - 1) * $perPage;
+$comments = array_slice($allComments, $offset, $perPage);
 $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
@@ -40,7 +49,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <div class="card-header">
         <div>
             <div class="card-title"><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:8px;"></i>Danh sách bình luận</div>
-            <div class="card-subtitle">Tổng cộng <?= count($comments) ?> bình luận trong hệ thống</div>
+            <div class="card-subtitle">Tổng cộng <?= $totalComments ?> bình luận trong hệ thống</div>
         </div>
     </div>
     <div class="table-toolbar">
@@ -112,6 +121,26 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
         </table>
     </div>
 </div>
+
+<?php if ($totalPages > 1): ?>
+<div class="admin-pagination">
+    <nav aria-label="Pagination">
+        <ul class="pagination">
+            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+            </li>
+            <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+            <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= $p ?>"><?= $p ?></a>
+            </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<?php endif; ?>
 
 <script>
 document.getElementById('commentSearch')?.addEventListener('input', function() {

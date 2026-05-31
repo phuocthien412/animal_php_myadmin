@@ -1,6 +1,8 @@
 <?php
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
+require_once __DIR__ . '/../../../config/env.php';
+$base = BASE_URL;
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,7 +17,14 @@ include '../../headerAdmin.php';
 
 require_once '../../../controller/AnimalController.php';
 $animalController = new AnimalController();
-$animals  = $animalController->getAllAnimals();
+$allAnimals  = $animalController->getAllAnimals();
+$perPage = 10;
+$currentPage = max(1, (int)($_GET['page'] ?? 1));
+$totalAnimals = count($allAnimals);
+$totalPages = max(1, (int)ceil($totalAnimals / $perPage));
+$currentPage = min($currentPage, $totalPages);
+$offset = ($currentPage - 1) * $perPage;
+$animals = array_slice($allAnimals, $offset, $perPage);
 $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
@@ -35,7 +44,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <div class="card-header">
         <div>
             <div class="card-title"><i class="fa-solid fa-dragon" style="color:var(--green-primary);margin-right:8px;"></i>Danh sách động vật</div>
-            <div class="card-subtitle">Tổng cộng <?= count($animals) ?> động vật trong hệ thống</div>
+            <div class="card-subtitle">Tổng cộng <?= $totalAnimals ?> động vật trong hệ thống</div>
         </div>
     </div>
     <div class="table-toolbar">
@@ -109,6 +118,26 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
         </table>
     </div>
 </div>
+
+<?php if ($totalPages > 1): ?>
+<div class="admin-pagination">
+    <nav aria-label="Pagination">
+        <ul class="pagination">
+            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+            </li>
+            <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+            <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= $p ?>"><?= $p ?></a>
+            </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<?php endif; ?>
 
 <script>
 document.getElementById('animalSearch')?.addEventListener('input', function() {

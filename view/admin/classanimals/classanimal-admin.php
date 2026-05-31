@@ -1,6 +1,8 @@
 <?php
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
+require_once __DIR__ . '/../../../config/env.php';
+$base = BASE_URL;
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,7 +17,14 @@ include '../../headerAdmin.php';
 
 require_once '../../../controller/ClassAnimalController.php';
 $classAnimalController = new ClassAnimalController();
-$classAnimals = $classAnimalController->getAllClassAnimals();
+$allClassAnimals = $classAnimalController->getAllClassAnimals();
+$perPage = 10;
+$currentPage = max(1, (int)($_GET['page'] ?? 1));
+$totalClassAnimals = count($allClassAnimals);
+$totalPages = max(1, (int)ceil($totalClassAnimals / $perPage));
+$currentPage = min($currentPage, $totalPages);
+$offset = ($currentPage - 1) * $perPage;
+$classAnimals = array_slice($allClassAnimals, $offset, $perPage);
 $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
@@ -35,7 +44,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
     <div class="card-header">
         <div>
             <div class="card-title"><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:8px;"></i>Danh sách lớp động vật</div>
-            <div class="card-subtitle">Tổng cộng <?= count($classAnimals) ?> lớp phân loại</div>
+            <div class="card-subtitle">Tổng cộng <?= $totalClassAnimals ?> lớp phân loại</div>
         </div>
     </div>
     <div class="table-responsive-wrap">
@@ -101,6 +110,26 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
         </table>
     </div>
 </div>
+
+<?php if ($totalPages > 1): ?>
+<div class="admin-pagination">
+    <nav aria-label="Pagination">
+        <ul class="pagination">
+            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+            </li>
+            <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+            <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= $p ?>"><?= $p ?></a>
+            </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<?php endif; ?>
 
 <?php include '../../footerAdmin.php'; ?>
 </body>

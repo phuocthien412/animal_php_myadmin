@@ -62,19 +62,19 @@ if ($showOnlyMyPosts) {
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 bg-dark bg-opacity-50 p-4 rounded-4 shadow-sm" style="backdrop-filter: blur(10px);">
-                    <div class="form-check mb-3 mb-md-0 d-flex align-items-center">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 p-4 rounded-4 shadow-lg" style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="form-check mb-3 mb-md-0 d-flex align-items-center bg-dark bg-opacity-25 px-4 py-2 rounded-pill" style="border: 1px solid rgba(255, 255, 255, 0.05);">
                         <input class="form-check-input me-3" type="checkbox" value="" id="showOnlyMyPosts"
                             <?= isset($_GET['showOnlyMyPosts']) && $_GET['showOnlyMyPosts'] === 'true' ? 'checked' : '' ?>
                             onchange="window.location.href = '<?= $base ?>/Posts?showOnlyMyPosts=' + this.checked;"
-                            style="transform: scale(1.8); cursor: pointer;">
-                        <label class="form-check-label text-white fw-bold" for="showOnlyMyPosts"
-                            style="font-size: 1.5rem; cursor: pointer; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+                            style="transform: scale(1.5); cursor: pointer; background-color: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3);">
+                        <label class="form-check-label text-white fw-bold mb-0" for="showOnlyMyPosts"
+                            style="font-size: 1.1rem; cursor: pointer; letter-spacing: 0.5px;">
                             Hiển thị bài viết của tôi
                         </label>
                     </div>
                     <div>
-                        <a id="mbtn" class="btn btn-warning btn-lg fw-bold rounded-pill shadow px-4 text-dark" style="cursor: pointer;">
+                        <a id="mbtn" class="btn text-white fw-bold rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #f59e0b, #d97706); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                             <i class="fas fa-pen me-2"></i> Tạo bài viết
                         </a>
                     </div>
@@ -119,7 +119,7 @@ if ($showOnlyMyPosts) {
                             <style>
                                 .post-card-link {
                                     display: block; 
-                                    transition: transform 0.3s ease;
+                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
                                     transform: none !important;
                                 }
                                 .post-card-link:hover {
@@ -129,25 +129,35 @@ if ($showOnlyMyPosts) {
                                     transform: none !important;
                                     direction: ltr !important;
                                 }
+                                .premium-glass-card {
+                                    background: rgba(15, 23, 42, 0.6) !important;
+                                    backdrop-filter: blur(24px) saturate(150%);
+                                    -webkit-backdrop-filter: blur(24px) saturate(150%);
+                                    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                                    color: #f8fafc !important;
+                                    border-radius: 20px;
+                                }
                             </style>
                             <a href="<?= $base ?>/posts/detail/<?= htmlspecialchars($post['id_post']) ?>" class="text-decoration-none post-card-link">
-                                <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden">
-                                    <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom">
+                                <div class="card h-100 shadow-lg border-0 premium-glass-card overflow-hidden">
+                                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">
                                         <div class="d-flex align-items-center">
-                                            <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:45px;width:45px;object-fit:cover; border: 2px solid #f8f9fa;">
-                                            <span class="fw-bold text-dark ms-3 fs-5"><?= htmlspecialchars($username) ?></span>
+                                            <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:40px;width:40px;object-fit:cover; border: 2px solid rgba(255,255,255,0.2);">
+                                            <span class="fw-bold text-white ms-3 fs-6" style="letter-spacing: 0.5px;"><?= htmlspecialchars($username) ?></span>
                                         </div>
-                                        <div class="text-muted small">
+                                        <div class="text-white-50 small">
                                             <i class="far fa-clock me-1"></i> <?= htmlspecialchars($post['date']) ?>
                                         </div>
                                     </div>
-                                    <img src="/animal_php/images/<?= htmlspecialchars($post['image']) ?>" class="card-img-top" style="height: 300px; object-fit: cover;">
-                                    <div class="card-body bg-white">
-                                        <h5 class="card-title text-dark fw-bold mb-0 text-truncate" style="line-height: 1.5;"><?= htmlspecialchars($post['title']) ?></h5>
+                                    <div class="position-relative overflow-hidden" style="height: 250px;">
+                                        <img src="/animal_php/images/<?= htmlspecialchars($post['image']) ?>" class="w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     </div>
-                                    <div class="card-footer bg-light border-0 d-flex justify-content-between align-items-center p-3">
-                                        <span class="text-muted"><i class="far fa-comment-dots me-2"></i></span>
-                                        <span class="text-primary fw-bold px-3 py-1 rounded-pill" style="background: rgba(0,123,255,0.1);"><i class="fas fa-heart me-1 text-danger"></i> Thảo luận ngay</span>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-white fw-bold mb-0 text-truncate" style="line-height: 1.5; font-family: 'Be Vietnam Pro', sans-serif;"><?= htmlspecialchars($post['title']) ?></h5>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-top d-flex justify-content-between align-items-center p-3" style="border-color: rgba(255,255,255,0.08) !important;">
+                                        <span class="text-white-50"><i class="far fa-comment-dots me-2"></i></span>
+                                        <span class="text-white fw-bold px-4 py-2 rounded-pill" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 4px 15px rgba(59,130,246,0.4); font-size: 0.9rem;">Thảo luận ngay <i class="fas fa-arrow-right ms-2 fs-6"></i></span>
                                     </div>
                                 </div>
                             </a>

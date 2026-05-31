@@ -533,6 +533,73 @@ body.admin-body {
 .action-btn.role:hover   { background: hsl(265,70%,55%); color: #fff; }
 .action-btn.delete:hover { background: hsl(355,75%,55%); color: #fff; }
 
+/* Pagination */
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.admin-pagination .pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  margin: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.admin-pagination .page-item { margin: 0; }
+
+.admin-pagination .page-link {
+  min-width: 42px;
+  height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition: all .18s ease;
+}
+
+.admin-pagination .page-link:hover {
+  background: var(--green-light);
+  color: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.admin-pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--green-primary), var(--accent-teal));
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(40, 167, 69, 0.18);
+}
+
+.admin-pagination .page-item.disabled .page-link {
+  background: transparent;
+  color: var(--text-muted);
+  opacity: .5;
+  pointer-events: none;
+}
+
+.admin-pagination .page-link:focus {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.14);
+}
+
+.admin-pagination .page-link:active {
+  transform: translateY(0);
+}
+
 /* User avatar cell */
 .user-cell { display: flex; align-items: center; gap: 10px; }
 .user-initials {

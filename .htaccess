@@ -40,4 +40,5 @@ RewriteRule ^admin/classanimals$ view/admin/classanimals/classanimal-admin.php [
 RewriteRule ^Posts$ view/post/posts-list.php [L,NC]
 RewriteRule ^posts/detail/([0-9]+)$ view/post/post-detail.php?id=$1 [L,NC]
 RewriteRule ^admin/posts$ view/admin/posts/post-admin.php [L,NC]
+RewriteRule ^admin/posts/detail/([0-9]+)$ view/admin/posts/view_post.php?id=$1 [L,NC]
 RewriteRule ^admin/comments$ view/admin/comments/comment-admin.php [L,NC]

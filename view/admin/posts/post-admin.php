@@ -1,6 +1,8 @@
 <?php
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
+require_once __DIR__ . '/../../../config/env.php';
+$base = BASE_URL;
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -18,7 +20,14 @@ require_once '../../../controller/UserController.php';
 
 $postController = new PostController();
 $userController = new UserController();
-$posts   = $postController->getAllPosts();
+$allPosts = $postController->getAllPosts();
+$perPage = 10;
+$currentPage = max(1, (int)($_GET['page'] ?? 1));
+$totalPosts = count($allPosts);
+$totalPages = max(1, (int)ceil($totalPosts / $perPage));
+$currentPage = min($currentPage, $totalPages);
+$offset = ($currentPage - 1) * $perPage;
+$posts = array_slice($allPosts, $offset, $perPage);
 $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
@@ -38,7 +47,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <div class="card-header">
         <div>
             <div class="card-title"><i class="fa-solid fa-newspaper" style="color:var(--accent-orange);margin-right:8px;"></i>Danh sách bài viết</div>
-            <div class="card-subtitle">Tổng cộng <?= count($posts) ?> bài viết trong cộng đồng</div>
+            <div class="card-subtitle">Tổng cộng <?= $totalPosts ?> bài viết trong cộng đồng</div>
         </div>
     </div>
     <div class="table-toolbar">
@@ -117,6 +126,26 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
         </table>
     </div>
 </div>
+
+<?php if ($totalPages > 1): ?>
+<div class="admin-pagination">
+    <nav aria-label="Pagination">
+        <ul class="pagination">
+            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+            </li>
+            <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+            <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= $p ?>"><?= $p ?></a>
+            </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<?php endif; ?>
 
 <script>
 document.getElementById('postSearch')?.addEventListener('input', function() {
