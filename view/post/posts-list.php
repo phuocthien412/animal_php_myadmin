@@ -62,19 +62,19 @@ if ($showOnlyMyPosts) {
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 p-4 rounded-4 shadow-lg" style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <div class="form-check mb-3 mb-md-0 d-flex align-items-center bg-dark bg-opacity-25 px-4 py-2 rounded-pill" style="border: 1px solid rgba(255, 255, 255, 0.05);">
-                        <input class="form-check-input me-3" type="checkbox" value="" id="showOnlyMyPosts"
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
+                    <div class="form-check mb-3 mb-md-0 d-flex align-items-center">
+                        <input class="form-check-input me-3 shadow-sm" type="checkbox" value="" id="showOnlyMyPosts"
                             <?= isset($_GET['showOnlyMyPosts']) && $_GET['showOnlyMyPosts'] === 'true' ? 'checked' : '' ?>
                             onchange="window.location.href = '<?= $base ?>/Posts?showOnlyMyPosts=' + this.checked;"
-                            style="transform: scale(1.5); cursor: pointer; background-color: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3);">
+                            style="transform: scale(1.6); cursor: pointer; border-color: rgba(255,255,255,0.5);">
                         <label class="form-check-label text-white fw-bold mb-0" for="showOnlyMyPosts"
-                            style="font-size: 1.1rem; cursor: pointer; letter-spacing: 0.5px;">
+                            style="font-size: 1.2rem; cursor: pointer; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
                             Hiển thị bài viết của tôi
                         </label>
                     </div>
                     <div>
-                        <a id="mbtn" class="btn text-white fw-bold rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #f59e0b, #d97706); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <a id="mbtn" class="btn text-white fw-bold rounded-pill shadow-lg px-4 py-2" style="background: linear-gradient(135deg, #f59e0b, #d97706); cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 20px rgba(245,158,11,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 .5rem 1rem rgba(0,0,0,.15)';">
                             <i class="fas fa-pen me-2"></i> Tạo bài viết
                         </a>
                     </div>

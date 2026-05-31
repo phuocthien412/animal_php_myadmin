@@ -177,8 +177,8 @@ foreach ($comments as $key => $comment) {
                         </h5>
                     </div>
                     
-                    <div id="commentsWrapper" class="card-body p-0" style="flex-grow: 1; overflow-y: auto; max-height: 550px;">
-                        <div class="p-4">
+                    <div id="commentsWrapper" class="card-body p-4" style="flex-grow: 1; overflow-y: auto; max-height: 550px;">
+                        <!-- inner content -->
                             <?php if (empty($comments)): ?>
                                 <div class="text-center py-5">
                                     <i class="far fa-comment-dots fs-1 mb-3" style="color: rgba(255,255,255,0.2);"></i>
@@ -217,7 +217,6 @@ foreach ($comments as $key => $comment) {
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
-                        </div>
                     </div>
 
                     <!-- Add Comment Form -->
