@@ -54,13 +54,38 @@ include '../header.php';
             <h1 class="textclassanimalInfo">Động vật là nhóm sinh vật trong tự nhiên bao gồm các hình thái sống đa dạng, chúng có thể được tìm thấy ở mọi môi trường sống trên Trái Đất, từ đại dương sâu tới rừng rậm, sa mạc khô cằn. Chúng đóng vai trò quan trọng trong hệ sinh thái, tham gia vào chu trình thực vật, giữ cân bằng hệ sinh thái.</h1>
         </div>
     </div>
-    <h1 class="textclassanimalInfo text-dark text-center mt-5 mb-4"> Vui lòng tải hình động vật mà bạn muốn tìm</h1>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="glass-upload-card text-center p-4 p-md-5">
+                    <h2 class="fw-bold mb-3 text-white" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">Khám Phá Thế Giới Động Vật</h2>
+                    <p class="text-white mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Tải lên một bức ảnh để AI của chúng tôi nhận diện và tìm kiếm thông tin chi tiết.</p>
+                    
+                    <div class="upload-area mb-4" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-primary"></i>
+                        <h5 class="mb-2 text-dark fw-bold">Kéo thả ảnh vào đây</h5>
+                        <p class="text-muted small mb-3">Hoặc</p>
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold custom-file-btn">
+                            Chọn Tệp Ảnh
+                        </button>
+                        <input type="file" id="image-upload" class="d-none" accept="image/*">
+                    </div>
 
-    <input type="file" id="image-upload" class="fileup" accept="image/*" style="height:30px; width:500px;">
-
-    <div id="image-container" style="margin-top:30px;border-radius:20px;" ></div>
-    <div id="label-container"></div>
-    <button type="button" onclick="predict()" style="margin-top:30px;" class="btn btn-primary">Tìm Kiếm</button>
+                    <div id="image-container" class="preview-container mb-4" style="display: none;">
+                    </div>
+                    <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-light btn-sm rounded-pill mb-3 shadow-sm fw-bold" style="display: none;">
+                        <i class="fas fa-undo me-1"></i> Chọn ảnh khác
+                    </button>
+                    
+                    <div id="label-container" class="d-none"></div>
+                    
+                    <button type="button" onclick="predict()" id="search-btn" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold shadow-sm" style="display: none; background: linear-gradient(45deg, #007bff, #00c6ff); border: none;">
+                        <i class="fas fa-magic me-2"></i> Nhận Diện & Tìm Kiếm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -78,20 +103,62 @@ include '../header.php';
             const imageUpload = document.getElementById("image-upload");
             imageUpload.addEventListener("change", onImageUpload);
 
+            const uploadArea = document.getElementById("upload-area");
+            uploadArea.addEventListener("click", () => imageUpload.click());
+            uploadArea.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                uploadArea.classList.add("dragover");
+            });
+            uploadArea.addEventListener("dragleave", () => uploadArea.classList.remove("dragover"));
+            uploadArea.addEventListener("drop", (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove("dragover");
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    if(file.type.startsWith("image/")) {
+                        imageUpload.files = e.dataTransfer.files;
+                        triggerImageUpload(file);
+                    }
+                }
+            });
+
             imageContainer = document.getElementById("image-container");
             labelContainer = document.getElementById("label-container");
         }
 
         function onImageUpload(event) {
-            const file = event.target.files[0];
+            if (event.target.files.length > 0) {
+                triggerImageUpload(event.target.files[0]);
+            }
+        }
+
+        function triggerImageUpload(file) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 const image = document.createElement("img");
                 image.src = e.target.result;
+                image.className = "img-fluid rounded shadow-sm";
+                image.style.maxHeight = "250px";
+                image.style.objectFit = "contain";
+                image.style.width = "100%";
                 imageContainer.innerHTML = "";
                 imageContainer.appendChild(image);
+                
+                imageContainer.style.display = "block";
+                document.getElementById("search-btn").style.display = "inline-block";
+                document.getElementById("reset-btn").style.display = "inline-block";
+                document.getElementById("upload-area").style.display = "none";
             };
             reader.readAsDataURL(file);
+        }
+
+        function resetUpload() {
+            imageContainer.style.display = "none";
+            imageContainer.innerHTML = "";
+            document.getElementById("search-btn").style.display = "none";
+            document.getElementById("reset-btn").style.display = "none";
+            document.getElementById("upload-area").style.display = "block";
+            document.getElementById("image-upload").value = "";
         }
 
         async function predict() {

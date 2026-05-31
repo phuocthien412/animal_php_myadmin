@@ -52,6 +52,25 @@ $animals = $classAnimalController->getAnimalsByClassAnimalId($id);
             font-size: 14px; /* Font size for "Click Me" */
             margin-top: 5px; /* Space between image and text */
         }
+        
+        /* Hover Effects for Animal Cards */
+        .animal-card-link .itemAvatar {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease !important;
+        }
+        .animal-card-link:hover .itemAvatar {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+        }
+        .animal-card-link h1 {
+            transition: all 0.4s ease !important;
+        }
+        .animal-card-link:hover h1 {
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #000 !important;
+            text-shadow: none !important;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+        }
     </style>
 </head>
 <body>
@@ -68,12 +87,27 @@ include '../header.php';
             </div>
         </div>
         <div class="container mt-5">
-            <div class="row justify-content-center gap-4">
+            <!-- Layout Toolbar -->
+            <div class="d-flex justify-content-end mb-4">
+                <div class="btn-group shadow-sm bg-white rounded-pill p-1" role="group">
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn active" data-layout="col-md-4" title="3 Hình/Hàng">
+                        <i class="fas fa-th"></i> 3
+                    </button>
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn mx-1" data-layout="col-md-6" title="2 Hình/Hàng">
+                        <i class="fas fa-th-large"></i> 2
+                    </button>
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn" data-layout="col-md-12" title="1 Hình/Hàng">
+                        <i class="fas fa-square"></i> 1
+                    </button>
+                </div>
+            </div>
+
+            <div class="row justify-content-center g-4" id="animal-grid">
                 <?php foreach ($animals as $animal) { ?>
-                    <div class="col-auto mb-4">
-                        <a href="<?= $base ?>/animal/detail/<?php echo htmlspecialchars($animal['id_animal']); ?>" style="text-decoration: none; display: block; text-align: center;">
-                            <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar" style="border-radius:20px;" />
-                            <h1 class="textclassanimalInfo mt-3" style="text-align: center; max-width: 100%; color: #333; text-shadow: none;"><?php echo htmlspecialchars($animal['name']); ?></h1>
+                    <div class="grid-item col-12 col-md-4 mb-4 d-flex justify-content-center">
+                        <a href="<?= $base ?>/animal/detail/<?php echo htmlspecialchars($animal['id_animal']); ?>" class="w-100 animal-card-link" style="text-decoration: none; display: block; text-align: center; max-width: 400px;">
+                            <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar w-100 shadow-sm" style="height: auto; aspect-ratio: 1/1; border-radius:20px;" />
+                            <h1 class="mt-3 fw-bold d-inline-block px-4 py-2" style="font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(18px, 2.5vw, 24px); color: #fff; text-shadow: 1px 2px 5px rgba(0,0,0,0.8); background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);"><?php echo htmlspecialchars($animal['name']); ?></h1>
                         </a>
                     </div>
                 <?php } ?>
@@ -81,6 +115,41 @@ include '../header.php';
         </div>
     </section>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const layoutBtns = document.querySelectorAll('.layout-btn');
+        const gridItems = document.querySelectorAll('.grid-item');
+
+        layoutBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                layoutBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.replace('btn-primary', 'btn-light');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                this.classList.replace('btn-light', 'btn-primary');
+                
+                const layoutClass = this.getAttribute('data-layout');
+                
+                // Update grid items classes
+                gridItems.forEach(item => {
+                    item.classList.remove('col-md-4', 'col-md-6', 'col-md-12');
+                    item.classList.add(layoutClass);
+                });
+            });
+        });
+
+        // Initialize active button styling
+        const activeBtn = document.querySelector('.layout-btn.active');
+        if (activeBtn) {
+            activeBtn.classList.replace('btn-light', 'btn-primary');
+        }
+    });
+</script>
 
 
         </div>

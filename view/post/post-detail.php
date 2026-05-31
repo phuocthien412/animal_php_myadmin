@@ -36,79 +36,119 @@ foreach ($comments as $key => $comment) {
 
 <body>
     <?php include '../header.php'; ?>
-    <section class="Post" style="margin-top: -150px;">
-        <div class="row">
-            <!-- Post Details -->
-            <div class="col-md-6">
-                <div class="contain" style="width:800px;height:830px;margin-left:100px;">
-                    <div class="card" style="width: 100%;height:100%;">
-                        <div class="d-flex justify-content-between p-2 px-3">
-                            <div class="d-flex flex-row align-items-center">
-                                <img src="/animal_php/view/design/Footer/nekoparalogo.png" width="50" class="rounded-circle"
-                                    style="height:50px;width:50px;object-fit:cover">
-                                <div class="d-flex flex-column ml-2" style="margin-left:10px">
-                                    <span class="font-weight-bold"><?= htmlspecialchars($post['username']) ?></span>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row mt-1 ellipsis">
-                                <small class="mr-2" style="margin-top:10px"><?= htmlspecialchars($post['date']) ?></small>
-                            </div>
+    <section class="Post" style="padding-top: 30px !important; padding-bottom: 30px !important;">
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="row align-items-stretch">
+                <!-- Post Details -->
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                <style>
+                    .safe-card {
+                        transform: none !important;
+                        direction: ltr !important;
+                        transition: none !important;
+                    }
+                    .glass-card {
+                        background: rgba(255, 255, 255, 0.2) !important;
+                        backdrop-filter: blur(20px);
+                        -webkit-backdrop-filter: blur(20px);
+                        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+                        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+                        color: white !important;
+                    }
+                    .glass-card .text-dark, .glass-card .text-muted {
+                        color: white !important;
+                    }
+                    .glass-card .bg-white, .glass-card .bg-light {
+                        background: transparent !important;
+                    }
+                    .glass-card .border-bottom, .glass-card hr {
+                        border-color: rgba(255, 255, 255, 0.3) !important;
+                    }
+                    .glass-card .card-header {
+                        background: rgba(255, 255, 255, 0.1) !important;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    }
+                    .glass-card-comment {
+                        background: rgba(255, 255, 255, 0.15) !important;
+                        backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                        color: white !important;
+                    }
+                    .glass-card-comment .text-dark, .glass-card-comment .text-muted {
+                        color: #f8f9fa !important;
+                    }
+                    .glass-input {
+                        background: rgba(255, 255, 255, 0.2) !important;
+                        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+                        color: white !important;
+                    }
+                    .glass-input::placeholder {
+                        color: rgba(255, 255, 255, 0.8) !important;
+                    }
+                </style>
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden safe-card glass-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center p-3 bg-white border-bottom flex-shrink-0">
+                        <div class="d-flex align-items-center">
+                            <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm"
+                                style="height:50px;width:50px;object-fit:cover; border: 2px solid #f8f9fa;">
+                            <span class="fw-bold text-dark ms-3 fs-5"><?= htmlspecialchars($post['username']) ?></span>
                         </div>
-                        <img src="/animal_php/images/<?= htmlspecialchars($post['image']) ?>" class="img-fluid"
-                            style="width:100%;height:600px;object-fit:cover;">
-                        <div class="p-2">
-                            <p class="text-justify" style="font-size:20px;"><?= htmlspecialchars($post['title']) ?></p>
-                            <hr>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="/animal_php/Posts">
-                                    <div class="d-flex flex-row icons d-flex align-items-center"><i
-                                            class="fa fa-smile-o ml-2"></i></div>
-                                    <div class="d-flex flex-row muted-color"><i class="fa fa-heart"> Return </i></div>
-                                </a>
-                            </div>
-                            <hr>
+                        <div class="text-muted small">
+                            <i class="far fa-clock me-1"></i> <?= htmlspecialchars($post['date']) ?>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1" style="min-height: 300px; max-height: 500px;">
+                        <img src="<?= $base ?>/images/<?= htmlspecialchars($post['image']) ?>" class="w-100 h-100"
+                            style="object-fit: cover;">
+                    </div>
+                    <div class="card-body bg-transparent p-4 flex-shrink-0">
+                        <p class="card-text text-white fs-5 mb-4 fw-medium" style="line-height: 1.6; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);"><?= htmlspecialchars($post['title']) ?></p>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="<?= $base ?>/Posts" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm" style="color: #333;">
+                                <i class="fas fa-arrow-left me-2"></i> Trở về Cộng đồng
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Comments Section -->
-            <div class="col-md-6">
-                <div id="commentsWrapper" class="wrapper" style="margin-left:100px;">
-                    <?php foreach ($comments as $key => $comment): ?>
-                        <div class="contain" style="width:800px;">
-                            <div class="card" style="width: 90%;height:100%;margin-bottom:10px;border-radius:20px">
-                                <div class="d-flex justify-content-between p-2 px-3">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle"
-                                            style="height:75px;width:100px;">
-                                        <div class="d-flex flex-column ml-2"
-                                            style="margin-left:10px;margin-top:15px;">
-                                            <span class="font-weight-bold"><?= htmlspecialchars($comment['username']) ?></span>
-                                        </div>
+            <div class="col-lg-6">
+                <div class="card shadow border-0 rounded-4 overflow-hidden safe-card glass-card" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="card-header p-3 border-0">
+                        <h4 class="mb-0 fw-bold"><i class="far fa-comments me-2"></i> Bình luận</h4>
+                    </div>
+                    <div id="commentsWrapper" class="card-body bg-transparent" style="flex-grow: 1; overflow-y: auto; max-height: 550px;">
+                        <?php foreach ($comments as $key => $comment): ?>
+                            <div class="d-flex mb-4">
+                                <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-3" style="height: 50px; width: 50px; object-fit: cover;">
+                                <div class="glass-card-comment p-3 rounded-4 shadow-sm w-100 position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold text-white"><?= htmlspecialchars($comment['username']) ?></span>
+                                        <small class="text-light"><i class="far fa-clock me-1"></i> <?= htmlspecialchars($comment['date_time']) ?></small>
                                     </div>
-                                    <div class="d-flex flex-row mt-1 ellipsis">
-                                        <small class="mr-2" style="margin-top:10px"><?= htmlspecialchars($comment['date_time']) ?></small>
-                                    </div>
-                                </div>
-                                <div class="p-2" style="text-align:left;margin-left:70px">
-                                    <p class="text-justify"><?= htmlspecialchars($comment['chat_data']) ?></p>
+                                    <p class="mb-0 text-white"><?= htmlspecialchars($comment['chat_data']) ?></p>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- Add Comment Form -->
-                <form action="/animal_php/view/post/add-comment.php" method="POST" class="needs-validation" novalidate>
-                    <input type="hidden" name="post_id" value="<?= htmlspecialchars($post_id) ?>" />
-                    <div class="d-flex" style="margin-top: 75px;margin-left:100px;">
-                        <textarea class="form-control textbox" name="chatData" required rows="2"
-                            cols="80" style="border-radius: 20px;overflow-x: hidden;"></textarea>
-                        <button type="submit" class="btn btn-primary" style="width: 100px; height: 50px;margin-left:10px;">Enter</button>
+                        <?php endforeach; ?>
                     </div>
-                </form>
+
+                    <!-- Add Comment Form -->
+                    <div class="card-footer bg-transparent border-top p-3 shadow-sm" style="border-color: rgba(255,255,255,0.2) !important;">
+                        <form action="<?= $base ?>/view/post/add-comment.php" method="POST" class="needs-validation m-0" novalidate>
+                            <input type="hidden" name="post_id" value="<?= htmlspecialchars($post_id) ?>" />
+                            <div class="input-group">
+                                <textarea class="form-control glass-input rounded-pill-start border-end-0 px-4 py-2" name="chatData" required rows="1" placeholder="Viết bình luận của bạn..." style="resize: none; border-top-left-radius: 25px; border-bottom-left-radius: 25px;"></textarea>
+                                <button type="submit" class="btn btn-light px-4 fw-bold" style="border-top-right-radius: 25px; border-bottom-right-radius: 25px; color: #333;">
+                                    <i class="fas fa-paper-plane me-1"></i> Gửi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
     </section>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -117,7 +157,7 @@ foreach ($comments as $key => $comment) {
 
     // Function to fetch and update comments
     function fetchComments() {
-    fetch(`/animal_php/view/post/fetch-comments.php?post_id=${postId}`)
+    fetch(`<?= $base ?>/view/post/fetch-comments.php?post_id=${postId}`)
         .then(response => response.json())
         .then(comments => {
             const commentsWrapper = document.getElementById('commentsWrapper');
@@ -125,24 +165,14 @@ foreach ($comments as $key => $comment) {
 
             comments.forEach(comment => {
                 const commentHtml = `
-                    <div class="contain" style="width:800px;">
-                        <div class="card" style="width: 90%;height:100%;margin-bottom:10px;border-radius:20px">
-                            <div class="d-flex justify-content-between p-2 px-3">
-                                <div class="d-flex flex-row align-items-center">
-                                    <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle"
-                                        style="height:75px;width:100px;">
-                                    <div class="d-flex flex-column ml-2"
-                                        style="margin-left:10px;margin-top:15px;">
-                                        <span class="font-weight-bold">${comment.username}</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row mt-1 ellipsis">
-                                    <small class="mr-2" style="margin-top:10px">${comment.date_time}</small>
-                                </div>
+                    <div class="d-flex mb-4">
+                        <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm me-3" style="height: 50px; width: 50px; object-fit: cover;">
+                        <div class="glass-card-comment p-3 rounded-4 shadow-sm w-100 position-relative">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold text-white">${comment.username}</span>
+                                <small class="text-light"><i class="far fa-clock me-1"></i> ${comment.date_time}</small>
                             </div>
-                            <div class="p-2" style="text-align:left;margin-left:70px">
-                                <p class="text-justify">${comment.chat_data}</p>
-                            </div>
+                            <p class="mb-0 text-white">${comment.chat_data}</p>
                         </div>
                     </div>
                 `;
@@ -169,7 +199,7 @@ foreach ($comments as $key => $comment) {
 
         const formData = new FormData(commentForm);
 
-        fetch('/animal_php/view/post/add-comment.php', {
+        fetch('<?= $base ?>/view/post/add-comment.php', {
             method: 'POST',
             body: formData
         })
