@@ -40,7 +40,7 @@ require_once __DIR__ . '/../config/env.php';
         <div class="row align-items-center">
             <div class="col-md-7 col-lg-8">
                 <p class="text-center text-md-start mb-0">
-                    Â© 2026 All Rights Reserved | 
+                    © 2026 All Rights Reserved | 
                     <strong class="text-warning">Nekopara.com</strong>
                 </p>
             </div>
