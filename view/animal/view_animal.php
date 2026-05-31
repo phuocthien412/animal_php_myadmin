@@ -62,8 +62,8 @@ if (!$animal) {
 include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
-    <section class="AnimalDetail" style="margin-top:-40px;">
-        <h1 class="textAnimalName" style="margin-top:-100px;margin-bottom:50px" >
+    <section class="AnimalDetail" style="padding-top: 80px !important; padding-bottom: 80px !important;">
+        <h1 class="textAnimalName" style="margin-top: 0; margin-bottom: 50px;">
         <?php echo htmlspecialchars($animal['name']); ?>
         </h1>
         <div class="row">

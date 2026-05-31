@@ -4,14 +4,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/../config/env.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>NEKOPARA</title>
+<!-- Header Styles and Links -->
+<title>NEKOPARA</title>
     <!-- Favicon removed -->
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,11 +57,20 @@ require_once __DIR__ . '/../config/env.php';
         .input-box {
             position: relative;
             height: 40px;
-            max-width: 300px;
+            width: 45px;
             margin: 0 20px;
             background: #fff;
             border-radius: 25px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-box.open {
+            width: 300px;
+            background: #fff;
         }
 
         .input-box input {
@@ -75,23 +78,66 @@ require_once __DIR__ . '/../config/env.php';
             height: 100%;
             width: 100%;
             border-radius: 25px;
-            background: #fff;
-            padding: 0 50px 0 20px;
+            background: transparent;
+            padding: 0 45px 0 20px;
             border: none;
             outline: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 14px;
+        }
+
+        .input-box.open input {
+            opacity: 1;
         }
 
         .input-box .icon {
             position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
+            right: 0;
+            top: 0;
+            width: 45px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
             cursor: pointer;
+            z-index: 2;
+            color: #0d6efd;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-box:hover .icon {
+            transform: scale(1.1);
+        }
+        
+        .input-box.open .icon {
+            right: 15px;
+        }
+
+        /* Active Header Styling */
+        .textheader {
+            padding: 8px 16px !important;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            color: #333 !important;
+            text-shadow: none !important;
+        }
+        
+        .textheader:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd !important;
+        }
+
+        .textheader.active {
+            background-color: #0d6efd !important;
+            color: white !important;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
         }
     </style>
-</head>
-
-<body>
+    
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color:#F7F7F7;">
             <div class="container-fluid" style="margin-left:100px">
@@ -108,24 +154,24 @@ require_once __DIR__ . '/../config/env.php';
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>"
+                            <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/Home') !== false || $_SERVER['REQUEST_URI'] == '/animal_php/') ? 'active' : ''; ?>"
                                 href="<?= $base ?>/Home">Trang chủ</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
-                            <a class="textheader <?php echo (strpos($_SERVER['PHP_SELF'], 'list_classanimals.php') !== false) ? 'active' : ''; ?>"
+                            <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/ClassAnimal') !== false || strpos($_SERVER['REQUEST_URI'], '/animal/') !== false) ? 'active' : ''; ?>"
                                 href="<?= $base ?>/ClassAnimal">Các lớp động vật</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
-                            <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'findanimal.php') ? 'active' : ''; ?>"
+                            <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/FindAnimal') !== false) ? 'active' : ''; ?>"
                                 href="<?= $base ?>/FindAnimal">Tìm kiếm bằng hình ảnh</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
-                            <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'posts.php') ? 'active' : ''; ?>"
+                            <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/Posts') !== false) ? 'active' : ''; ?>"
                                 href="<?= $base ?>/Posts">Cộng đồng</a>
                         </li>
                         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
                             <li class="nav-item" style="margin-left:10px">
-                                <a class="textheader <?php echo (strpos($_SERVER['PHP_SELF'], 'classanimal/admin.php') !== false) ? 'active' : ''; ?>"
+                                <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin') !== false) ? 'active' : ''; ?>"
                                     href="<?= $base ?>/admin/users">Quản trị</a>
                             </li>
                         <?php endif; ?>
@@ -147,26 +193,46 @@ require_once __DIR__ . '/../config/env.php';
                     </ul>
                 </div>
                 <form action="<?= $base ?>/search/" method="get" class="input-box" id="searchForm">
-                    <input type="text" name="searchQuery" id="searchTerm" placeholder="What animal are you looking for?" class="form-control">
-                    <span class="icon">
+                    <input type="text" name="searchQuery" id="searchTerm" placeholder="Tìm kiếm động vật...">
+                    <span class="icon" title="Tìm kiếm">
                         <i class="fas fa-search search-icon"></i>
                     </span>
-                    <i class="fas fa-times close-icon"></i>
                 </form>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script>
                     $(document).ready(function() {
-                        $('#searchForm').submit(function(event) {
-                            event.preventDefault(); // Ngăn chặn gửi form mặc định
-
-                            var searchTerm = $('#searchTerm').val(); // Lấy giá trị từ ô nhập liệu
-
-                            // Kiểm tra xem từ khóa tìm kiếm có tồn tại không trước khi gửi form
-                            if (searchTerm.trim() !== '') {
-                                $(this).unbind('submit').submit(); // Gửi form
+                        var inputBox = $(".input-box");
+                        var searchIcon = $(".icon");
+                        
+                        // Toggle search bar on click
+                        searchIcon.on("click", function(e) {
+                            if (!inputBox.hasClass("open")) {
+                                e.preventDefault(); // Prevent default action when opening
+                                inputBox.addClass("open");
+                                $("#searchTerm").focus();
                             } else {
-                                // Xử lý khi không có từ khóa tìm kiếm
-                                // Ví dụ: Hiển thị thông báo lỗi
+                                // If already open and input is empty, just close it
+                                if ($("#searchTerm").val().trim() === '') {
+                                    e.preventDefault();
+                                    inputBox.removeClass("open");
+                                } else {
+                                    // Submit the form!
+                                    $('#searchForm').submit();
+                                }
+                            }
+                        });
+                        
+                        // Close search bar when clicking outside
+                        $(document).on("click", function(e) {
+                            if (!$(e.target).closest(".input-box").length) {
+                                inputBox.removeClass("open");
+                            }
+                        });
+
+                        $('#searchForm').submit(function(event) {
+                            var searchTerm = $('#searchTerm').val();
+                            if (searchTerm.trim() === '') {
+                                event.preventDefault(); // Ngăn chặn gửi form mặc định
                                 console.log('Vui lòng nhập từ khóa tìm kiếm!');
                             }
                         });
@@ -177,15 +243,4 @@ require_once __DIR__ . '/../config/env.php';
         </nav>
 
     </header>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        let inputBox = document.querySelector(".input-box"),
-            searchIcon = document.querySelector(".icon"),
-            closeIcon = document.querySelector(".close-icon");
-        searchIcon.addEventListener("click", () => inputBox.classList.add("open"));
-        closeIcon.addEventListener("click", () => inputBox.classList.remove("open"));
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>

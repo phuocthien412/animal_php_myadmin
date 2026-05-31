@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../../config/env.php';
 
 require_once '../../controller/PostController.php';
 require_once '../../controller/UserController.php';
@@ -6,7 +10,6 @@ require_once '../../controller/UserController.php';
 $postController = new PostController();
 $userController = new UserController();
 
-include '../header.php';
 // Get the logged-in user's ID
 $loggedInUserId = $_SESSION['user_id'];
 
@@ -32,8 +35,8 @@ if ($showOnlyMyPosts) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
-    <link rel="stylesheet" href="/animal_php/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css">
+    <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -46,6 +49,8 @@ if ($showOnlyMyPosts) {
         echo '<script>window.location.href = "' . $base . '/Login";</script>';
         exit();
     }
+    
+    include '../header.php';
     ?>
     <section layout:fragment="content" style="padding: 0;">
         <section class="Post">
