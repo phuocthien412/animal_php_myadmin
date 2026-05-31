@@ -1,6 +1,7 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\animal\animals-list.php
 require_once '../../controller/AnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
 
 $animalController = new AnimalController();
 $searchQuery = isset($_GET['searchQuery']) ? $_GET['searchQuery'] : '';
@@ -43,9 +44,8 @@ if ($searchQuery !== '') {
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-    <link rel="stylesheet" href="/animal_php/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" asp-append-version="true"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -91,22 +91,26 @@ include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
     <section class="ClassAnimal">
-        <img src="/animal_php/view/design/ClassAnimal/Background/chim.gif" alt="Background vid" class="classbg"/>
-        <h1 class="textclassanimalName" style="margin-top:-300px;margin-left:-1000px;">Động vật </h1>
-        <h1 class="textclassanimalInfo" style="margin-left:300px;">Động vật là nhóm sinh vật trong tự nhiên bao gồm các
-            hình thái sống đa dạng, chúng có thể được tìm thấy ở mọi môi trường sống trên Trái Đất, từ đại dương sâu tới
-            rừng rậm, sa mạc khô cằn. Chúng đóng vai trò quan trọng trong hệ sinh thái, tham gia vào chu trình thực vật,
-            giữ cân bằng hệ sinh thái.</h1>
-        <div class="PostList" style="margin-top: 100px; display: flex; flex-wrap: wrap;">
-            <div class="popup" style=" margin-left:800px;">
+        <div class="hero-container">
+            <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg"/>
+            <div class="hero-overlay">
+                <h1 class="textclassanimalName">Động vật </h1>
+                <h1 class="textclassanimalInfo">Động vật là nhóm sinh vật trong tự nhiên bao gồm các
+                    hình thái sống đa dạng, chúng có thể được tìm thấy ở mọi môi trường sống trên Trái Đất, từ đại dương sâu tới
+                    rừng rậm, sa mạc khô cằn. Chúng đóng vai trò quan trọng trong hệ sinh thái, tham gia vào chu trình thực vật,
+                    giữ cân bằng hệ sinh thái.</h1>
+            </div>
+        </div>
+        <div class="PostList" style="margin-top: 50px; display: flex; justify-content: center; width: 100%;">
+            <div class="popup">
                 <!-- Trigger/Open The Modal -->
-                <a id="mbtn" class="button" style="margin-top:-80px">
+                <a id="mbtn" class="button">
                     <span class="content">Kiểm tra kết quả!</span>
                 </a>
                 <!-- The Modal -->
                 <div id="modalDialog" class="modal">
                     <div class="modal-content animate-top"
-                         style="background-image: url('/animal_php/view/design/Explore/bg.png');object-fit: cover;">
+                         style="background-image: url('<?= $base ?>/view/design/Explore/bg.png');object-fit: cover;">
                         <div class="modal-header">
                             <b class="modal-title" style="color:white;">Kết quả tìm kiếm</b>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -125,14 +129,14 @@ include '../header.php';
                 <h1 class="textclassanimalName" style="margin-top:100px;">Chúng tôi rất tiếc vì con vật bạn tìm kiếm
                     không có trong danh sách trên trang web.Nếu có thể,mong bạn hãy chia sẽ hình ảnh hoặc trải
                     nghiêm của mình về con vật mà bạn muốn tìm thông qua kênh Community!</h1>
-                <a href="/animal_php/Posts" class="button" style="margin-top: 50px;">
+                <a href="<?= $base ?>/Posts" class="button" style="margin-top: 50px;">
                     <span class="content">Community!</span>
                 </a>
             <?php } else { ?>
                 <?php foreach ($animals as $animal) { ?>
-                    <a href="/animal_php/view/animal/view_animal.php?id=<?php echo htmlspecialchars($animal['id_animal']); ?>"
+                    <a href="<?= $base ?>/view/animal/view_animal.php?id=<?php echo htmlspecialchars($animal['id_animal']); ?>"
                        style="margin-left: 160px;margin-top: 60px; text-decoration: none; border-radius:20px;">
-                        <img src="/animal_php/images/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar"
+                        <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar"
                              style="border-radius:20px;"/>
                         <h1 class="textclassanimalInfo" style="text-align:center;"><?php echo htmlspecialchars($animal['name']); ?></h1>
                     </a>

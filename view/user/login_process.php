@@ -14,6 +14,7 @@ if ($user) {
     $_SESSION['user_id']  = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['roles']    = $user['roles'];
+    $_SESSION['avatar']   = $user['avatar'] ?? '';
     header('Location: ' . $base . '/Home');
 } else {
     $_SESSION['error'] = 'Tên đăng nhập hoặc mật khẩu không đúng!';

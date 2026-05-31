@@ -1,67 +1,61 @@
-<!-- filepath: /d:/laragon/www/ANIMAL_PHP/view/layout.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>NEKOPARA</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/animal_php/view/design/Home/logo.png" />
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css" />
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-
-</head>
-<body>
-<footer>
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="textfooter" style="margin-left: 100px; margin-top: 30px;">CONTACT US!</h1>
-            <div class="row align-items-center" style="margin-left: 105px;">
-                <div class="col-auto">
-                    <img src="/animal_php/view/design/Footer/GmailLogo.png" alt="Gmail Logo">
-                </div>
-                <div class="col">
-                    <h1 class="textfooter" style="font-size: 35px;">nekopara@gmail.com</h1>
+<footer class="text-white pt-5 pb-4" style="background-color: #2c3e50; font-family: 'Be Vietnam Pro', sans-serif;">
+    <div class="container text-md-left">
+        <div class="row text-md-left">
+            <!-- Company Name & Slogan -->
+            <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-weight: 800;">NEKOPARA</h5>
+                <p>Khám phá thế giới động vật tuyệt vời. Cùng nhau xây dựng cộng đồng yêu thiên nhiên, chia sẻ kiến thức và bảo vệ môi trường.</p>
+                <div style="margin-top: 20px;">
+                    <img src="<?= $base ?>/view/design/Footer/wwflogo.png" alt="WWF Logo" style="height: 60px; margin-right: 15px;">
+                    <img src="<?= $base ?>/view/design/Footer/nekoparalogo.png" alt="Nekopara Logo" style="height: 60px;">
                 </div>
             </div>
-            <div class="row align-items-center" style="margin-left: 100px;">
-                <div class="col-auto">
-                    <img src="/animal_php/view/design/Footer/FBLogo.png" alt="Gmail Logo" />
-                </div>
-                <div class="col">
-                    <h1 class="textfooter" style="font-size: 35px;">facebook.com/NEKOPARA</h1>
-                </div>
+
+            <!-- Links -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-weight: 800;">Khám Phá</h5>
+                <p><a href="<?= $base ?>/Home" class="text-white" style="text-decoration: none;">Trang chủ</a></p>
+                <p><a href="<?= $base ?>/ClassAnimal" class="text-white" style="text-decoration: none;">Lớp động vật</a></p>
+                <p><a href="<?= $base ?>/FindAnimal" class="text-white" style="text-decoration: none;">Tìm kiếm bằng ảnh</a></p>
+                <p><a href="<?= $base ?>/Posts" class="text-white" style="text-decoration: none;">Cộng đồng</a></p>
             </div>
-            <div class="row align-items-center" style="margin-left: 100px;">
-                <div class="col">
-                    <h1 class="textfooter" style="font-size: 25px;">
-                        © 2025 All Rights Reserved | Nekopara.com
-                    </h1>
-                </div>
+
+            <!-- Contact -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-weight: 800;">Liên Hệ</h5>
+                <p>
+                    <i class="fa-solid fa-envelope mr-3"></i> nekopara@gmail.com
+                </p>
+                <p>
+                    <i class="fa-brands fa-facebook mr-3"></i> facebook.com/NEKOPARA
+                </p>
             </div>
         </div>
-        <div class="col-md-6 text-md-end">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="/animal_php/view/design/Footer/wwflogo.png" alt="Logo" style="margin-right: -50px; margin-bottom: -200px;">
-                </div>
-                <div class="col-md-6">
-                    <img src="/animal_php/view/design/Footer/nekoparalogo.png" alt="Logo">
+
+        <hr class="mb-4" style="border-top: 1px solid rgba(255,255,255,0.2);">
+
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8">
+                <p class="text-center text-md-start mb-0">
+                    © 2026 All Rights Reserved | 
+                    <strong class="text-warning">Nekopara.com</strong>
+                </p>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="text-center text-md-end">
+                    <ul class="list-unstyled list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fa-brands fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fa-brands fa-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fa-brands fa-instagram"></i></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </footer>
-</body>
-</html>

@@ -1,6 +1,8 @@
 <?php
-session_start();
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config/env.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +12,16 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>NEKOPARA</title>
+    <!-- Favicon removed -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="../design/Home/logo.png" />
-    <link rel="stylesheet" href="/animal_php/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="icon" type="image/png" href="<?= $base ?>/view/design/About/logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" asp-append-version="true" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
@@ -87,9 +94,9 @@ session_start();
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:#F7F7F7;">
             <div class="container-fluid" style="margin-left:100px">
-                <a class="navbar-brand" href="../index.php">
+                <a class="navbar-brand" href="<?= $base ?>/Home">
                     <div class="logo">
-                        <img src="/animal_php/view/design/Header/logo.png" width="120px" height="80px">
+                        <img src="<?= $base ?>/view/design/Header/logo.png" width="120px" height="80px">
                     </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -101,24 +108,24 @@ session_start();
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>"
-                                href="/animal_php/Home">Trang chủ</a>
+                                href="<?= $base ?>/Home">Trang chủ</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
                             <a class="textheader <?php echo (strpos($_SERVER['PHP_SELF'], 'list_classanimals.php') !== false) ? 'active' : ''; ?>"
-                                href="/animal_php/ClassAnimal">Các lớp động vật</a>
+                                href="<?= $base ?>/ClassAnimal">Các lớp động vật</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
                             <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'findanimal.php') ? 'active' : ''; ?>"
-                                href="/animal_php/FindAnimal">Tìm kiếm bằng hình ảnh</a>
+                                href="<?= $base ?>/FindAnimal">Tìm kiếm bằng hình ảnh</a>
                         </li>
                         <li class="nav-item" style="margin-left:10px">
                             <a class="textheader <?php echo (basename($_SERVER['PHP_SELF']) == 'posts.php') ? 'active' : ''; ?>"
-                                href="Posts">Cộng đồng</a>
+                                href="<?= $base ?>/Posts">Cộng đồng</a>
                         </li>
                         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
                             <li class="nav-item" style="margin-left:10px">
                                 <a class="textheader <?php echo (strpos($_SERVER['PHP_SELF'], 'classanimal/admin.php') !== false) ? 'active' : ''; ?>"
-                                    href="/animal_php/admin/users">Quản trị</a>
+                                    href="<?= $base ?>/admin/users">Quản trị</a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -129,21 +136,21 @@ session_start();
                                     Xin chào, <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
 
                                 </span>
-                                <form action="/animal_php/view/user/logout.php" method="post" class="ms-3">
+                                <form action="<?= $base ?>/view/user/logout.php" method="post" class="ms-3">
                                     <button class="btn btn-outline-danger" type="submit">Đăng xuất</button>
                                 </form>
                             <?php else: ?>
-                                <a class="btn btn-outline-primary" href="/animal_php/Login">Đăng nhập</a>
+                                <a class="btn btn-outline-primary" href="<?= $base ?>/Login">Đăng nhập</a>
                             <?php endif; ?>
                         </li>
                     </ul>
                 </div>
-                <form action="/animal_php/search/" method="get" class="input-box" id="searchForm">
+                <form action="<?= $base ?>/search/" method="get" class="input-box" id="searchForm">
                     <input type="text" name="searchQuery" id="searchTerm" placeholder="What animal are you looking for?" class="form-control">
                     <span class="icon">
-                        <i class="uil uil-search search-icon"></i>
+                        <i class="fas fa-search search-icon"></i>
                     </span>
-                    <i class="uil uil-times close-icon"></i>
+                    <i class="fas fa-times close-icon"></i>
                 </form>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script>

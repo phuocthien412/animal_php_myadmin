@@ -1,6 +1,7 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\classanimal\detail_classanimal.php
 require_once __DIR__ . '/../../controller/ClassAnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
 
 // Get the class animal ID from the URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -17,7 +18,7 @@ $animals = $classAnimalController->getAnimalsByClassAnimalId($id);
 <head>
     <title th:text="${title} ?: 'ClassAnimal Detail'"> ClassAnimals List </title>
     <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css">
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
@@ -59,18 +60,24 @@ include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
     <section class="ClassAnimal">
-        <img src="/animal_php/view/design/ClassAnimal/Background/<?php echo htmlspecialchars($classanimal['background_video']); ?>" alt="Background vid" class="classbg" />
-        <h1 class="textclassanimalName" style="margin-top:-300px;margin-left: 200px;"><?php echo htmlspecialchars($classanimal['name']); ?></h1>
-        <h1 class="textclassanimalInfo" style="margin-left:300px;"><?php echo htmlspecialchars($classanimal['info']); ?></h1>
-        <div class="list" style="margin-top: 150px; display: flex; flex-wrap: wrap;">
-            <?php foreach ($animals as $animal) { ?>
-                <div>
-                    <a href="/animal_php/animal/detail/<?php echo htmlspecialchars($animal['id_animal']); ?>" style="margin-left: 160px;margin-top: 60px; text-decoration: none; border-radius:20px;">
-                        <img src="/animal_php/images/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar" style="border-radius:20px;" />
-                        <h1 class="textclassanimalInfo" style="text-align:center; margin-left: 150px;"><?php echo htmlspecialchars($animal['name']); ?></h1>
-                    </a>
-                </div>
-            <?php } ?>
+        <div class="hero-container">
+            <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
+            <div class="hero-overlay">
+                <h1 class="textclassanimalName"><?php echo htmlspecialchars($classanimal['name']); ?></h1>
+                <h1 class="textclassanimalInfo"><?php echo htmlspecialchars($classanimal['info']); ?></h1>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center gap-4">
+                <?php foreach ($animals as $animal) { ?>
+                    <div class="col-auto mb-4">
+                        <a href="<?= $base ?>/animal/detail/<?php echo htmlspecialchars($animal['id_animal']); ?>" style="text-decoration: none; display: block; text-align: center;">
+                            <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" alt="Avatar" class="itemAvatar" style="border-radius:20px;" />
+                            <h1 class="textclassanimalInfo mt-3" style="text-align: center; max-width: 100%; color: #333; text-shadow: none;"><?php echo htmlspecialchars($animal['name']); ?></h1>
+                        </a>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </section>
 </section>
@@ -80,7 +87,7 @@ include '../header.php';
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
     <div class="static-button" id="startIntro" style="margin-right: -100px">
-        <img src="/animal_php/images/idle.gif" alt="Start Intro"
+        <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
@@ -189,7 +196,7 @@ include '../header.php';
                 if (targetElement === document.querySelector('.list')) {
                     localStorage.removeItem('introCompleted');
                     localStorage.setItem('introAnimal', 'true');
-                    window.location.href = 'http://localhost/animal_php/animal/detail/1';
+                    window.location.href = '<?= $base ?>/animal/detail/1';
                 }
             }).start();
         };

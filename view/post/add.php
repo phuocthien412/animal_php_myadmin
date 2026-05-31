@@ -1,9 +1,10 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/env.php';
 
 if (!isset($_SESSION['user_id'])) {
     // Redirect to the login page if not logged in
-    echo '<script>window.location.href = "/animal_php/view/user/login.php";</script>';
+    echo '<script>window.location.href = "' . $base . '/Login";</script>';
     exit();
 }
 
@@ -35,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         // Redirect back to the posts list
-        header("Location: /animal_php/view/post/posts-list.php");
+        header("Location: " . $base . "/Posts");
         exit();
     } else {
         // Handle upload error
         echo '<script>alert("Failed to upload image. Please try again.");</script>';
-        echo '<script>window.location.href = "/animal_php/view/post/posts-list.php";</script>';
+        echo '<script>window.location.href = "' . $base . '/Posts";</script>';
         exit();
     }
 }

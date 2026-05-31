@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle file uploads
     $uploadDir = '../../../images/';
-    move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadDir . $_FILES['avatar']['name']);
-    move_uploaded_file($_FILES['noi_sinh_song_image']['tmp_name'], $uploadDir . $_FILES['noi_sinh_song_image']['name']);
-    move_uploaded_file($_FILES['imgqr3d']['tmp_name'], $uploadDir . $_FILES['imgqr3d']['name']);
+    move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadDir . 'Animal/Avatar/' . $_FILES['avatar']['name']);
+    move_uploaded_file($_FILES['noi_sinh_song_image']['tmp_name'], $uploadDir . 'Animal/NoiSinhSong/' . $_FILES['noi_sinh_song_image']['name']);
+    move_uploaded_file($_FILES['imgqr3d']['tmp_name'], $uploadDir . 'Animal/3DQR/' . $_FILES['imgqr3d']['name']);
 
     // Add the animal to the database
     $animalController = new AnimalController();
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_FILES['list_images']['name'][0])) {
         foreach ($_FILES['list_images']['name'] as $key => $imageName) {
             $tmpName = $_FILES['list_images']['tmp_name'][$key];
-            $imagePath = $uploadDir . $imageName;
+            $imagePath = $uploadDir . 'Animal/ListImage/' . $imageName;
             if (move_uploaded_file($tmpName, $imagePath)) {
                 $listAnimalController->addImage([
                     'animalimage' => $imageName, // Store only the image name

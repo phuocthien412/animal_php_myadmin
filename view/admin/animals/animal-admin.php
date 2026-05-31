@@ -55,12 +55,12 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
         <table class="admin-table" id="animalsTable">
             <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Ảnh đại diện</th>
-                    <th>Tên động vật</th>
-                    <th>Lớp</th>
-                    <th>Giới thiệu</th>
-                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                    <th style="width: 5%">#ID</th>
+                    <th style="width: 10%">Ảnh đại diện</th>
+                    <th style="width: 20%">Tên động vật</th>
+                    <th style="width: 15%">Lớp</th>
+                    <th style="width: 35%">Giới thiệu</th>
+                    <?php if ($isAdmin): ?><th style="width: 15%">Hành động</th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +76,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 <tr>
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($animal['id_animal']) ?></span></td>
                     <td class="animal-img-cell">
-                        <img src="/animal_php_myadmin/images/<?= htmlspecialchars($animal['avatar']) ?>" alt="<?= htmlspecialchars($animal['name']) ?>">
+                        <img src="<?= $base ?>/images/Animal/Avatar/<?= htmlspecialchars($animal['avatar']) ?>" alt="<?= htmlspecialchars($animal['name']) ?>">
                     </td>
                     <td><strong><?= htmlspecialchars($animal['name']) ?></strong></td>
                     <td><span class="role-badge default">Lớp #<?= htmlspecialchars($animal['classanimals_id']) ?></span></td>
@@ -86,7 +86,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/animal/detail/<?= urlencode($animal['id_animal']) ?>"
+                            <a href="<?= $base ?>/admin/animals/detail/<?= urlencode($animal['id_animal']) ?>"
                                class="action-btn view" title="Xem chi tiết">
                                 <i class="fa-solid fa-eye"></i>
                             </a>

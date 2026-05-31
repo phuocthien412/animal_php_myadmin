@@ -73,7 +73,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($post['id_post']) ?></span></td>
                     <td class="animal-img-cell">
                         <?php if (!empty($post['image'])): ?>
-                        <img src="/animal_php_myadmin/images/<?= htmlspecialchars($post['image']) ?>"
+                        <img src="<?= $base ?>/images/<?= htmlspecialchars($post['image']) ?>"
                              alt="Post" style="width:60px;height:44px;object-fit:cover;border-radius:8px;">
                         <?php else: ?>
                         <div style="width:60px;height:44px;background:var(--border-light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);">
@@ -98,7 +98,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/posts/detail/<?= urlencode($post['id_post']) ?>"
+                            <a href="<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>"
                                class="action-btn view" title="Xem bài viết">
                                 <i class="fa-solid fa-eye"></i>
                             </a>

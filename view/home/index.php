@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
@@ -47,7 +47,7 @@ include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
 
-    <nav class="sticky-top" style="margin-top: -20px;">
+    <nav class="sticky-top secondary-nav">
         <ul>
             <li><a href="#" class="home-marker active">Home</a></li>
             <li><a href="#about" class="about-marker">About</a></li>
@@ -57,134 +57,137 @@ include '../header.php';
     </nav>
 
     <section id="home" class="home" style="margin-top: -100px;">
-        <img src="/animal_php/view/design/Home/logo.png" class="logo1"/>
+        <img src="<?= $base ?>/view/design/Home/logo.png" class="logo1"/>
         <h1 class="texthome"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
     </section>
 
     <section id="about" class="about">
-        <div class="row ">
-            <div class="col-md-6">
-                <img src="/animal_php/view/design/About/logo.png" alt="Image 1" style="margin-top: -100px;">
+        <div class="container py-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+                    <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
+                </div>
+                <div class="col-md-6 test1">
+                    <h1 class="textabout lh-base fs-4">
+                        Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật . Với đội
+                        ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
+                        loại động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
+                    </h1>
+                </div>
             </div>
-            <div class="col-md-6 test1">
-                <h1 class="textabout" style="margin-left: -50px;">
-                    Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật . Với đội
-                    ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
-                    loại động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
-                </h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 test2">
-                <h1 class="textabout">
-                    Qua trang NEKOPARA, chúng tôi muốn chia sẻ kiến thức và thông tin đáng tin cậy về
-                    động vật, giúp mọi người hiểu rõ hơn về cuộc sống và sự đa dạng của chúng. Chúng tôi hy vọng rằng
-                    thông qua việc tăng cường nhận thức và kiến thức về động vật, chúng ta có thể thúc đẩy những nỗ lực
-                    bảo vệ môi trường và duy trì sự cân bằng tự nhiên.
-                </h1>
-            </div>
-            <div class="col-md-6">
-                <iframe width="650" height="400 " src="https://www.youtube.com/embed/5kozt0uDa4c">
-                </iframe>
+            <div class="row align-items-center">
+                <div class="col-md-6 test2 mb-4 mb-md-0">
+                    <h1 class="textabout lh-base fs-5">
+                        Qua trang NEKOPARA, chúng tôi muốn chia sẻ kiến thức và thông tin đáng tin cậy về
+                        động vật, giúp mọi người hiểu rõ hơn về cuộc sống và sự đa dạng của chúng. Chúng tôi hy vọng rằng
+                        thông qua việc tăng cường nhận thức và kiến thức về động vật, chúng ta có thể thúc đẩy những nỗ lực
+                        bảo vệ môi trường và duy trì sự cân bằng tự nhiên.
+                    </h1>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube-nocookie.com/embed/5kozt0uDa4c" title="YouTube video player" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="explore" class="explore">
-        <div class="row" style="margin-top:-450px;margin-left:50px;">
-            <div class="col-md-3">
-                <h1 class="textexplore" style="margin-top:100px">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+    <section id="explore" class="explore py-5">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start">
+                <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
             </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <a href="/animal_php/classanimal/detail/1" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/bosat.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/bosat.png');">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/1" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');">
                             <h1 class="textexplore">Động vật bò sát</h1>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="container" style="margin-left:-50px;">
-                    <a href="/animal_php/classanimal/detail/2" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/ca.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/ca.png');">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/2" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');">
                             <h1 class="textexplore">Cá</h1>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="container" style="margin-left:-200px;">
-                    <a href="/animal_php/classanimal/detail/3" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/chim.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/chim.png');">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/3" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');">
                             <h1 class="textexplore">Chim</h1>
                         </div>
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="row" style="margin-top:60px;">
-            <div class="col-md-3">
-                <div class="container">
-                    <a href="/animal_php/classanimal/detail/4" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/dongvatcovu.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/dongvatcovu.png');">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/4" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');">
                             <h1 class="textexplore">Động vật có vú</h1>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="container" style="margin-left:-50px;">
-                    <a href="/animal_php/classanimal/detail/5" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/khongxuongsong.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/khongxuongsong.png');">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/5" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');">
                             <h1 class="textexplore">Động vật không xương sống</h1>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="container" style="margin-left:-200px;">
-                    <a href="/animal_php/classanimal/detail/6" class="card">
-                        <div class="front" style="background-image: url('/animal_php/view/design/Explore/luongcu.png');"></div>
-                        <div class="back" style="background-image: url('/animal_php/view/design/Explore/luongcu.png');">
-
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="flip-container">
+                    <a href="<?= $base ?>/classanimal/detail/6" class="card">
+                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');">
                             <h1 class="textexplore">Động vật lưỡng cư</h1>
-
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <img src="/animal_php/view/design/About/logo.png" alt="Image 1" style="margin-left: -400px;">
+            <div class="col-lg-3 d-none d-lg-block text-center">
+                <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
+            </div>
             </div>
         </div>
     </section>
 
     <section id="support" class="support">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="textsupport" style="margin-top: -400px;">
-                    Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của
-                    cộng
-                    đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật
-                    nội
-                    dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
-                </h1>
-            </div>
-            <div class="col-md-6">
-                <h1 class="textsupport">
-                    Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về
-                    động
-                    vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
-                </h1>
-                <a href="/posts" class="button" style="margin-top: 50px;">
-                    <span class="content">Community!</span>
-                </a>
+        <div class="container py-5">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h1 class="textsupport fs-4 lh-base" style="margin: 0;">
+                        Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của
+                        cộng
+                        đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật
+                        nội
+                        dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
+                    </h1>
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-center align-items-md-start">
+                    <h1 class="textsupport fs-4 lh-base mb-4">
+                        Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về
+                        động
+                        vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
+                    </h1>
+                    <a href="<?= $base ?>/Posts" class="button">
+                        <span class="content">Community!</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -218,7 +221,7 @@ include '../header.php';
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
     <div class="static-button" id="startIntro" style="margin-right: -100px">
-        <img src="/animal_php/images/idle.gif" alt="Start Intro"
+        <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
@@ -244,7 +247,7 @@ include '../header.php';
                                 </p>
                             </div>
                             <div style="flex: 1;">
-                            <img src="/animal_php/images/trailer1.gif" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
+                            <img src="<?= $base ?>/images/trailer1.gif" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
                             </div>
                         </div>
                     `
@@ -259,7 +262,7 @@ include '../header.php';
                                 </p>
                             </div>
                             <div style="flex: 1;">
-                            <img src="/animal_php/images/trailer2.png" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
+                            <img src="<?= $base ?>/images/trailer2.png" alt="Description of Image" style="height: 500px; width: 500px; object-fit: cover;margin-left: -180px" >
                             </div>
                         </div>
                     `
@@ -341,7 +344,7 @@ include '../header.php';
                 // Check if the current step is the last step
                 if (targetElement === document.querySelector('.front')) {
                     localStorage.setItem('introCompleted', 'true');
-                    window.location.href = 'http://localhost/animal_php/classanimal/detail/1';
+                    window.location.href = 'http://localhost<?= $base ?>/classanimal/detail/1';
                 }
             }).start();
         };

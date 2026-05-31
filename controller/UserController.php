@@ -219,5 +219,17 @@ class UserController {
         return $stmt->fetchColumn(); // Return the username
     }
     
+    public function updateUserAvatar($user_id, $avatar) {
+        $sql = "UPDATE user SET avatar = :avatar WHERE id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['avatar' => $avatar, 'user_id' => $user_id]);
+    }
+    
+    public function getAvatarById($user_id) {
+        $sql = "SELECT avatar FROM user WHERE id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['user_id' => $user_id]);
+        return $stmt->fetchColumn();
+    }
 }
 ?>

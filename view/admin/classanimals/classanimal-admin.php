@@ -43,6 +43,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
             <thead>
                 <tr>
                     <th>#ID</th>
+                    <th>Ảnh / Video</th>
                     <th>Tên lớp</th>
                     <th>Thông tin</th>
                     <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
@@ -60,6 +61,21 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                 <?php foreach ($classAnimals as $cls): ?>
                 <tr>
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($cls['id_class']) ?></span></td>
+                    <td>
+                        <?php 
+                        $mediaName = htmlspecialchars($cls['background_video'] ?? '');
+                        $ext = strtolower(pathinfo($mediaName, PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
+                        if(!empty($mediaName)): 
+                            if($isVideo): ?>
+                                <video src="<?= $base ?>/images/ClassAnimal/<?= $mediaName ?>" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;" muted></video>
+                            <?php else: ?>
+                                <img src="<?= $base ?>/images/ClassAnimal/<?= $mediaName ?>" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                            <?php endif;
+                        else: ?>
+                            <span class="text-muted" style="font-size:12px;">Trống</span>
+                        <?php endif; ?>
+                    </td>
                     <td><strong><?= htmlspecialchars($cls['name']) ?></strong></td>
                     <td style="max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--text-secondary);">
                         <?= htmlspecialchars(substr($cls['info'] ?? '', 0, 100)) ?>...
@@ -67,9 +83,13 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/classanimal/detail/<?= urlencode($cls['id_class']) ?>"
+                            <a href="<?= $base ?>/admin/classanimals/detail/<?= urlencode($cls['id_class']) ?>"
                                class="action-btn view" title="Xem lớp">
                                 <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a href="<?= $base ?>/admin/classanimals/edit/<?= urlencode($cls['id_class']) ?>"
+                               class="action-btn edit" title="Chỉnh sửa">
+                                <i class="fa-solid fa-pen"></i>
                             </a>
                         </div>
                     </td>

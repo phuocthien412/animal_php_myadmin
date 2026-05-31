@@ -43,11 +43,23 @@ class AnimalController {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public function getAnimalImagesById($id) {
-    $sql = "SELECT animalimage FROM listanimals WHERE animals_id = :id";
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute(['id' => $id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $sql = "SELECT id, animalimage FROM listanimals WHERE animals_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteAnimalImage($imageId) {
+        $sql = "DELETE FROM listanimals WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['id' => $imageId]);
+    }
+
+    public function addAnimalImage($animalId, $imageName) {
+        $sql = "INSERT INTO listanimals (animals_id, animalimage) VALUES (:animalId, :imageName)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['animalId' => $animalId, 'imageName' => $imageName]);
+    }
 public function deleteAnimal($id) {
     try {
         // Begin a transaction
@@ -80,7 +92,10 @@ public function updateAnimal($id, $data) {
                     gioi_thieu_text = :gioi_thieu_text, 
                     ngoai_hinh_text = :ngoai_hinh_text, 
                     noi_sinh_song_text = :noi_sinh_song_text, 
-                    classanimals_id = :classanimals_id 
+                    classanimals_id = :classanimals_id,
+                    avatar = :avatar,
+                    noi_sinh_song_image = :noi_sinh_song_image,
+                    imgqr3d = :imgqr3d
                 WHERE id_animal = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -89,6 +104,9 @@ public function updateAnimal($id, $data) {
             'ngoai_hinh_text' => $data['ngoai_hinh_text'],
             'noi_sinh_song_text' => $data['noi_sinh_song_text'],
             'classanimals_id' => $data['classanimals_id'],
+            'avatar' => $data['avatar'],
+            'noi_sinh_song_image' => $data['noi_sinh_song_image'],
+            'imgqr3d' => $data['imgqr3d'],
             'id' => $id
         ]);
         return $stmt->rowCount(); // Return the number of affected rows

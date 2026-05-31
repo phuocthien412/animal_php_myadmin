@@ -1,6 +1,7 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\animal\view_animal.php
 require_once '../../controller/AnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
 
 if (!isset($_GET['id'])) {
     echo "Invalid animal ID.";
@@ -20,7 +21,7 @@ if (!$animal) {
 <html lang="en">
 <head>
     <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-    <link rel="stylesheet" href="/animal_php/css/mystyle.css">
+    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
@@ -69,12 +70,12 @@ include '../header.php';
             <div class="col-md-6">
                 <div class="listimage">
                     <figure>
-                        <img src="/animal_php/images/<?php echo htmlspecialchars($animal['avatar']); ?>" class="itemListimg" style="">
+                        <img src="<?= $base ?>/images/Animal/Avatar/<?php echo htmlspecialchars($animal['avatar']); ?>" class="itemListimg" style="">
                     </figure>
 
                     <div class="slide" style="">
     <?php foreach ($animalImages as $image) { ?>
-        <img src="/animal_php/images/<?php echo htmlspecialchars($image['animalimage']); ?>" alt=""/>
+        <img src="<?= $base ?>/images/Animal/ListImage/<?php echo htmlspecialchars($image['animalimage']); ?>" alt=""/>
     <?php } ?>
 </div>
                 </div>
@@ -113,7 +114,7 @@ include '../header.php';
             <div class="col-md-6">
                 <div class="listimage">
                     <figure>
-                        <img src="/animal_php/images/<?php echo htmlspecialchars($animal['noi_sinh_song_image']); ?>" alt="" class="itemListimg" style="margin-top:50px">
+                        <img src="<?= $base ?>/images/Animal/NoiSinhSong/<?php echo htmlspecialchars($animal['noi_sinh_song_image']); ?>" alt="" class="itemListimg" style="margin-top:50px">
                     </figure>
                 </div>
             </div>
@@ -138,7 +139,7 @@ include '../header.php';
             <div class="col-md-6 animal3d">
                 <div class="listimage">
                     <figure class="scan3d">
-                        <img src="/animal_php/images/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="margin-top:50px;width:500px;height:500px;">
+                        <img src="<?= $base ?>/images/Animal/3DQR/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="margin-top:50px;width:500px;height:500px;">
                     </figure>
                     <h1 class="texttitle" style="text-align:center;margin-top:20px;">
                         AR animal scan!
@@ -161,7 +162,7 @@ include '../header.php';
                                     <p style="text-align:justify">
                                         <span>B1:</span> Quét mã QR dưới đây và cài đặt phần mềm trên điện thoại.
                                     </p>
-                                    <img src="/animal_php/images/QRScan.png" alt="" class="itemListimg" style="width:400px;height:400px;">
+                                    <img src="<?= $base ?>/images/QRScan.png" alt="" class="itemListimg" style="width:400px;height:400px;">
                                     <p style="text-align:justify">
                                         <span>B2:</span> Chạy phần mềm và nhấn vào nút Scan Animal.
                                     </p>
@@ -319,7 +320,7 @@ include '../header.php';
         };
     </script>
     <div class="static-button" id="startIntro" style="margin-right: -100px">
-        <img src="/animal_php/images/idle.gif" alt="Start Intro"
+        <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">

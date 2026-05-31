@@ -5,6 +5,13 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 // Load BASE_URL từ .env → $base
 require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../controller/AnimalController.php';
+require_once __DIR__ . '/../../controller/UserController.php';
+
+$animalController = new AnimalController();
+$userController = new UserController();
+$totalAnimals = count($animalController->getAllAnimals());
+$totalUsers = count($userController->getAllUsers());
 // Redirect nếu đã đăng nhập
 if (isset($_SESSION['username'])) {
     header('Location: ' . $base . '/Home');
@@ -22,7 +29,7 @@ if (isset($_SESSION['username'])) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
 
@@ -76,8 +83,8 @@ if (isset($_SESSION['username'])) {
         );
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        padding: 48px 52px;
+        justify-content: center;
+        padding: 60px 80px;
     }
 
     /* Texture overlay */
@@ -134,8 +141,8 @@ if (isset($_SESSION['username'])) {
         backdrop-filter: blur(8px);
     }
     .hero-logo-name {
-        font-family: 'Outfit', sans-serif;
-        font-size: 22px; font-weight: 800;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 24px; font-weight: 800;
         color: #fff; letter-spacing: .5px;
     }
     .hero-logo-tagline {
@@ -145,11 +152,11 @@ if (isset($_SESSION['username'])) {
     }
 
     .hero-headline {
-        font-family: 'Outfit', sans-serif;
-        font-size: clamp(28px, 3.5vw, 44px);
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: clamp(32px, 4vw, 52px);
         font-weight: 800;
         color: #fff;
-        line-height: 1.15;
+        line-height: 1.25;
         margin-bottom: 16px;
     }
     .hero-headline em {
@@ -161,11 +168,12 @@ if (isset($_SESSION['username'])) {
     }
 
     .hero-desc {
-        font-size: 15px;
-        color: rgba(255,255,255,.72);
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        color: rgba(255,255,255,.8);
         line-height: 1.65;
-        max-width: 380px;
-        margin-bottom: 32px;
+        max-width: 420px;
+        margin-bottom: 40px;
     }
 
     .hero-stats {
@@ -173,8 +181,8 @@ if (isset($_SESSION['username'])) {
     }
     .hero-stat { }
     .hero-stat-val {
-        font-family: 'Outfit', sans-serif;
-        font-size: 22px; font-weight: 700; color: #fff;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 26px; font-weight: 700; color: #fff;
     }
     .hero-stat-lbl {
         font-size: 11.5px; color: rgba(255,255,255,.55);
@@ -211,10 +219,10 @@ if (isset($_SESSION['username'])) {
         display: flex; align-items: center; gap: 6px;
     }
     .form-title {
-        font-family: 'Outfit', sans-serif;
-        font-size: 28px; font-weight: 800;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 32px; font-weight: 800;
         color: var(--text-dark);
-        line-height: 1.15;
+        line-height: 1.25;
     }
     .form-subtitle {
         font-size: 14px; color: var(--text-mid);
@@ -295,7 +303,7 @@ if (isset($_SESSION['username'])) {
         background: linear-gradient(135deg, var(--forest-light), var(--teal));
         color: #fff;
         border: none; border-radius: 12px;
-        font-family: 'Outfit', sans-serif;
+        font-family: 'Be Vietnam Pro', sans-serif;
         font-size: 16px; font-weight: 700;
         cursor: pointer;
         margin-top: 8px;
@@ -411,11 +419,11 @@ if (isset($_SESSION['username'])) {
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="hero-stat-val">500+</div>
+                    <div class="hero-stat-val"><?= $totalAnimals ?></div>
                     <div class="hero-stat-lbl">Loài động vật</div>
                 </div>
                 <div class="hero-stat">
-                    <div class="hero-stat-val">10K+</div>
+                    <div class="hero-stat-val"><?= $totalUsers ?></div>
                     <div class="hero-stat-lbl">Thành viên</div>
                 </div>
                 <div class="hero-stat">

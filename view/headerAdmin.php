@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $base
 ?>
 <!DOCTYPE html>
@@ -8,7 +10,6 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NEKOPARA — Admin Panel</title>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= $base ?>/view/design/Home/logo.png" />
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,8 +44,8 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
 
         <div class="sidebar-section-label">Tổng quan</div>
 
-        <a href="<?= $base ?>/admin/users"
-           class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/users') !== false && strpos($_SERVER['REQUEST_URI'], 'editRole') === false && strpos($_SERVER['REQUEST_URI'], 'delete') === false) ? 'active' : ''; ?>">
+        <a href="<?= $base ?>/admin/dashboard"
+           class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-gauge-high"></i></span>
             Dashboard
         </a>
@@ -79,7 +80,7 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
 
         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
         <a href="<?= $base ?>/admin/users"
-           class="sidebar-item">
+           class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/users') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-users-gear"></i></span>
             Tài khoản
         </a>
@@ -95,18 +96,27 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
     <!-- Footer / User -->
     <div class="sidebar-footer">
         <div class="sidebar-user">
-            <div class="sidebar-avatar">
-                <?php echo isset($_SESSION['username']) ? strtoupper(mb_substr($_SESSION['username'], 0, 1)) : 'A'; ?>
-            </div>
-            <div class="sidebar-user-info">
-                <div class="sidebar-user-name">
-                    <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin'; ?>
+            <a href="<?= $base ?>/admin/profile" style="display:flex; align-items:center; text-decoration:none; color:inherit; flex:1;">
+                <div class="sidebar-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <?php 
+                    $sidebarAvatar = isset($_SESSION['avatar']) && !empty($_SESSION['avatar']) ? $base . '/images/' . htmlspecialchars($_SESSION['avatar']) : null;
+                    if ($sidebarAvatar): 
+                    ?>
+                        <img src="<?= $sidebarAvatar ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
+                        <?php echo isset($_SESSION['username']) ? strtoupper(mb_substr($_SESSION['username'], 0, 1)) : 'A'; ?>
+                    <?php endif; ?>
                 </div>
-                <div class="sidebar-user-role">
-                    <?php echo isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']) ? 'Administrator' : 'Manager'; ?>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">
+                        <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin'; ?>
+                    </div>
+                    <div class="sidebar-user-role">
+                        <?php echo isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']) ? 'Administrator' : 'Manager'; ?>
+                    </div>
                 </div>
-            </div>
-            <form action="<?= $base ?>/view/user/logout.php" method="post">
+            </a>
+            <form action="<?= $base ?>/view/user/logout.php" method="post" style="margin-left:auto;">
                 <button class="sidebar-logout-btn" type="submit" title="Đăng xuất">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
@@ -126,18 +136,23 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
         Dashboard <span>/ Quản trị</span>
     </div>
 
-    <div class="topbar-actions">
-        <button class="topbar-btn" title="Thông báo">
+    <div class="topbar-actions" style="display: flex; align-items: center;">
+        <button class="topbar-btn" title="Thông báo" style="margin-right: 15px;">
             <i class="fa-regular fa-bell"></i>
         </button>
-        <div class="topbar-user-pill">
-            <div class="topbar-user-av">
-                <?php echo isset($_SESSION['username']) ? strtoupper(mb_substr($_SESSION['username'], 0, 1)) : 'A'; ?>
-            </div>
-            <span class="topbar-user-name">
-                <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin'; ?>
-            </span>
-        </div>
+        <a href="<?= $base ?>/admin/profile" class="topbar-user" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+            <?php 
+                $headerAvatar = isset($_SESSION['avatar']) && !empty($_SESSION['avatar']) ? $base . '/images/' . htmlspecialchars($_SESSION['avatar']) : null;
+                if ($headerAvatar): 
+            ?>
+                <img src="<?= $headerAvatar ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
+            <?php else: ?>
+                <div style="width: 36px; height: 36px; background: var(--green-primary); color: white; border-radius: 50%; text-align: center; line-height: 36px; font-weight: bold; font-size: 15px;">
+                    <?= isset($_SESSION['username']) ? strtoupper(mb_substr($_SESSION['username'], 0, 1)) : 'A' ?>
+                </div>
+            <?php endif; ?>
+            <span style="margin-left: 10px; font-weight: 500; display: none; /* Hide text on mobile if needed, but normally show it */"><?= isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin' ?></span>
+        </a>
     </div>
 </div>
 
