@@ -1,0 +1,39 @@
+RewriteEngine On
+
+# Bỏ qua các tệp tĩnh
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Chuyển hướng từ /animal_php/home đến /animal_php/view/home/index.php
+RewriteRule ^Home$ view/home/index.php [L]
+RewriteRule ^FindAnimal$ view/home/FindAnimal.php [L]
+RewriteRule ^ClassAnimal$ view/classanimal/list_classanimals.php [L]
+RewriteRule ^Login$ view/user/login.php [L]
+RewriteRule ^Register$ view/user/add_user.php [L]
+RewriteRule ^classanimal/detail/([0-9]+)$ view/classanimal/detail_classanimal.php?id=$1 [L]
+RewriteRule ^animal/detail/([0-9]+)$ view/animal/view_animal.php?id=$1 [L]
+RewriteRule ^search/(.*)$ view/animal/animals-list.php?searchQuery=$1 [L,QSA]
+# Friendly URL for user-admin delete
+RewriteRule ^admin/users/delete/([0-9]+)$ view/admin/users/delete.php?id=$1 [L]
+
+# User
+RewriteRule ^admin/users/editRole/([0-9]+)$ view/admin/users/editRole.php?id=$1 [L]
+
+#Animal
+RewriteRule ^admin/users$ view/admin/users/user-admin.php [L]
+RewriteRule ^admin/animals$ view/admin/animals/animal-admin.php [L]
+RewriteRule ^admin/animals/add$ view/admin/animals/add_animal.php [L]
+RewriteRule ^admin/animals/delete/([0-9]+)$ view/admin/animals/delete.php?id=$1 [L]
+RewriteRule ^admin/animals/edit/([0-9]+)$ view/admin/animals/update_animal.php?id=$1 [L]
+RewriteRule ^admin/animals/edit$ view/admin/animals/update_animal.php [L]
+
+#ClassAnimal
+RewriteRule ^admin/classanimals$ view/admin/classanimals/classanimal-admin.php [L]
+
+#post
+RewriteRule ^Posts$ view/post/posts-list.php [L]
+RewriteRule ^posts/detail/([0-9]+)$ view/post/post-detail.php?id=$1 [L]
+RewriteRule ^admin/posts$ view/admin/posts/post-admin.php [L]
+
+#comment
+RewriteRule ^admin/comments$ view/admin/comments/comment-admin.php [L]
