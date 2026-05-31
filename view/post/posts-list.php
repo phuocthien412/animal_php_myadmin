@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -57,7 +57,7 @@ if ($showOnlyMyPosts) {
             <div class="hero-container" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 0;">
                 <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
                 <div class="hero-overlay">
-                    <h1 class="display-3 fw-bold text-white text-center" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Community</h1>
+                    <h1 class="display-3 fw-bold text-white text-center" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Cộng đồng</h1>
                     <h4 class="text-white text-center mt-3 fw-medium" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Hãy cùng nhau chia sẻ những trải nghiệm của bản thân về thế giới động vật phong phú</h4>
                 </div>
             </div>
@@ -83,7 +83,7 @@ if ($showOnlyMyPosts) {
                 <!-- The Modal -->
                 <div id="modalDialog" class="modal">
                     <div class="modal-content animate-top"
-                        style="background-image: url('/animal_php/view/design/Explore/bg.png');object-fit: cover; border-radius: 20px;">
+                        style="background-image: url('/animal_php/images/Explore/bg.png');object-fit: cover; border-radius: 20px;">
                         <div class="modal-header border-0">
                             <h4 class="modal-title fw-bold" style="color:white; text-shadow: 1px 1px 2px black;">Đăng bài viết mới</h4>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1; text-shadow: 1px 1px 2px black;">
@@ -142,7 +142,7 @@ if ($showOnlyMyPosts) {
                                 <div class="card h-100 shadow-lg border-0 premium-glass-card overflow-hidden">
                                     <div class="d-flex justify-content-between align-items-center p-3 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">
                                         <div class="d-flex align-items-center">
-                                            <img src="/animal_php/view/design/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:40px;width:40px;object-fit:cover; border: 2px solid rgba(255,255,255,0.2);">
+                                            <img src="/animal_php/images/Footer/nekoparalogo.png" class="rounded-circle shadow-sm" style="height:40px;width:40px;object-fit:cover; border: 2px solid rgba(255,255,255,0.2);">
                                             <span class="fw-bold text-white ms-3 fs-6" style="letter-spacing: 0.5px;"><?= htmlspecialchars($username) ?></span>
                                         </div>
                                         <div class="text-white-50 small">

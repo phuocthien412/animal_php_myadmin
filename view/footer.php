@@ -1,3 +1,6 @@
+﻿<?php
+require_once __DIR__ . '/../config/env.php';
+?>
 <footer class="text-white pt-5 pb-4" style="background-color: #2c3e50; font-family: 'Be Vietnam Pro', sans-serif;">
     <div class="container text-md-left">
         <div class="row text-md-left">
@@ -6,8 +9,8 @@
                 <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-weight: 800;">NEKOPARA</h5>
                 <p>Khám phá thế giới động vật tuyệt vời. Cùng nhau xây dựng cộng đồng yêu thiên nhiên, chia sẻ kiến thức và bảo vệ môi trường.</p>
                 <div style="margin-top: 20px;">
-                    <img src="<?= $base ?>/view/design/Footer/wwflogo.png" alt="WWF Logo" style="height: 60px; margin-right: 15px;">
-                    <img src="<?= $base ?>/view/design/Footer/nekoparalogo.png" alt="Nekopara Logo" style="height: 60px;">
+                    <img src="<?= $base ?>/images/Footer/wwflogo.png" alt="WWF Logo" style="height: 60px; margin-right: 15px;">
+                    <img src="<?= $base ?>/images/Footer/nekoparalogo.png" alt="Nekopara Logo" style="height: 60px;">
                 </div>
             </div>
 
@@ -37,7 +40,7 @@
         <div class="row align-items-center">
             <div class="col-md-7 col-lg-8">
                 <p class="text-center text-md-start mb-0">
-                    © 2026 All Rights Reserved | 
+                    Â© 2026 All Rights Reserved | 
                     <strong class="text-warning">Nekopara.com</strong>
                 </p>
             </div>

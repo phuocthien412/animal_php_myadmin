@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -17,7 +17,7 @@ require_once __DIR__ . '/../config/env.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= $base ?>/view/design/About/logo.png">
+    <link rel="icon" type="image/png" href="<?= $base ?>/images/About/logo.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -96,7 +96,7 @@ require_once __DIR__ . '/../config/env.php';
             <div class="container-fluid" style="margin-left:100px">
                 <a class="navbar-brand" href="<?= $base ?>/Home">
                     <div class="logo">
-                        <img src="<?= $base ?>/view/design/Header/logo.png" width="120px" height="80px">
+                        <img src="<?= $base ?>/images/Header/logo.png" width="120px" height="80px">
                     </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -146,8 +146,8 @@ require_once __DIR__ . '/../config/env.php';
                     </ul>
                 </div>
                 <form action="<?= $base ?>/search/" method="get" class="input-box" id="searchForm">
-                    <input type="text" name="searchQuery" id="searchTerm" placeholder="What animal are you looking for?" class="form-control">
-                    <span class="icon">
+                    <input type="text" name="searchQuery" id="searchTerm" placeholder="Tìm kiếm động vật..." class="form-control">
+                    <span class="icon" title="Tìm kiếm">
                         <i class="fas fa-search search-icon"></i>
                     </span>
                     <i class="fas fa-times close-icon"></i>
@@ -162,7 +162,7 @@ require_once __DIR__ . '/../config/env.php';
 
                             // Kiểm tra xem từ khóa tìm kiếm có tồn tại không trước khi gửi form
                             if (searchTerm.trim() !== '') {
-                                $(this).unbind('submit').submit(); // Gửi form
+                                $(this).unbind('submit').submit(); // Gá»­i form
                             } else {
                                 // Xử lý khi không có từ khóa tìm kiếm
                                 // Ví dụ: Hiển thị thông báo lỗi

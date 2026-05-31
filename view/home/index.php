@@ -1,3 +1,6 @@
+﻿<?php
+require_once __DIR__ . '/../../config/env.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +60,7 @@ include '../header.php';
     </nav>
 
     <section id="home" class="home" style="margin-top: -100px;">
-        <img src="<?= $base ?>/view/design/Home/logo.png" class="logo1" data-aos="fade-up" data-aos-duration="1500"/>
+        <img src="<?= $base ?>/images/Home/logo.png" class="logo1" data-aos="fade-up" data-aos-duration="1500"/>
         <h1 class="texthome" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
     </section>
 
@@ -65,13 +68,13 @@ include '../header.php';
         <div class="container py-5">
             <div class="row align-items-center mb-5">
                 <div class="col-md-6 text-center text-md-start mb-4 mb-md-0" data-aos="fade-up" data-aos-duration="1000">
-                    <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
+                    <img src="<?= $base ?>/images/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
                 </div>
                 <div class="col-md-6 test1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <h1 class="textabout lh-base fs-5">
-                        Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật . Với đội
+                        Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật. Với đội
                         ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
-                        loại động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
+                        loài động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
                     </h1>
                 </div>
             </div>
@@ -102,8 +105,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/4" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');">
                             <h1 class="textexplore">Bò sát</h1>
                         </div>
                     </a>
@@ -112,8 +115,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/5" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/ca.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/ca.png');">
                             <h1 class="textexplore">Cá</h1>
                         </div>
                     </a>
@@ -122,8 +125,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/3" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/chim.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/chim.png');">
                             <h1 class="textexplore">Chim</h1>
                         </div>
                     </a>
@@ -132,8 +135,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/2" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');">
                             <h1 class="textexplore">Động vật có vú</h1>
                         </div>
                     </a>
@@ -142,8 +145,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/5" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');">
                             <h1 class="textexplore">Động vật không xương sống</h1>
                         </div>
                     </a>
@@ -152,15 +155,15 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/6" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');">
                             <h1 class="textexplore">Động vật lưỡng cư</h1>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="col-lg-3 d-none d-lg-block text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
+                <img src="<?= $base ?>/images/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
             </div>
             </div>
         </div>
@@ -228,7 +231,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
-            Bạn cần trợ giúp ?
+            Bạn cần trợ giúp?
         </div>
     </div>
 
@@ -292,7 +295,7 @@ include '../header.php';
                         element: document.querySelector('.test2'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Thông tin về NEKOPARA.
+                                   ThÃ´ng tin vá» NEKOPARA.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -359,3 +362,4 @@ include '../footer.php';
 ?>
 </body>
 </html>
+

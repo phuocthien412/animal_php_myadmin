@@ -1,4 +1,4 @@
-html {
+﻿html {
     scroll-behavior: smooth;
 }
 
@@ -121,7 +121,7 @@ section {
 }
 
     section.home {
-        background-image: url('../view/design/Home/bg.png');
+        background-image: url('../images/Home/bg.png');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
@@ -134,7 +134,7 @@ section {
     }
 
     section.ClassAnimal {
-        background-image: url('../view/design/Explore/bg.png');
+        background-image: url('../images/Explore/bg.png');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
@@ -145,7 +145,7 @@ section {
     }
     section.AnimalDetail {
         padding: 12% 0;
-        background-image: url('../view/design/Explore/bg.png');
+        background-image: url('../images/Explore/bg.png');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
@@ -153,7 +153,7 @@ section {
     }
     section.Post {
         padding: 12% 0;
-        background-image: url('../view/design/Explore/bg.png');
+        background-image: url('../images/Explore/bg.png');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
@@ -236,7 +236,7 @@ h1.textclassanimalInfo {
 }
 
 section.about {
-    background-image: url('../view/design/About/bg.png');
+    background-image: url('../images/About/bg.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -247,7 +247,7 @@ section.about {
 }
 
 section.explore {
-    background-image: url('../view/design/Explore/bg.png');
+    background-image: url('../images/Explore/bg.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -258,7 +258,7 @@ section.explore {
 }
 
 section.support {
-    background-image: url('../view/design/Support/bg.png');
+    background-image: url('../images/Support/bg.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -808,3 +808,4 @@ label {
         background-color: #fff;
         border: 1px solid #dc3545;
     }
+

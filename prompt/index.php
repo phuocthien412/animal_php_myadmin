@@ -1,3 +1,6 @@
+﻿<?php
+require_once __DIR__ . '/../config/env.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,31 +60,31 @@ include '../header.php';
     </nav>
 
     <section id="home" class="home" style="margin-top: -100px;">
-        <img src="<?= $base ?>/view/design/Home/logo.png" class="logo1"/>
-        <h1 class="texthome"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
+        <img src="<?= $base ?>/images/Home/logo.png" class="logo1"/>
+        <h1 class="texthome"> ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i cá»•ng thÃ´ng tin vá» cÃ¡c loÃ i Ä‘á»™ng váº­t cá»§a NEKOPARA! </h1>
     </section>
 
     <section id="about" class="about">
         <div class="container py-5">
             <div class="row align-items-center mb-5">
                 <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
-                    <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
+                    <img src="<?= $base ?>/images/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
                 </div>
                 <div class="col-md-6 test1">
                     <h1 class="textabout lh-base fs-5">
-                        Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật . Với đội
-                        ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
-                        loại động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
+                        Táº¡i Ä‘Ã¢y, chÃºng tÃ´i cung cáº¥p má»™t nguá»“n tÃ i nguyÃªn phong phÃº vÃ  Ä‘a dáº¡ng vá» cÃ¡c loÃ i Ä‘á»™ng váº­t . Vá»›i Ä‘á»™i
+                        ngÅ© chuyÃªn gia Ä‘á»™ng váº­t vÃ  nhÃ  nghiÃªn cá»©u, chÃºng tÃ´i Ä‘Ã£ tá»•ng há»£p thÃ´ng tin chi tiáº¿t vÃ  thÃº vá»‹ vá» cÃ¡c
+                        loáº¡i Ä‘á»™ng váº­t tá»« nhá»¯ng con cÃ¡ nhá» bÃ© Ä‘áº¿n cÃ¡c loÃ i thÃº hoang dÃ£ to lá»›n.
                     </h1>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6 test2 mb-4 mb-md-0">
                     <h1 class="textabout lh-base fs-5">
-                        Qua trang NEKOPARA, chúng tôi muốn chia sẻ kiến thức và thông tin đáng tin cậy về
-                        động vật, giúp mọi người hiểu rõ hơn về cuộc sống và sự đa dạng của chúng. Chúng tôi hy vọng rằng
-                        thông qua việc tăng cường nhận thức và kiến thức về động vật, chúng ta có thể thúc đẩy những nỗ lực
-                        bảo vệ môi trường và duy trì sự cân bằng tự nhiên.
+                        Qua trang NEKOPARA, chÃºng tÃ´i muá»‘n chia sáº» kiáº¿n thá»©c vÃ  thÃ´ng tin Ä‘Ã¡ng tin cáº­y vá»
+                        Ä‘á»™ng váº­t, giÃºp má»i ngÆ°á»i hiá»ƒu rÃµ hÆ¡n vá» cuá»™c sá»‘ng vÃ  sá»± Ä‘a dáº¡ng cá»§a chÃºng. ChÃºng tÃ´i hy vá»ng ráº±ng
+                        thÃ´ng qua viá»‡c tÄƒng cÆ°á»ng nháº­n thá»©c vÃ  kiáº¿n thá»©c vá» Ä‘á»™ng váº­t, chÃºng ta cÃ³ thá»ƒ thÃºc Ä‘áº©y nhá»¯ng ná»— lá»±c
+                        báº£o vá»‡ mÃ´i trÆ°á»ng vÃ  duy trÃ¬ sá»± cÃ¢n báº±ng tá»± nhiÃªn.
                     </h1>
                 </div>
                 <div class="col-md-6 text-center">
@@ -97,14 +100,14 @@ include '../header.php';
         <div class="container">
             <div class="row g-4 align-items-center">
             <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start">
-                <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+                <h1 class="textexplore fw-bold">KhÃ¡m phÃ¡ cÃ¡c nhÃ³m Ä‘á»™ng váº­t cÃ¹ng NEKOPARA</h1>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/1" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');">
-                            <h1 class="textexplore">Động vật bò sát</h1>
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');">
+                            <h1 class="textexplore">Äá»™ng váº­t bÃ² sÃ¡t</h1>
                         </div>
                     </a>
                 </div>
@@ -112,9 +115,9 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/2" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');">
-                            <h1 class="textexplore">Cá</h1>
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/ca.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/ca.png');">
+                            <h1 class="textexplore">CÃ¡</h1>
                         </div>
                     </a>
                 </div>
@@ -122,8 +125,8 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/3" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');">
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/chim.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/chim.png');">
                             <h1 class="textexplore">Chim</h1>
                         </div>
                     </a>
@@ -132,9 +135,9 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/4" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');">
-                            <h1 class="textexplore">Động vật có vú</h1>
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');">
+                            <h1 class="textexplore">Äá»™ng váº­t cÃ³ vÃº</h1>
                         </div>
                     </a>
                 </div>
@@ -142,9 +145,9 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/5" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/khongxuongsong.png');">
-                            <h1 class="textexplore">Động vật không xương sống</h1>
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');">
+                            <h1 class="textexplore">Äá»™ng váº­t khÃ´ng xÆ°Æ¡ng sá»‘ng</h1>
                         </div>
                     </a>
                 </div>
@@ -152,15 +155,15 @@ include '../header.php';
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/6" class="card">
-                        <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');"></div>
-                        <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');">
-                            <h1 class="textexplore">Động vật lưỡng cư</h1>
+                        <div class="front" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');"></div>
+                        <div class="back" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');">
+                            <h1 class="textexplore">Äá»™ng váº­t lÆ°á»¡ng cÆ°</h1>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="col-lg-3 d-none d-lg-block text-center">
-                <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
+                <img src="<?= $base ?>/images/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
             </div>
             </div>
         </div>
@@ -171,18 +174,18 @@ include '../header.php';
             <div class="row align-items-center text-center text-md-start">
                 <div class="col-md-6 mb-4 mb-md-0 d-flex justify-content-center">
                     <h1 class="textsupport fs-5 lh-base" style="margin: 0; max-width: 500px;">
-                        Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của
-                        cộng
-                        đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật
-                        nội
-                        dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
+                        ChÃºng tÃ´i tÃ¬m kiáº¿m sá»± há»— trá»£ vÃ  Ä‘Ã³ng gÃ³p cá»§a
+                        cá»™ng
+                        Ä‘á»“ng Ä‘á»ƒ giÃºp phÃ¡t triá»ƒn vÃ  má»Ÿ rá»™ng trang web thÃ´ng tin vá» Ä‘á»™ng váº­t. Viá»‡c thu tháº­p vÃ  cáº­p nháº­t
+                        ná»™i
+                        dung cá»§a cÃ¡c loÃ i váº­t Ä‘Ã²i há»i má»™t lÆ°á»£ng lá»›n thÃ´ng tin khá»•ng lá»“.
                     </h1>
                 </div>
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <h1 class="textsupport fs-5 lh-base mb-4" style="max-width: 500px;">
-                        Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về
-                        động
-                        vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
+                        Báº¡n cÃ³ thá»ƒ Ä‘Ã³ng gÃ³p báº±ng cÃ¡ch chia sáº» nhá»¯ng hÃ¬nh áº£nh, nhá»¯ng tráº£i nghiá»‡m vá»
+                        Ä‘á»™ng
+                        váº­t mÃ  báº¡n Ä‘Ã£ tá»«ng gáº·p thÃ´ng qua pháº§n diá»…n Ä‘Ã n trao Ä‘á»•i cá»§a chÃºng tÃ´i.
                     </h1>
                     <a href="<?= $base ?>/Posts" class="button">
                         <span class="content">Community!</span>
@@ -225,7 +228,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
-            Bạn cần trợ giúp ?
+            Báº¡n cáº§n trá»£ giÃºp ?
         </div>
     </div>
 
@@ -243,7 +246,7 @@ include '../header.php';
                         <div style="display: flex; align-items: center; text-align: left;">
                             <div style="flex: 1; padding: 10px;height: auto;min-width: 500px;margin-left: -200px" >
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Xin chào mình là Lily trợ lý của NEKOPARA.
+                                    Xin chÃ o mÃ¬nh lÃ  Lily trá»£ lÃ½ cá»§a NEKOPARA.
                                 </p>
                             </div>
                             <div style="flex: 1;">
@@ -258,7 +261,7 @@ include '../header.php';
                         <div style="display: flex; align-items: center; text-align: left;">
                             <div style="flex: 1; padding: 10px;height: auto;min-width: 500px;margin-left: -200px" >
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Hôm nay mình sẽ dẫn bạn đi tham quan một vòng trang web của tụi mình nhé!
+                                   HÃ´m nay mÃ¬nh sáº½ dáº«n báº¡n Ä‘i tham quan má»™t vÃ²ng trang web cá»§a tá»¥i mÃ¬nh nhÃ©!
                                 </p>
                             </div>
                             <div style="flex: 1;">
@@ -271,7 +274,7 @@ include '../header.php';
                         element: document.querySelector('.logo1'),
                         intro: `
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Logo của bọn mình nè.
+                                   Logo cá»§a bá»n mÃ¬nh nÃ¨.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the logo
@@ -280,7 +283,7 @@ include '../header.php';
                         element: document.querySelector('.test1'),
                         intro: `
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Thông tin về NEKOPARA.
+                                   ThÃ´ng tin vá» NEKOPARA.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -289,7 +292,7 @@ include '../header.php';
                         element: document.querySelector('.test2'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Thông tin về NEKOPARA.
+                                   ThÃ´ng tin vá» NEKOPARA.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -298,7 +301,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đây là các nhóm động vật.
+                                   ÄÃ¢y lÃ  cÃ¡c nhÃ³m Ä‘á»™ng váº­t.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -307,7 +310,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Khi nhấn vào sẽ hiện ra các loài động vật thuộc nhóm đó.
+                                   Khi nháº¥n vÃ o sáº½ hiá»‡n ra cÃ¡c loÃ i Ä‘á»™ng váº­t thuá»™c nhÃ³m Ä‘Ã³.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -316,7 +319,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Bạn có thể xem tin tức ở đây.
+                                    Báº¡n cÃ³ thá»ƒ xem tin tá»©c á»Ÿ Ä‘Ã¢y.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -325,7 +328,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Ta hãy xem thử bên trong nhóm động vật thì có gì nhé.
+                                   Ta hÃ£y xem thá»­ bÃªn trong nhÃ³m Ä‘á»™ng váº­t thÃ¬ cÃ³ gÃ¬ nhÃ©.
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text

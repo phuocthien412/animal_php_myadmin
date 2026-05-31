@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 // filepath: e:\laragon\www\animal_php\view\animal\animals-list.php
-require_once '../../controller/AnimalController.php';
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../controller/AnimalController.php';
+require_once __DIR__ . '/../config/env.php';
 
 $animalController = new AnimalController();
 $searchQuery = isset($_GET['searchQuery']) ? $_GET['searchQuery'] : '';
@@ -110,7 +110,7 @@ include '../header.php';
                 <!-- The Modal -->
                 <div id="modalDialog" class="modal">
                     <div class="modal-content animate-top"
-                         style="background-image: url('<?= $base ?>/view/design/Explore/bg.png');object-fit: cover;">
+                         style="background-image: url('<?= $base ?>/images/Explore/bg.png');object-fit: cover;">
                         <div class="modal-header">
                             <b class="modal-title" style="color:white;">Kết quả tìm kiếm</b>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -127,10 +127,10 @@ include '../header.php';
         <div class="list" style="margin-top:-100px; display: flex; flex-wrap: wrap;">
             <?php if (empty($animals)) { ?>
                 <h1 class="textclassanimalName" style="margin-top:100px;">Chúng tôi rất tiếc vì con vật bạn tìm kiếm
-                    không có trong danh sách trên trang web.Nếu có thể,mong bạn hãy chia sẽ hình ảnh hoặc trải
-                    nghiêm của mình về con vật mà bạn muốn tìm thông qua kênh Community!</h1>
+                    không có trong danh sách trên trang web. Nếu có thể, mong bạn hãy chia sẻ hình ảnh hoặc trải
+                    nghiệm của mình về con vật mà bạn muốn tìm thông qua kênh Community!</h1>
                 <a href="<?= $base ?>/Posts" class="button" style="margin-top: 50px;">
-                    <span class="content">Community!</span>
+                    <span class="content">Cộng đồng!</span>
                 </a>
             <?php } else { ?>
                 <?php foreach ($animals as $animal) { ?>

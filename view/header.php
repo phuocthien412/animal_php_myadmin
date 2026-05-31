@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,7 +11,7 @@ require_once __DIR__ . '/../config/env.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= $base ?>/view/design/About/logo.png">
+    <link rel="icon" type="image/png" href="<?= $base ?>/images/About/logo.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -143,7 +143,7 @@ require_once __DIR__ . '/../config/env.php';
             <div class="container-fluid" style="margin-left:100px">
                 <a class="navbar-brand" href="<?= $base ?>/Home">
                     <div class="logo">
-                        <img src="<?= $base ?>/view/design/Header/logo.png" width="120px" height="80px">
+                        <img src="<?= $base ?>/images/Header/logo.png" width="120px" height="80px">
                     </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -229,13 +229,13 @@ require_once __DIR__ . '/../config/env.php';
                             }
                         });
 
-                        $('#searchForm').submit(function(event) {
-                            var searchTerm = $('#searchTerm').val();
-                            if (searchTerm.trim() === '') {
-                                event.preventDefault(); // Ngăn chặn gửi form mặc định
-                                console.log('Vui lòng nhập từ khóa tìm kiếm!');
-                            }
-                        });
+                           $('#searchForm').submit(function(event) {
+                               var searchTerm = $('#searchTerm').val();
+                               if (searchTerm.trim() === '') {
+                                   event.preventDefault(); // Ngăn chặn gửi form mặc định
+                                   console.log('Vui lòng nhập từ khóa tìm kiếm!');
+                               }
+                           });
                     });
                 </script>
 
