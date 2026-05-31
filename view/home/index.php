@@ -57,17 +57,17 @@ include '../header.php';
     </nav>
 
     <section id="home" class="home" style="margin-top: -100px;">
-        <img src="<?= $base ?>/view/design/Home/logo.png" class="logo1"/>
-        <h1 class="texthome"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
+        <img src="<?= $base ?>/view/design/Home/logo.png" class="logo1" data-aos="fade-up" data-aos-duration="1500"/>
+        <h1 class="texthome" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
     </section>
 
     <section id="about" class="about">
         <div class="container py-5">
             <div class="row align-items-center mb-5">
-                <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+                <div class="col-md-6 text-center text-md-start mb-4 mb-md-0" data-aos="fade-up" data-aos-duration="1000">
                     <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 300px;">
                 </div>
-                <div class="col-md-6 test1">
+                <div class="col-md-6 test1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <h1 class="textabout lh-base fs-5">
                         Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật . Với đội
                         ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
@@ -76,7 +76,7 @@ include '../header.php';
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-md-6 test2 mb-4 mb-md-0">
+                <div class="col-md-6 test2 mb-4 mb-md-0" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="textabout lh-base fs-5">
                         Qua trang NEKOPARA, chúng tôi muốn chia sẻ kiến thức và thông tin đáng tin cậy về
                         động vật, giúp mọi người hiểu rõ hơn về cuộc sống và sự đa dạng của chúng. Chúng tôi hy vọng rằng
@@ -84,7 +84,7 @@ include '../header.php';
                         bảo vệ môi trường và duy trì sự cân bằng tự nhiên.
                     </h1>
                 </div>
-                <div class="col-md-6 text-center">
+                <div class="col-md-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <div class="ratio ratio-16x9">
                         <iframe src="https://www.youtube-nocookie.com/embed/5kozt0uDa4c" title="YouTube video player" allowfullscreen></iframe>
                     </div>
@@ -96,22 +96,22 @@ include '../header.php';
     <section id="explore" class="explore py-5">
         <div class="container">
             <div class="row g-4 align-items-center">
-            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start">
+            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start" data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                 <div class="flip-container">
-                    <a href="<?= $base ?>/classanimal/detail/1" class="card">
+                    <a href="<?= $base ?>/classanimal/detail/4" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/bosat.png');">
-                            <h1 class="textexplore">Động vật bò sát</h1>
+                            <h1 class="textexplore">Bò sát</h1>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                 <div class="flip-container">
-                    <a href="<?= $base ?>/classanimal/detail/2" class="card">
+                    <a href="<?= $base ?>/classanimal/detail/5" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/ca.png');">
                             <h1 class="textexplore">Cá</h1>
@@ -119,7 +119,7 @@ include '../header.php';
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/3" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/chim.png');"></div>
@@ -129,9 +129,9 @@ include '../header.php';
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                 <div class="flip-container">
-                    <a href="<?= $base ?>/classanimal/detail/4" class="card">
+                    <a href="<?= $base ?>/classanimal/detail/2" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/view/design/Explore/dongvatcovu.png');">
                             <h1 class="textexplore">Động vật có vú</h1>
@@ -149,7 +149,7 @@ include '../header.php';
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/6" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/view/design/Explore/luongcu.png');"></div>
@@ -159,7 +159,7 @@ include '../header.php';
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 d-none d-lg-block text-center">
+            <div class="col-lg-3 d-none d-lg-block text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                 <img src="<?= $base ?>/view/design/About/logo.png" alt="Image 1" class="img-fluid" style="max-height: 200px;">
             </div>
             </div>
@@ -168,30 +168,33 @@ include '../header.php';
 
     <section id="support" class="support">
         <div class="container py-5">
-            <div class="row align-items-center text-center text-md-start">
-                <div class="col-md-6 mb-4 mb-md-0 d-flex justify-content-center">
-                    <h1 class="textsupport fs-5 lh-base" style="margin: 0; max-width: 500px;">
-                        Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của
-                        cộng
-                        đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật
-                        nội
-                        dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
-                    </h1>
-                </div>
-                <div class="col-md-6 d-flex flex-column align-items-center">
-                    <h1 class="textsupport fs-5 lh-base mb-4" style="max-width: 500px;">
-                        Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về
-                        động
-                        vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
-                    </h1>
-                    <a href="<?= $base ?>/Posts" class="button">
-                        <span class="content">Community!</span>
-                    </a>
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <div class="support-card p-4 p-md-5 rounded-4 shadow-lg" data-aos="fade-up" data-aos-duration="1200" style="background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                        <i class='bx bx-heart text-danger mb-3' style="font-size: 5rem;"></i>
+                        <h2 class="text-white fw-bold mb-4" style="font-family: 'Be Vietnam Pro', sans-serif;">Tham gia cùng chúng tôi</h2>
+                        <p class="text-white-50 fs-5 mb-4" style="line-height: 1.8;">
+                            Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của cộng đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật nội dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
+                        </p>
+                        <p class="text-white-50 fs-5 mb-5" style="line-height: 1.8;">
+                            Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về động vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
+                        </p>
+                        <a href="<?= $base ?>/Posts" class="btn btn-primary btn-lg rounded-pill fw-bold px-5 py-3 shadow-sm text-uppercase" data-aos="fade-up" data-aos-delay="300">
+                            <i class='bx bx-group me-2'></i> Community!
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: false,
+            offset: 50
+        });
+    </script>
     <script type="text/javascript">
 
         (function () {

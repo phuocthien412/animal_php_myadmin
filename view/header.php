@@ -24,6 +24,7 @@ require_once __DIR__ . '/../config/env.php';
     <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css?v=<?= time() ?>" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         .textheader {
             color: #333;
@@ -92,7 +93,7 @@ require_once __DIR__ . '/../config/env.php';
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:#F7F7F7;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color:#F7F7F7;">
             <div class="container-fluid" style="margin-left:100px">
                 <a class="navbar-brand" href="<?= $base ?>/Home">
                     <div class="logo">
