@@ -21,15 +21,6 @@ $animals = $classAnimalController->getAnimalsByClassAnimalId($id);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
-        .introjs-tooltip {
-            background-color: transparent !important; /* Semi-transparent background */
-            border: none !important; /* Remove border */
-            box-shadow: none !important; /* Remove shadow */
-            padding: 5px; /* Minimal padding to keep it close */
-            width: max-content;
-            height: max-content;
-        }
-
 
         /* Styles for the static image button */
         .static-button {

@@ -1,0 +1,10 @@
+- [x] 1. Khởi tạo Autoloading (Tùy chỉnh vì không có Composer)
+    - [x] Tạo file `autoload.php`
+    - [x] Tích hợp vào `config/env.php`
+    - [x] Xóa các lệnh `require_once` thừa trong toàn bộ dự án
+- [x] 3. Bảo mật toàn diện khu vực Admin
+    - [x] Thêm hàm `authorize('ADMIN')` vào TẤT CẢ các file xử lý form/view trong thư mục `view/admin/`
+- [ ] 2. Tái cấu trúc Controller (Chuẩn MVC) - Lược bỏ logic xử lý POST ra khỏi các file view và gọi đến Controller tương ứng
+- [x] 4. Kiểm tra và Verify
+    - [x] Xác nhận tính năng bảo mật (từ chối truy cập nếu không phải Admin)
+    - [x] Đảm bảo tính năng Autoload hoạt động ổn định

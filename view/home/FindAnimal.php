@@ -9,15 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <style>
-        .introjs-tooltip {
-            background-color: transparent !important; /* Semi-transparent background */
-            border: none !important; /* Remove border */
-            box-shadow: none !important; /* Remove shadow */
-            padding: 5px; /* Minimal padding to keep it close */
-            width: max-content;
-            height: max-content;
-        }
-
 
         /* Styles for the static image button */
         .static-button {
@@ -234,38 +225,38 @@ include '../header.php';
                     `
                     },
                     {
-                        element: document.querySelector('.fileup'),
+                        element: document.querySelector('#upload-area'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('find_animal_tour_step2') ?>
-                                </p>
+                                     <?= __('find_animal_tour_step2') ?>
+                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
-                        element: document.querySelector('.fileup'),
+                        element: document.querySelector('#upload-area'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('find_animal_tour_step3') ?>
-                                </p>
+                                     <?= __('find_animal_tour_step3') ?>
+                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
-                        element: document.querySelector('.button'),
+                        element: document.querySelector('#search-btn'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('find_animal_tour_step4') ?>
-                                </p>
+                                     <?= __('find_animal_tour_step4') ?>
+                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
-                        element: document.querySelector('.button'),
+                        element: document.querySelector('#search-btn'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('find_animal_tour_step5') ?>
-                                </p>
+                                     <?= __('find_animal_tour_step5') ?>
+                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },

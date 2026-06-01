@@ -188,3 +188,98 @@ require_once __DIR__ . '/../config/env.php';
         </div>
     </div>
 </footer>
+
+<script>
+// Draggable Assistant Widget
+document.addEventListener('DOMContentLoaded', function() {
+    const assistantBtn = document.getElementById('startIntro');
+    if (!assistantBtn) return;
+
+    let isDragging = false;
+    let hasDragged = false;
+    let startX, startY, initialX, initialY;
+
+    // Prevent click if we actually dragged
+    assistantBtn.addEventListener('click', function(e) {
+        if (hasDragged) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    }, true);
+
+    function dragStart(e) {
+        if (e.target.tagName.toLowerCase() === 'a') return; // Don't drag if clicking a link inside it
+        
+        if (e.type === "touchstart") {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        } else {
+            startX = e.clientX;
+            startY = e.clientY;
+            e.preventDefault(); // Prevent native image dragging and text selection
+        }
+
+        const rect = assistantBtn.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+
+        isDragging = true;
+        hasDragged = false;
+
+        assistantBtn.style.transition = 'none';
+        
+        assistantBtn.style.right = 'auto';
+        assistantBtn.style.bottom = 'auto';
+        assistantBtn.style.left = initialX + 'px';
+        assistantBtn.style.top = initialY + 'px';
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+
+        let currentX, currentY;
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+        } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+        }
+
+        let dx = currentX - startX;
+        let dy = currentY - startY;
+
+        if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+            hasDragged = true;
+            e.preventDefault(); // Prevent default only when dragging to allow scrolling otherwise
+        }
+
+        let newX = initialX + dx;
+        let newY = initialY + dy;
+
+        const maxX = window.innerWidth - assistantBtn.offsetWidth;
+        const maxY = window.innerHeight - assistantBtn.offsetHeight;
+        
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
+
+        assistantBtn.style.left = newX + "px";
+        assistantBtn.style.top = newY + "px";
+    }
+
+    function dragEnd(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        assistantBtn.style.transition = 'transform 0.3s ease'; 
+    }
+
+    assistantBtn.addEventListener("mousedown", dragStart, false);
+    assistantBtn.addEventListener("dragstart", function(e) { e.preventDefault(); }); // Stop HTML5 native drag on images
+    document.addEventListener("mousemove", drag, {passive: false});
+    document.addEventListener("mouseup", dragEnd, false);
+
+    assistantBtn.addEventListener("touchstart", dragStart, {passive: true});
+    document.addEventListener("touchmove", drag, {passive: false});
+    document.addEventListener("touchend", dragEnd, false);
+});
+</script>

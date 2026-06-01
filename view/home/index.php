@@ -88,15 +88,6 @@ require_once __DIR__ . '/../../config/env.php';
             }
         }
 
-        .introjs-tooltip {
-            background-color: transparent !important; /* Semi-transparent background */
-            border: none !important; /* Remove border */
-            box-shadow: none !important; /* Remove shadow */
-            padding: 5px; /* Minimal padding to keep it close */
-            width: max-content;
-            height: max-content;
-        }
-
 
         /* Styles for the static image button */
         .static-button {
@@ -313,12 +304,13 @@ include '../header.php';
 
         // Trigger Intro.js when the image is clicked
         document.getElementById('startIntro').onclick = function () {
-            introJs().setOptions({
+            var intro = introJs();
+            intro.setOptions({
                 steps: [
                     {
                         element: document.querySelector('#someElement0'),
                         intro: `
-                        <div style="display: flex; align-items: center; text-align: left;">
+                        <div style="display: flex; align-items: center; text-align: left; width: 800px; max-width: 90vw;">
                             <div class="home-intro-copy" style="padding: 10px; height: auto;" >
                                 <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
                                     <?= __('intro_1') ?>
@@ -333,7 +325,7 @@ include '../header.php';
                     {
                         element: document.querySelector('#someElement2'),
                         intro: `
-                        <div style="display: flex; align-items: center; text-align: left;">
+                        <div style="display: flex; align-items: center; text-align: left; width: 800px; max-width: 90vw;">
                             <div class="home-intro-copy" style="padding: 10px; height: auto;" >
                                 <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
                                    <?= __('intro_2') ?>
@@ -391,13 +383,13 @@ include '../header.php';
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
-                        element: document.querySelector('.button'),
+                        element: document.querySelector('.support-card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('intro_7') ?>
+                                     <?= __('intro_7') ?>
                                 </p>
                 `,
-                        position: 'bottom' // Position tooltip directly below the text
+                        position: 'top' // Position tooltip directly above the support card since it is at the bottom of the page
                     },
                     {
                         element: document.querySelector('.card'),
@@ -424,7 +416,23 @@ include '../header.php';
                     localStorage.setItem('introCompleted', 'true');
                     window.location.href = 'http://localhost<?= $base ?>/classanimal/detail/1';
                 }
-            }).start();
+            });
+            
+            intro.onbeforechange(function() {
+                document.body.classList.add('introjs-active');
+                setTimeout(function() { intro.refresh(); }, 500);
+                setTimeout(function() { intro.refresh(); }, 1100);
+            });
+
+            intro.onexit(function() {
+                document.body.classList.remove('introjs-active');
+            });
+
+            intro.oncomplete(function() {
+                document.body.classList.remove('introjs-active');
+            });
+            
+            intro.start();
         };
     </script>
 
