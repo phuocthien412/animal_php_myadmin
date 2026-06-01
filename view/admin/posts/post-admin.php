@@ -80,7 +80,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 </td></tr>
                 <?php else: ?>
                 <?php foreach ($posts as $post): ?>
-                <tr>
+                <tr onclick="if(window.getSelection().toString().length === 0 && !event.target.closest('.action-btns')) window.location='<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>'" style="cursor: pointer;" title="Nhấn vào để xem chi tiết">
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($post['id_post']) ?></span></td>
                     <td class="animal-img-cell">
                         <?php if (!empty($post['image'])): ?>
@@ -109,10 +109,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>"
-                               class="action-btn view" title="<?= __('btn_view_post') ?>">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
+
                             <a href="<?= $base ?>/view/admin/posts/delete-post.php?id=<?= urlencode($post['id_post']) ?>"
                                class="action-btn delete" title="<?= __('btn_delete_post') ?>"
                                onclick="return confirm('<?= __('confirm_delete_post') ?>')">

@@ -167,11 +167,11 @@ require_once __DIR__ . '/../config/env.php';
                 </h5>
                 <p class="footer-contact-item d-flex align-items-center mb-3">
                     <i class="fa-solid fa-envelope me-3" style="color: #00f0ff; font-size: 1.1rem;"></i>
-                    <span>nekopara@gmail.com</span>
+                    <a href="mailto:minhngothien1@gmail.com?subject=Soan%20thu" class="footer-link footer-contact-text" style="color:inherit; text-decoration:none;">minhngothien1@gmail.com</a>
                 </p>
                 <p class="footer-contact-item d-flex align-items-center">
                     <i class="fa-brands fa-facebook me-3" style="color: #7f00ff; font-size: 1.1rem;"></i>
-                    <span>facebook.com/NEKOPARA</span>
+                    <a href="https://www.facebook.com/thien.ngo.256980" target="_blank" rel="noopener noreferrer" class="footer-link footer-contact-text" style="color:inherit; text-decoration:none;">facebook.com/Thien Ngo</a>
                 </p>
             </div>
         </div>
@@ -184,21 +184,6 @@ require_once __DIR__ . '/../config/env.php';
                     © 2026 <?= __('footer_rights') ?> | 
                     <a href="<?= $base ?>/Home" class="text-decoration-none" style="background: linear-gradient(90deg, #00f0ff, #7f00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Nekopara.com</a>
                 </p>
-            </div>
-            <div class="col-md-5 col-lg-4">
-                <div class="text-center text-md-end mt-3 mt-md-0">
-                    <ul class="list-unstyled list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a href="#" class="social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="social-icon-btn"><i class="fa-brands fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="social-icon-btn"><i class="fa-brands fa-instagram"></i></a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

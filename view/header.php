@@ -188,7 +188,7 @@ require_once __DIR__ . '/../config/env.php';
                         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
                             <li class="nav-item" style="margin-left:10px">
                                 <a class="nav-link textheader <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin') !== false) ? 'active' : ''; ?>"
-                                    href="<?= $base ?>/admin/users"><?= __('admin') ?></a>
+                                    href="<?= $base ?>/admin/dashboard"><?= __('admin') ?></a>
                             </li>
                         <?php endif; ?>
                     </ul>

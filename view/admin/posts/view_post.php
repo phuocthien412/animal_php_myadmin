@@ -141,39 +141,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                         </div>
                         <div class="actions">
                             <?php if ($isHidden && $hasOrig): ?>
-                                <button class="btn btn-sm btn-outline-primary toggle-hidden" type="button"><?= __('btn_temp_show') ?></button>
+                                <button class="btn btn-sm btn-outline-primary toggle-hidden" type="button" title="<?= __('btn_temp_show') ?>"><i class="fa-solid fa-eye"></i></button>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php" style="display:inline-block; margin-left:6px;">
                                     <input type="hidden" name="action" value="unhide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-success" type="submit"><?= __('btn_unhide') ?></button>
+                                    <button class="btn btn-sm btn-success" type="submit" title="<?= __('btn_unhide') ?>"><i class="fa-solid fa-check"></i></button>
                                 </form>
                             <?php elseif ($isHidden): ?>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php" style="display:inline-block;">
                                     <input type="hidden" name="action" value="unhide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-success" type="submit"><?= __('btn_unhide') ?></button>
+                                    <button class="btn btn-sm btn-success" type="submit" title="<?= __('btn_unhide') ?>"><i class="fa-solid fa-check"></i></button>
                                 </form>
                             <?php else: ?>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                     <input type="hidden" name="action" value="hide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-warning" type="submit"><?= __('btn_hide') ?></button>
+                                    <button class="btn btn-sm btn-warning" type="submit" title="<?= __('btn_hide') ?>"><i class="fa-solid fa-eye-slash"></i></button>
                                 </form>
                             <?php endif; ?>
                             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_comment') ?>')"><?= __('btn_delete') ?></button>
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_comment') ?>')" title="<?= __('btn_delete') ?>"><i class="fa-solid fa-trash"></i></button>
                             </form>
                             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                 <input type="hidden" name="action" value="bulk_delete_user">
                                 <input type="hidden" name="user_id" value="<?= intval($c['user_id']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_all_comments') ?>')"><?= __('btn_delete_all') ?></button>
+                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_all_comments') ?>')" title="<?= __('btn_delete_all') ?>"><i class="fa-solid fa-ban"></i></button>
                             </form>
                         </div>
                     </div>

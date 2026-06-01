@@ -85,7 +85,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 </td></tr>
                 <?php else: ?>
                 <?php foreach ($animals as $animal): ?>
-                <tr>
+                <tr onclick="if(window.getSelection().toString().length === 0 && !event.target.closest('.action-btns')) window.location='<?= $base ?>/admin/animals/detail/<?= urlencode($animal['id_animal']) ?>'" style="cursor: pointer;" title="Nhấn vào để xem chi tiết">
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($animal['id_animal']) ?></span></td>
                     <td class="animal-img-cell">
                         <img src="<?= $base ?>/images/Animal/Avatar/<?= htmlspecialchars($animal['avatar']) ?>" alt="<?= htmlspecialchars($animal['name']) ?>">
@@ -98,10 +98,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/admin/animals/detail/<?= urlencode($animal['id_animal']) ?>"
-                               class="action-btn view" title="<?= __('action_view_details') ?>">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
+
                             <a href="<?= $base ?>/admin/animals/edit/<?= urlencode($animal['id_animal']) ?>"
                                class="action-btn edit" title="<?= __('action_edit') ?>">
                                 <i class="fa-solid fa-pen"></i>
