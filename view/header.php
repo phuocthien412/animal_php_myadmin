@@ -53,38 +53,47 @@ require_once __DIR__ . '/../config/env.php';
             margin: 0 5px;
         }
 
-        /* Style cho form tìm kiếm */
+        /* Style cho form tìm kiếm cao cấp */
         .input-box {
             position: relative;
-            height: 40px;
-            width: 45px;
+            height: 42px;
+            width: 42px;
             margin: 0 20px;
-            background: #fff;
-            border-radius: 25px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: #ffffff;
+            border-radius: 21px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             overflow: hidden;
             display: flex;
             align-items: center;
         }
 
+        .input-box:hover {
+            border-color: rgba(13, 110, 253, 0.3);
+            box-shadow: 0 6px 16px rgba(13, 110, 253, 0.1);
+        }
+
         .input-box.open {
-            width: 300px;
-            background: #fff;
+            width: 320px;
+            border-color: #0d6efd;
+            box-shadow: 0 8px 24px rgba(13, 110, 253, 0.15);
         }
 
         .input-box input {
             position: absolute;
             height: 100%;
             width: 100%;
-            border-radius: 25px;
+            border-radius: 21px;
             background: transparent;
             padding: 0 45px 0 20px;
             border: none;
             outline: none;
             opacity: 0;
             transition: opacity 0.3s ease;
-            font-size: 14px;
+            font-size: 14.5px;
+            color: #333;
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         .input-box.open input {
@@ -95,7 +104,7 @@ require_once __DIR__ . '/../config/env.php';
             position: absolute;
             right: 0;
             top: 0;
-            width: 45px;
+            width: 42px;
             height: 100%;
             display: flex;
             justify-content: center;
@@ -104,16 +113,23 @@ require_once __DIR__ . '/../config/env.php';
             cursor: pointer;
             z-index: 2;
             color: #0d6efd;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            font-size: 17px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .input-box:hover .icon {
-            transform: scale(1.1);
+            color: #00f0ff;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
         }
         
         .input-box.open .icon {
-            right: 15px;
+            right: 12px;
+            transform: rotate(90deg);
+        }
+        
+        .input-box.open:hover .icon {
+            color: #7f00ff;
+            text-shadow: 0 0 8px rgba(127, 0, 255, 0.4);
         }
 
         /* Active Header Styling */
@@ -230,8 +246,8 @@ require_once __DIR__ . '/../config/env.php';
                 </div>
                 <form action="<?= $base ?>/search/" method="get" class="input-box" id="searchForm">
                     <input type="text" name="searchQuery" id="searchTerm" placeholder="<?= __('search_placeholder') ?>">
-                    <span class="icon" title="Tìm kiếm">
-                        <i class="fas fa-search search-icon"></i>
+                    <span class="icon" title="<?= __('search_placeholder') ?>">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
                     </span>
                 </form>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
