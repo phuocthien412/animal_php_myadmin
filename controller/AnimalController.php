@@ -1,16 +1,9 @@
 <?php
-// filepath: e:\laragon\www\animal_php\controller\AnimalController.php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../model/Animal.php';
 require_once __DIR__ . '/../model/Notification.php';
 
-class AnimalController {
-    private $db;
-
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
+class AnimalController extends BaseController {
 
     // Create a new animal
     public function createAnimal($data) {

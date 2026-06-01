@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once '../../controller/UserController.php';
 require_once '../../config/env.php'; // Load $base từ .env
 
 $userController = new UserController();

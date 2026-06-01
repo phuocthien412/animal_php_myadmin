@@ -1,6 +1,6 @@
 <?php
-require_once '../../controller/UserController.php';
-require_once '../../controller/RoleController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $userController = new UserController();
 $roleController = new RoleController();

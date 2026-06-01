@@ -1,15 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../model/Role.php';
 require_once __DIR__ . '/../model/Notification.php';
 
-class RoleController {
-    private $db;
-
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
+class RoleController extends BaseController {
 
     // Create a new role
     public function createRole($data) {

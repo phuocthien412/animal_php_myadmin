@@ -1,6 +1,8 @@
 <?php
-require_once '../../../controller/UserController.php';
-require_once '../../../controller/RoleController.php';
+require_once __DIR__ . '/../../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 require_once '../../../config/env.php'; // Load $base từ .env
 
 // session already started in headerAdmin

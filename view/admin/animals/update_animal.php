@@ -1,6 +1,8 @@
 <?php
-require_once '../../../controller/AnimalController.php';
-require_once '../../../controller/ClassAnimalController.php';
+require_once __DIR__ . '/../../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 
 $animalController = new AnimalController();
 $classAnimalController = new ClassAnimalController();

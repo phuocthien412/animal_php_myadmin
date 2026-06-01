@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/UserController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 if (!isset($_GET['id'])) {
     header("Location: ../user-admin.php?error=Missing user ID");

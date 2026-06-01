@@ -1,0 +1,11 @@
+{
+    "name": "phuocthien412/animal-php-myadmin",
+    "description": "Nekopara Animal Management System",
+    "type": "project",
+    "autoload": {
+        "classmap": [
+            "controller/",
+            "model/"
+        ]
+    }
+}

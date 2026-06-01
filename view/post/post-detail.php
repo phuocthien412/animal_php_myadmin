@@ -4,9 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../../config/env.php';
-require_once __DIR__ . '/../../controller/PostController.php';
-require_once __DIR__ . '/../../controller/CommentController.php';
-require_once __DIR__ . '/../../controller/UserController.php';
 
 // Get the post ID from the URL
 $post_id = $_GET['id'] ?? null;

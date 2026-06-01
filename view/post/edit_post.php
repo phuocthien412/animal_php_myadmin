@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/PostController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $postController = new PostController();
 $post = $postController->getPostById($_GET['id_post']);

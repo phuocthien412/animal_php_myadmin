@@ -1,7 +1,8 @@
 <?php
-require_once '../../../controller/AnimalController.php';
-require_once '../../../controller/ClassAnimalController.php';
-require_once '../../../controller/ListAnimalController.php'; // Include the controller for list images
+require_once __DIR__ . '/../../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 
 // Fetch the list of class animals
 $classAnimalController = new ClassAnimalController();

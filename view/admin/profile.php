@@ -1,14 +1,14 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 if (!isset($_SESSION['username'])) {
     header("Location: /animal_php_myadmin/animal_php_myadmin/Login");
     exit();
 }
 
-require_once '../../config/env.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../../controller/UserController.php';
     $userController = new UserController();
 
     if (isset($_FILES['avatar_file'])) {

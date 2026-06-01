@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/UserController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $userController = new UserController();
 $users = $userController->getAllUsers();

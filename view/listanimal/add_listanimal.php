@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/ListAnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $animalImages = [];

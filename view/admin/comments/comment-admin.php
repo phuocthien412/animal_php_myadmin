@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
 require_once __DIR__ . '/../../../config/env.php';
@@ -15,9 +19,6 @@ $base = BASE_URL;
 <?php
 include '../../headerAdmin.php';
 
-require_once '../../../controller/CommentController.php';
-require_once '../../../controller/UserController.php';
-require_once '../../../controller/PostController.php';
 
 $commentController = new CommentController();
 $userController    = new UserController();

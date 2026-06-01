@@ -47,3 +47,6 @@ define('BASE_URL', $base);
 
 // Load i18n
 require_once __DIR__ . '/../lib/i18n.php';
+
+// Load Autoloader
+require_once __DIR__ . '/autoload.php';

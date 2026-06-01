@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../../config/env.php';
+$authController = new UserController();
+$authController->authorize('ADMIN', '/Home');
+
 $success = isset($_GET['success']) ? $_GET['success'] : '';
 $error   = isset($_GET['error'])   ? $_GET['error']   : '';
 ?>
@@ -16,11 +20,6 @@ include '../headerAdmin.php';
 // $base now available from base_url.php included in headerAdmin
 
 // Controllers
-require_once '../../controller/UserController.php';
-require_once '../../controller/AnimalController.php';
-require_once '../../controller/PostController.php';
-require_once '../../controller/CommentController.php';
-require_once '../../controller/ClassAnimalController.php';
 
 $userController        = new UserController();
 $animalController      = new AnimalController();

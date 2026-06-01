@@ -1,5 +1,4 @@
 <?php
-require_once '../../controller/UserController.php';
 
 require_once '../../config/env.php';
 

@@ -1,25 +1,17 @@
 <?php
-require_once '../../../controller/PostController.php';
-require_once '../../../config/env.php'; // Load $base từ .env
 
-session_start();
-
-if (!isset($_SESSION['roles']) || !in_array('ADMIN', $_SESSION['roles'])) {
-    header('Location: ' . $base . '/admin/posts?error=' . urlencode(__('msg_unauthorized')));
-    exit();
-}
+$postController = new PostController();
+$postController->authorize('ADMIN', '/admin/posts');
 
 if (isset($_GET['id'])) {
-    $postId         = intval($_GET['id']);
-    $postController = new PostController();
+    $postId = intval($_GET['id']);
     try {
         $postController->deletePost($postId);
-        header('Location: ' . $base . '/admin/posts?success=' . urlencode(__('msg_delete_post_success')));
+        $postController->redirect('/admin/posts', 'msg_delete_post_success', 'success');
     } catch (Exception $e) {
-        header('Location: ' . $base . '/admin/posts?error=' . urlencode($e->getMessage()));
+        $postController->redirect('/admin/posts', $e->getMessage(), 'error');
     }
 } else {
-    header('Location: ' . $base . '/admin/posts?error=' . urlencode(__('msg_invalid_post_id')));
+    $postController->redirect('/admin/posts', 'msg_invalid_post_id', 'error');
 }
-exit();
 ?>

@@ -1,6 +1,5 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\animal\view_animal.php
-require_once '../../controller/AnimalController.php';
 require_once __DIR__ . '/../../config/env.php';
 
 if (!isset($_GET['id'])) {

@@ -1,15 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../model/Post.php';
 require_once __DIR__ . '/../model/Notification.php';
 
-class PostController {
-    private $db;
-
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
+class PostController extends BaseController {
 
     // Create a new post
     public function createPost($data) {

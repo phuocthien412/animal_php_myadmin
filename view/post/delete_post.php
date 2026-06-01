@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/PostController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 if (isset($_GET['id_post'])) {
     $id_post = $_GET['id_post'];

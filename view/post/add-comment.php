@@ -1,6 +1,4 @@
 <?php
-require_once '../../controller/CommentController.php';
-require_once '../../controller/UserController.php';
 require_once __DIR__ . '/../../config/env.php';
 
 header('Content-Type: application/json');

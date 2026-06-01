@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-require_once '../../controller/PostController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the logged-in user's ID

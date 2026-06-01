@@ -1,16 +1,10 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../model/UserRole.php';
 require_once __DIR__ . '/../model/Notification.php';
 
-class UserController {
-    private $db;
-
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
+class UserController extends BaseController {
 
     public function loginUser($username, $password) {
         $sql = "SELECT * FROM user WHERE username = :username";

@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/PostController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 header('Content-Type: application/json');
 

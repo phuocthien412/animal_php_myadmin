@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/CommentController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $commentController = new CommentController();
 $comment = $commentController->getCommentById($_GET['id_cmt']);

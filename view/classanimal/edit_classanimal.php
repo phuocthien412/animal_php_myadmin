@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/ClassAnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $classAnimalController = new ClassAnimalController();
 $classAnimal = $classAnimalController->getClassAnimalById($_GET['id']);

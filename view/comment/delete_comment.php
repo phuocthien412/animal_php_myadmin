@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/CommentController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 if (isset($_GET['id_cmt'])) {
     $id_cmt = $_GET['id_cmt'];

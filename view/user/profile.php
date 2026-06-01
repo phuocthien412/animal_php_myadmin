@@ -8,7 +8,6 @@ if (!isset($_SESSION['username'])) {
 require_once __DIR__ . '/../../config/env.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once __DIR__ . '/../../controller/UserController.php';
     $userController = new UserController();
     
     if (isset($_FILES['avatar_file'])) {

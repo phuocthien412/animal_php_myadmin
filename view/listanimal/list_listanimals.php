@@ -1,5 +1,6 @@
 <?php
-require_once '../../controller/ListAnimalController.php';
+require_once __DIR__ . '/../../config/env.php';
+
 
 $listAnimalController = new ListAnimalController();
 $listAnimals = $listAnimalController->getAllListAnimals();

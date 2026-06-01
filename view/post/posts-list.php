@@ -4,8 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/../../config/env.php';
 
-require_once '../../controller/PostController.php';
-require_once '../../controller/UserController.php';
 
 $postController = new PostController();
 $userController = new UserController();
