@@ -3,6 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $base
+require_once __DIR__ . '/../model/Notification.php';
+
+$adminNotifications = Notification::getRecent(5);
+$adminNotificationCount = Notification::getUnreadCount();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -30,9 +34,6 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
 
     <!-- Brand -->
     <a href="<?= $base ?>/Home" class="sidebar-brand">
-        <div class="sidebar-brand-icon">
-            <i class="fa-solid fa-paw"></i>
-        </div>
         <div class="sidebar-brand-text">
             <span class="sidebar-brand-name">NEKOPARA</span>
             <span class="sidebar-brand-sub">Admin Console</span>
@@ -76,6 +77,12 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
             Bình luận
         </a>
 
+        <a href="<?= $base ?>/admin/notifications"
+            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/notifications') !== false) ? 'active' : ''; ?>">
+            <span class="si-icon"><i class="fa-solid fa-bell"></i></span>
+            Thông báo
+        </a>
+
         <div class="sidebar-section-label">Hệ thống</div>
 
         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
@@ -86,43 +93,11 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
         </a>
         <?php endif; ?>
 
-        <a href="<?= $base ?>/Home" class="sidebar-item">
-            <span class="si-icon"><i class="fa-solid fa-house"></i></span>
-            Trang chủ
-        </a>
-
     </nav>
 
     <!-- Footer / User -->
-    <div class="sidebar-footer">
-        <div class="sidebar-user">
-            <a href="<?= $base ?>/admin/profile" style="display:flex; align-items:center; text-decoration:none; color:inherit; flex:1;">
-                <div class="sidebar-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                    <?php 
-                    $sidebarAvatar = isset($_SESSION['avatar']) && !empty($_SESSION['avatar']) ? $base . '/images/' . htmlspecialchars($_SESSION['avatar']) : null;
-                    if ($sidebarAvatar): 
-                    ?>
-                        <img src="<?= $sidebarAvatar ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
-                    <?php else: ?>
-                        <?php echo isset($_SESSION['username']) ? strtoupper(mb_substr($_SESSION['username'], 0, 1)) : 'A'; ?>
-                    <?php endif; ?>
-                </div>
-                <div class="sidebar-user-info">
-                    <div class="sidebar-user-name">
-                        <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Admin'; ?>
-                    </div>
-                    <div class="sidebar-user-role">
-                        <?php echo isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']) ? 'Administrator' : 'Manager'; ?>
-                    </div>
-                </div>
-            </a>
-            <form action="<?= $base ?>/view/user/logout.php" method="post" style="margin-left:auto;">
-                <button class="sidebar-logout-btn" type="submit" title="Đăng xuất">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </button>
-            </form>
-        </div>
-    </div>
+</div>
+    <!-- End of Sidebar -->
 
 </aside>
 
@@ -132,14 +107,78 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
         <i class="fa-solid fa-bars"></i>
     </button>
 
+    <button class="topbar-toggle topbar-collapse-toggle" id="sidebarCollapseToggle" title="Ẩn/hiện thanh bên" aria-label="Ẩn/hiện thanh bên">
+        <i class="fa-solid fa-angles-left"></i>
+    </button>
+
     <div class="topbar-title" id="topbarTitle">
         Dashboard <span>/ Quản trị</span>
     </div>
 
     <div class="topbar-actions" style="display: flex; align-items: center;">
-        <button class="topbar-btn" title="Thông báo" style="margin-right: 15px;">
-            <i class="fa-regular fa-bell"></i>
-        </button>
+        <a href="<?= $base ?>/Home" class="topbar-btn topbar-home-btn" title="Về trang chủ" aria-label="Về trang chủ">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
+        <div class="topbar-notification-wrap">
+            <button class="topbar-btn topbar-notification-btn" id="notificationToggle" title="Thông báo" aria-label="Thông báo" aria-expanded="false" aria-controls="adminNotificationPanel">
+                <i class="fa-regular fa-bell"></i>
+                <?php if ($adminNotificationCount > 0): ?>
+                    <span class="badge-dot"></span>
+                    <span class="topbar-badge"><?= $adminNotificationCount ?></span>
+                <?php endif; ?>
+            </button>
+
+            <div class="notification-panel" id="adminNotificationPanel" hidden>
+                <div class="notification-panel-header">
+                    <div>
+                        <div class="notification-panel-title">Thông báo</div>
+                            <div class="notification-panel-subtitle"><?= $adminNotificationCount ?> hành động gần nhất</div>
+                    </div>
+                            <a href="<?= $base ?>/admin/notifications/" class="notification-panel-link">Xem tất cả</a>
+                </div>
+
+                <div class="notification-panel-list">
+                    <?php if (!empty($adminNotifications)): ?>
+                        <?php foreach ($adminNotifications as $notification): ?>
+                            <?php
+                                $notificationType = $notification['type'] ?? 'general';
+                                $notificationLink = $base . ($notification['link'] ?? '/admin/notifications/');
+                                $notificationIcon = 'fa-bell';
+                                if ($notificationType === 'post') {
+                                    $notificationIcon = 'fa-newspaper';
+                                } elseif ($notificationType === 'comment') {
+                                    $notificationIcon = 'fa-comments';
+                                } elseif ($notificationType === 'animal') {
+                                    $notificationIcon = 'fa-dragon';
+                                } elseif ($notificationType === 'classanimal') {
+                                    $notificationIcon = 'fa-layer-group';
+                                } elseif ($notificationType === 'user') {
+                                    $notificationIcon = 'fa-users';
+                                } elseif ($notificationType === 'role') {
+                                    $notificationIcon = 'fa-user-shield';
+                                }
+                            ?>
+                            <a class="notification-item" href="<?= htmlspecialchars($notificationLink) ?>" style="display:flex !important; align-items:flex-start !important; gap:12px !important; width:100%; box-sizing:border-box; white-space:normal !important;">
+                                <span class="notification-icon notification-<?= htmlspecialchars($notificationType) ?>" style="flex:0 0 36px;">
+                                    <i class="fa-solid <?= htmlspecialchars($notificationIcon) ?>"></i>
+                                </span>
+                                <span class="notification-content" style="flex:1; min-width:0; display:flex !important; flex-direction:column !important; align-items:flex-start; gap:2px;">
+                                    <span class="notification-title" style="display:block; line-height:1.25;"><?= htmlspecialchars($notification['title']) ?></span>
+                                    <span class="notification-action" style="display:block; line-height:1.35; white-space:normal; word-break:break-word;"><?= htmlspecialchars($notification['action'] ?? $notification['message'] ?? $notification['title']) ?></span>
+                                    <span class="notification-time" style="display:block; line-height:1.3; white-space:nowrap;">
+                                        <?= htmlspecialchars(!empty($notification['created_at']) ? date('d/m/Y H:i', strtotime($notification['created_at'])) : '') ?>
+                                    </span>
+                                </span>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="notification-empty">Chưa có thông báo mới.</div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
         <a href="<?= $base ?>/admin/profile" class="topbar-user" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
             <?php 
                 $headerAvatar = isset($_SESSION['avatar']) && !empty($_SESSION['avatar']) ? $base . '/images/' . htmlspecialchars($_SESSION['avatar']) : null;
@@ -164,6 +203,9 @@ require_once __DIR__ . '/../config/env.php'; // Load BASE_URL từ .env → $bas
 const sidebar  = document.getElementById('adminSidebar');
 const overlay  = document.getElementById('sidebarOverlay');
 const toggle   = document.getElementById('sidebarToggle');
+const collapseToggle = document.getElementById('sidebarCollapseToggle');
+const notificationToggle = document.getElementById('notificationToggle');
+const notificationPanel = document.getElementById('adminNotificationPanel');
 
 if (toggle) toggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
@@ -173,6 +215,28 @@ if (overlay) overlay.addEventListener('click', () => {
     sidebar.classList.remove('open');
     overlay.classList.remove('show');
 });
+
+if (collapseToggle) collapseToggle.addEventListener('click', () => {
+    document.body.classList.toggle('sidebar-collapsed');
+    const collapsed = document.body.classList.contains('sidebar-collapsed');
+    collapseToggle.innerHTML = `<i class="fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}"></i>`;
+});
+
+if (notificationToggle && notificationPanel) {
+    notificationToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isOpen = !notificationPanel.hasAttribute('hidden');
+        notificationPanel.hidden = isOpen;
+        notificationToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    document.addEventListener('click', (event) => {
+            if (!notificationPanel.contains(event.target) && !notificationToggle.contains(event.target)) {
+                notificationPanel.hidden = true;
+                notificationToggle.setAttribute('aria-expanded', 'false');
+            }
+    });
+}
 
 // Dynamic topbar title từ active sidebar item
 document.addEventListener('DOMContentLoaded', () => {

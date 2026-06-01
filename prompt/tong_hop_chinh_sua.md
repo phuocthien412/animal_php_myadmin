@@ -20,3 +20,39 @@ Dưới đây là danh sách toàn bộ các file đã được chỉnh sửa đ
 
 ## 4. File Header (`view/header.php`)
 - Thay đổi link CSS thành: `<link rel="stylesheet" href="<?= $base ?>/css/mystyle.css?v=<?= time() ?>" />` để triệt tiêu hoàn toàn lỗi kẹt bộ nhớ đệm (cache) trên trình duyệt client.
+
+## 5. Tổng Hợp Thay Đổi Ngày Hôm Nay - Thông Báo Admin
+
+### Mục tiêu
+- Sửa lại thanh thông báo trên header admin.
+- Tạo trang notification riêng cho admin.
+- Bỏ realtime/SSE tạm thời vì gây lag, sau đó chuyển header sang kiểu hiển thị gọn hơn.
+
+### Các thay đổi đã thực hiện
+- **Sửa route thông báo:**
+	- Tạo route sạch `/admin/notifications/` bằng file `admin/notifications/index.php`.
+	- Giữ SSE endpoint cũ ở `admin/notifications.php` để phục vụ dữ liệu nếu cần.
+
+- **Sửa lỗi include path:**
+	- Fix lại đường dẫn `require_once` trong `admin/notifications.php` cho đúng cấp thư mục.
+	- Fix lại include `headerAdmin.php` và `footerAdmin.php` trong `view/admin/notifications/notification-list.php`.
+
+- **Tối ưu header notification:**
+	- Đổi dropdown header sang hiển thị theo kiểu action ngắn gọn, không còn preview nội dung bài viết/bình luận.
+	- Chỉ giữ các action như “Đã tạo bài viết”, “Đã thêm bình luận” và thời gian.
+	- Cải thiện giao diện dropdown theo kiểu feed rõ ràng hơn, icon tròn bên trái, nội dung xếp dọc, panel rộng và thoáng hơn.
+
+- **Tạm tắt realtime:**
+	- Bỏ `EventSource` trên trang notification để tránh load lặp và đỡ lag.
+	- Trang notification giờ hiển thị dữ liệu hiện có, không tự chèn thêm item realtime.
+
+- **Fix lỗi dữ liệu comment:**
+	- Đổi key comment từ `id_comment` sang fallback an toàn `id_cmt ?? id_comment` để tránh warning.
+
+### Kết quả
+- Header notification không còn hiển thị chữ dính nhau kiểu cũ.
+- Trang notification mở đúng route và không còn lỗi include.
+- Giao diện thông báo gọn hơn, tập trung vào action thay vì nội dung dài.
+
+### Ghi chú
+- Nếu sau này cần bật realtime lại, nên làm theo hướng cache/cursor để chỉ gửi phần thay đổi thay vì polling toàn bộ dữ liệu liên tục.

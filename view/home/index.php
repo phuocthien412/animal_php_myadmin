@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../config/env.php';
 ?>
 <!DOCTYPE html>
@@ -138,7 +138,7 @@ include '../header.php';
 
     <section id="home" class="home home-hero">
         <img src="<?= $base ?>/images/Home/logo.png" class="logo1 home-logo" data-aos="fade-up" data-aos-duration="1500"/>
-        <h1 class="texthome" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000"> Chào mừng bạn đến với cổng thông tin về các loài động vật của NEKOPARA! </h1>
+        <h1 class="texthome" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000"> <?= __('welcome_title') ?> </h1>
     </section>
 
     <section id="about" class="about">
@@ -149,19 +149,14 @@ include '../header.php';
                 </div>
                 <div class="col-md-6 test1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                     <h1 class="textabout lh-base fs-5">
-                        Tại đây, chúng tôi cung cấp một nguồn tài nguyên phong phú và đa dạng về các loài động vật. Với đội
-                        ngũ chuyên gia động vật và nhà nghiên cứu, chúng tôi đã tổng hợp thông tin chi tiết và thú vị về các
-                        loài động vật từ những con cá nhỏ bé đến các loài thú hoang dã to lớn.
+                        <?= __('about_text_1') ?>
                     </h1>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6 test2 mb-4 mb-md-0" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="textabout lh-base fs-5">
-                        Qua trang NEKOPARA, chúng tôi muốn chia sẻ kiến thức và thông tin đáng tin cậy về
-                        động vật, giúp mọi người hiểu rõ hơn về cuộc sống và sự đa dạng của chúng. Chúng tôi hy vọng rằng
-                        thông qua việc tăng cường nhận thức và kiến thức về động vật, chúng ta có thể thúc đẩy những nỗ lực
-                        bảo vệ môi trường và duy trì sự cân bằng tự nhiên.
+                        <?= __('about_text_2') ?>
                     </h1>
                 </div>
                 <div class="col-md-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
@@ -177,14 +172,14 @@ include '../header.php';
         <div class="container">
             <div class="row g-4 align-items-stretch">
             <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start" data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+                <h1 class="textexplore fw-bold"><?= __('explore_title') ?></h1>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                 <div class="flip-container">
                     <a href="<?= $base ?>/classanimal/detail/4" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');">
-                            <h1 class="textexplore">Bò sát</h1>
+                            <h1 class="textexplore"><?= __('reptiles') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -194,7 +189,7 @@ include '../header.php';
                     <a href="<?= $base ?>/classanimal/detail/5" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/ca.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/ca.png');">
-                            <h1 class="textexplore">Cá</h1>
+                            <h1 class="textexplore"><?= __('fish') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -204,7 +199,7 @@ include '../header.php';
                     <a href="<?= $base ?>/classanimal/detail/3" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/chim.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/chim.png');">
-                            <h1 class="textexplore">Chim</h1>
+                            <h1 class="textexplore"><?= __('birds') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -214,7 +209,7 @@ include '../header.php';
                     <a href="<?= $base ?>/classanimal/detail/2" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');">
-                            <h1 class="textexplore">Động vật có vú</h1>
+                            <h1 class="textexplore"><?= __('mammals') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -224,7 +219,7 @@ include '../header.php';
                     <a href="<?= $base ?>/classanimal/detail/5" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');">
-                            <h1 class="textexplore">Động vật không xương sống</h1>
+                            <h1 class="textexplore"><?= __('invertebrates') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -234,7 +229,7 @@ include '../header.php';
                     <a href="<?= $base ?>/classanimal/detail/6" class="card">
                         <div class="front" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');"></div>
                         <div class="back" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');">
-                            <h1 class="textexplore">Động vật lưỡng cư</h1>
+                            <h1 class="textexplore"><?= __('amphibians') ?></h1>
                         </div>
                     </a>
                 </div>
@@ -252,12 +247,12 @@ include '../header.php';
                 <div class="col-lg-8">
                     <div class="support-card p-4 p-md-5 rounded-4 shadow-lg" data-aos="fade-up" data-aos-duration="1200" style="background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
                         <i class='bx bx-heart text-danger mb-3' style="font-size: 5rem;"></i>
-                        <h2 class="text-white fw-bold mb-4" style="font-family: 'Be Vietnam Pro', sans-serif;">Tham gia cùng chúng tôi</h2>
+                        <h2 class="text-white fw-bold mb-4" style="font-family: 'Be Vietnam Pro', sans-serif;"><?= __('support_title') ?></h2>
                         <p class="text-white-50 fs-5 mb-4" style="line-height: 1.8;">
-                            Chúng tôi tìm kiếm sự hỗ trợ và đóng góp của cộng đồng để giúp phát triển và mở rộng trang web thông tin về động vật. Việc thu thập và cập nhật nội dung của các loài vật đòi hỏi một lượng lớn thông tin khổng lồ.
+                            <?= __('support_text_1') ?>
                         </p>
                         <p class="text-white-50 fs-5 mb-5" style="line-height: 1.8;">
-                            Bạn có thể đóng góp bằng cách chia sẻ những hình ảnh, những trải nghiệm về động vật mà bạn đã từng gặp thông qua phần diễn đàn trao đổi của chúng tôi.
+                            <?= __('support_text_2') ?>
                         </p>
                         <a href="<?= $base ?>/Posts" class="btn btn-primary btn-lg rounded-pill fw-bold px-5 py-3 shadow-sm text-uppercase" data-aos="fade-up" data-aos-delay="300">
                             <i class='bx bx-group me-2'></i> Community!
@@ -300,7 +295,7 @@ include '../header.php';
     </script>
 
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
     <div class="static-button" id="startIntro" style="margin-right: -100px">
@@ -308,7 +303,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
-            Bạn cần trợ giúp?
+            <?= __('need_help') ?>
         </div>
     </div>
 
@@ -326,7 +321,7 @@ include '../header.php';
                         <div style="display: flex; align-items: center; text-align: left;">
                             <div class="home-intro-copy" style="padding: 10px; height: auto;" >
                                 <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
-                                    Xin chào mình là Lily trợ lý của NEKOPARA.
+                                    <?= __('intro_1') ?>
                                 </p>
                             </div>
                             <div class="home-intro-visual">
@@ -341,7 +336,7 @@ include '../header.php';
                         <div style="display: flex; align-items: center; text-align: left;">
                             <div class="home-intro-copy" style="padding: 10px; height: auto;" >
                                 <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;" >
-                                   Hôm nay mình sẽ dẫn bạn đi tham quan một vòng trang web của tụi mình nhé!
+                                   <?= __('intro_2') ?>
                                 </p>
                             </div>
                             <div class="home-intro-visual">
@@ -354,7 +349,7 @@ include '../header.php';
                         element: document.querySelector('.logo1'),
                         intro: `
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Logo của bọn mình nè.
+                                   <?= __('intro_3') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the logo
@@ -363,7 +358,7 @@ include '../header.php';
                         element: document.querySelector('.test1'),
                         intro: `
                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Thông tin về NEKOPARA.
+                                   <?= __('intro_4') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -372,7 +367,7 @@ include '../header.php';
                         element: document.querySelector('.test2'),
                         intro: `
                                                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                                                     Thông tin về NEKOPARA.
+                                                                     <?= __('intro_4') ?>
                                                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -381,7 +376,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đây là các nhóm động vật.
+                                   <?= __('intro_5') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -390,7 +385,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Khi nhấn vào sẽ hiện ra các loài động vật thuộc nhóm đó.
+                                   <?= __('intro_6') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -399,7 +394,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Bạn có thể xem tin tức ở đây.
+                                    <?= __('intro_7') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -408,7 +403,7 @@ include '../header.php';
                         element: document.querySelector('.card'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Ta hãy xem thử bên trong nhóm động vật thì có gì nhé.
+                                   <?= __('intro_8') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text

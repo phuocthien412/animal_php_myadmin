@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../model/UserRole.php';
+require_once __DIR__ . '/../model/Notification.php';
 
 class UserController {
     private $db;
@@ -73,6 +74,17 @@ class UserController {
                 'user_id' => $userId,
                 'role_id' => $roleId
             ]);
+
+            Notification::record([
+                'type' => 'user',
+                'action' => 'Đã tạo',
+                'title' => 'Người dùng mới',
+                'message' => 'Vừa thêm tài khoản "' . ($data['username'] ?? 'Không tên') . '"',
+                'link' => '/admin/users',
+                'target_type' => 'user',
+                'target_id' => $userId,
+                'meta' => ['email' => $data['email'] ?? null, 'phone' => $data['phone'] ?? null],
+            ]);
     
             // Return user data for session
             return [
@@ -137,6 +149,7 @@ class UserController {
 
     // Update an existing user
     public function updateUser($id, $data) {
+        $current = $this->getUserById($id);
         $sql = "UPDATE user SET email = :email, phone = :phone, provider = :provider, username = :username";
         if (isset($data['password'])) {
             $sql .= ", password = :password";
@@ -144,11 +157,27 @@ class UserController {
         $sql .= " WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $data['id'] = $id;
-        return $stmt->execute($data);
+        $result = $stmt->execute($data);
+
+        if ($result) {
+            Notification::record([
+                'type' => 'user',
+                'action' => 'Đã cập nhật',
+                'title' => 'Người dùng đã cập nhật',
+                'message' => 'Vừa cập nhật tài khoản "' . ($data['username'] ?? ($current['username'] ?? 'Không tên')) . '"',
+                'link' => '/admin/users',
+                'target_type' => 'user',
+                'target_id' => $id,
+                'meta' => ['before' => $current, 'after' => $data],
+            ]);
+        }
+
+        return $result;
     }
 
     // Delete a user
     public function deleteUser($id) {
+        $current = $this->getUserById($id);
         // Delete the user's roles first to maintain referential integrity
         $sql = "DELETE FROM user_role WHERE user_id = :id";
         $stmt = $this->db->prepare($sql);
@@ -157,7 +186,22 @@ class UserController {
         // Delete the user
         $sql = "DELETE FROM user WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute(['id' => $id]);
+        $result = $stmt->execute(['id' => $id]);
+
+        if ($result) {
+            Notification::record([
+                'type' => 'user',
+                'action' => 'Đã xoá',
+                'title' => 'Người dùng đã xoá',
+                'message' => 'Vừa xoá tài khoản "' . ($current['username'] ?? ('#' . $id)) . '"',
+                'link' => '/admin/users',
+                'target_type' => 'user',
+                'target_id' => $id,
+                'meta' => ['deleted' => $current],
+            ]);
+        }
+
+        return $result;
     }
 
     // Get roles for a user
@@ -198,6 +242,7 @@ class UserController {
         return array_values($users);
     }
     public function updateUserRoles($userId, $roles) {
+        $current = $this->getUserById($userId);
         // Delete existing roles for the user
         $sql = "DELETE FROM user_role WHERE user_id = :user_id";
         $stmt = $this->db->prepare($sql);
@@ -209,6 +254,17 @@ class UserController {
         foreach ($roles as $roleId) {
             $stmt->execute(['user_id' => $userId, 'role_id' => $roleId]);
         }
+
+        Notification::record([
+            'type' => 'user',
+            'action' => 'Đã cập nhật vai trò',
+            'title' => 'Vai trò người dùng đã cập nhật',
+            'message' => 'Vừa cập nhật vai trò cho "' . ($current['username'] ?? ('#' . $userId)) . '"',
+            'link' => '/admin/users',
+            'target_type' => 'user',
+            'target_id' => $userId,
+            'meta' => ['roles' => $roles, 'before' => $current],
+        ]);
     
         return true;
     }
@@ -222,7 +278,22 @@ class UserController {
     public function updateUserAvatar($user_id, $avatar) {
         $sql = "UPDATE user SET avatar = :avatar WHERE id = :user_id";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute(['avatar' => $avatar, 'user_id' => $user_id]);
+        $result = $stmt->execute(['avatar' => $avatar, 'user_id' => $user_id]);
+
+        if ($result) {
+            Notification::record([
+                'type' => 'user',
+                'action' => 'Đã cập nhật ảnh',
+                'title' => 'Ảnh đại diện đã cập nhật',
+                'message' => 'Vừa cập nhật avatar cho người dùng #' . $user_id,
+                'link' => '/admin/users',
+                'target_type' => 'user',
+                'target_id' => $user_id,
+                'meta' => ['avatar' => $avatar],
+            ]);
+        }
+
+        return $result;
     }
     
     public function getAvatarById($user_id) {
@@ -230,6 +301,37 @@ class UserController {
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['user_id' => $user_id]);
         return $stmt->fetchColumn();
+    }
+    
+    public function updatePassword($user_id, $current_password, $new_password) {
+        // Fetch current password hash
+        $sql = "SELECT password FROM user WHERE id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['user_id' => $user_id]);
+        $hash = $stmt->fetchColumn();
+        
+        if ($hash && password_verify($current_password, $hash)) {
+            // Update with new password
+            $new_hash = password_hash($new_password, PASSWORD_DEFAULT);
+            $updateSql = "UPDATE user SET password = :password WHERE id = :user_id";
+            $updateStmt = $this->db->prepare($updateSql);
+            $result = $updateStmt->execute(['password' => $new_hash, 'user_id' => $user_id]);
+
+            if ($result) {
+                Notification::record([
+                    'type' => 'user',
+                    'action' => 'Đã đổi mật khẩu',
+                    'title' => 'Mật khẩu người dùng đã đổi',
+                    'message' => 'Vừa đổi mật khẩu cho người dùng #' . $user_id,
+                    'link' => '/admin/users',
+                    'target_type' => 'user',
+                    'target_id' => $user_id,
+                ]);
+            }
+
+            return $result;
+        }
+        return false; // Current password incorrect
     }
 }
 ?>

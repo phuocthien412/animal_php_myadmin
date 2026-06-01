@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../model/Post.php';
+require_once __DIR__ . '/../model/Notification.php';
 
 class PostController {
     private $db;
@@ -22,12 +23,30 @@ class PostController {
 
         $sql = "INSERT INTO posts (date, image, title, user_id) VALUES (:date, :image, :title, :user_id)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute($data);
+        $result = $stmt->execute($data);
+
+        if ($result) {
+            Notification::record([
+                'type' => 'post',
+                'action' => 'Đã tạo',
+                'title' => 'Bài viết mới',
+                'message' => 'Vừa thêm bài viết "' . ($data['title'] ?? 'Không tiêu đề') . '"',
+                'link' => '/admin/posts',
+                'target_type' => 'post',
+                'target_id' => $this->db->lastInsertId(),
+                'meta' => ['title' => $data['title'] ?? null],
+            ]);
+        }
+
+        return $result;
     }
 
     // Read all posts
-    public function getAllPosts() {
+    public function getAllPosts($limit = null) {
         $sql = "SELECT * FROM posts ORDER BY date DESC";
+        if ($limit) {
+            $sql .= " LIMIT " . (int)$limit;
+        }
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -42,14 +61,31 @@ class PostController {
 
     // Update an existing post
     public function updatePost($id_post, $data) {
+        $current = $this->getPostById($id_post);
         $sql = "UPDATE posts SET date = :date, image = :image, title = :title, user_id = :user_id WHERE id_post = :id_post";
         $stmt = $this->db->prepare($sql);
         $data['id_post'] = $id_post;
-        return $stmt->execute($data);
+        $result = $stmt->execute($data);
+
+        if ($result) {
+            Notification::record([
+                'type' => 'post',
+                'action' => 'Đã cập nhật',
+                'title' => 'Bài viết đã cập nhật',
+                'message' => 'Vừa cập nhật bài viết "' . ($data['title'] ?? ($current['title'] ?? 'Không tiêu đề')) . '"',
+                'link' => '/admin/posts',
+                'target_type' => 'post',
+                'target_id' => $id_post,
+                'meta' => ['before' => $current, 'after' => $data],
+            ]);
+        }
+
+        return $result;
     }
 
     // Delete a post
     public function deletePost($id_post) {
+        $current = $this->getPostById($id_post);
         $sql = "DELETE FROM posts WHERE id_post = :id_post";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_post', $id_post, PDO::PARAM_INT);
@@ -57,6 +93,17 @@ class PostController {
         if (!$stmt->execute()) {
             throw new Exception("Error deleting post: " . implode(", ", $stmt->errorInfo()));
         }
+
+        Notification::record([
+            'type' => 'post',
+            'action' => 'Đã xoá',
+            'title' => 'Bài viết đã xoá',
+            'message' => 'Vừa xoá bài viết "' . ($current['title'] ?? ('#' . $id_post)) . '"',
+            'link' => '/admin/posts',
+            'target_type' => 'post',
+            'target_id' => $id_post,
+            'meta' => ['deleted' => $current],
+        ]);
     }
     public function getPostsByUserId($user_id) {
         $sql = "SELECT * FROM posts WHERE user_id = :user_id ORDER BY date DESC";

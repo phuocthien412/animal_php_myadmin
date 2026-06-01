@@ -4,7 +4,8 @@ require_once '../../controller/UserController.php';
 require_once __DIR__ . '/../../config/env.php';
 
 header('Content-Type: application/json');
-
+error_reporting(0);
+ob_clean();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'], $_POST['chatData'])) {

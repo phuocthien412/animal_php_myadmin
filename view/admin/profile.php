@@ -7,27 +7,47 @@ if (!isset($_SESSION['username'])) {
 
 require_once '../../config/env.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['avatar_file'])) {
-    $uploadDir = __DIR__ . '/../../images/';
-    
-    if ($_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
-        $fileName = time() . '_' . basename($_FILES['avatar_file']['name']);
-        move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $fileName);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once '../../controller/UserController.php';
+    $userController = new UserController();
+
+    if (isset($_FILES['avatar_file'])) {
+        $uploadDir = __DIR__ . '/../../images/';
         
-        require_once '../../controller/UserController.php';
-        $userController = new UserController();
-        if (isset($_SESSION['user_id'])) {
-            $userController->updateUserAvatar($_SESSION['user_id'], $fileName);
-            $_SESSION['avatar'] = $fileName;
-            header("Location: " . $base . "/admin/profile?success=" . urlencode("Cập nhật avatar thành công!"));
-            exit();
+        if ($_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
+            $fileName = time() . '_' . basename($_FILES['avatar_file']['name']);
+            move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $fileName);
+            
+            if (isset($_SESSION['user_id'])) {
+                $userController->updateUserAvatar($_SESSION['user_id'], $fileName);
+                $_SESSION['avatar'] = $fileName;
+                header("Location: " . $base . "/admin/profile?success=" . urlencode("Cập nhật avatar thành công!"));
+                exit();
+            } else {
+                header("Location: " . $base . "/admin/profile?error=" . urlencode("Lỗi: Không tìm thấy ID người dùng."));
+                exit();
+            }
         } else {
-            header("Location: " . $base . "/admin/profile?error=" . urlencode("Lỗi: Không tìm thấy ID người dùng."));
+            header("Location: " . $base . "/admin/profile?error=" . urlencode("Lỗi upload ảnh!"));
             exit();
         }
-    } else {
-        header("Location: " . $base . "/admin/profile?error=" . urlencode("Lỗi upload ảnh!"));
-        exit();
+    } elseif (isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
+        $current = $_POST['current_password'];
+        $new = $_POST['new_password'];
+        $confirm = $_POST['confirm_password'];
+        
+        if ($new !== $confirm) {
+            header("Location: " . $base . "/admin/profile?error=" . urlencode("Mật khẩu xác nhận không khớp."));
+            exit();
+        } else {
+            if ($userController->updatePassword($_SESSION['user_id'], $current, $new)) {
+                header("Location: " . $base . "/admin/profile?success=" . urlencode("Cập nhật mật khẩu thành công!"));
+                exit();
+            } else {
+                header("Location: " . $base . "/admin/profile?error=" . urlencode("Mật khẩu hiện tại không đúng."));
+                exit();
+            }
+        }
     }
 }
 
@@ -85,8 +105,8 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
                 <form action="<?= $base ?>/admin/profile" method="POST" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px; text-align: left;">
                     <label class="form-label font-weight-bold" style="font-size: 14px;">Thay đổi Avatar</label>
-                    <input type="file" class="form-control mb-2" name="avatar_file" accept="image/*" required style="font-size: 14px;">
-                    <button type="submit" class="btn btn-primary btn-sm w-100"><i class="fa-solid fa-upload"></i> Cập nhật ảnh</button>
+                    <input type="file" class="form-control mb-2" name="avatar_file" accept="image/*" required style="font-size: 14px;" onchange="this.form.submit()">
+                    <button type="submit" class="btn btn-primary btn-sm w-100 d-none"><i class="fa-solid fa-upload"></i> Cập nhật ảnh</button>
                 </form>
             </div>
         </div>
@@ -109,24 +129,53 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                 </div>
 
                 <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-top: 30px; margin-bottom: 20px;">Đổi mật khẩu</h4>
-                <div class="mb-3">
-                    <label class="form-label font-weight-bold">Mật khẩu hiện tại</label>
-                    <input type="password" class="form-control" placeholder="Nhập mật khẩu hiện tại" disabled>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label font-weight-bold">Mật khẩu mới</label>
-                    <input type="password" class="form-control" placeholder="Nhập mật khẩu mới" disabled>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label font-weight-bold">Nhập lại mật khẩu mới</label>
-                    <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" disabled>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="alert('Tính năng đổi mật khẩu đang được phát triển!')"><i class="fa-solid fa-key"></i> Cập nhật mật khẩu</button>
+                <form action="<?= $base ?>/admin/profile" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Mật khẩu hiện tại</label>
+                        <div class="input-group">
+                            <input type="password" name="current_password" class="form-control pwd-input" placeholder="Nhập mật khẩu hiện tại" required>
+                            <button class="btn btn-outline-secondary toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Mật khẩu mới</label>
+                        <div class="input-group">
+                            <input type="password" name="new_password" class="form-control pwd-input" placeholder="Nhập mật khẩu mới" required>
+                            <button class="btn btn-outline-secondary toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Nhập lại mật khẩu mới</label>
+                        <div class="input-group">
+                            <input type="password" name="confirm_password" class="form-control pwd-input" placeholder="Xác nhận mật khẩu mới" required>
+                            <button class="btn btn-outline-secondary toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> Cập nhật mật khẩu</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <?php include '../footerAdmin.php'; ?>
+
+<script>
+document.querySelectorAll('.toggle-pwd').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+});
+</script>
 </body>
 </html>

@@ -81,6 +81,26 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `fk_comments_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tạo bảng: notifications (Log thông báo admin)
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `type` VARCHAR(50) NOT NULL,
+  `action` VARCHAR(100) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `message` TEXT NULL,
+  `link` VARCHAR(255) NULL,
+  `target_type` VARCHAR(50) NULL,
+  `target_id` VARCHAR(50) NULL,
+  `actor_id` INT NULL,
+  `actor_name` VARCHAR(255) NULL,
+  `actor_roles` VARCHAR(255) NULL,
+  `meta_json` LONGTEXT NULL,
+  `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_notifications_created_at` (`created_at`),
+  INDEX `idx_notifications_is_read` (`is_read`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ==========================================
 -- 2. NHẬP DỮ LIỆU (DATA IMPORT)
 -- ==========================================

@@ -44,3 +44,6 @@ loadEnv(__DIR__ . '/../.env');
 // Tạo $base toàn cục
 $base = rtrim(env('BASE_URL', ''), '/');
 define('BASE_URL', $base);
+
+// Load i18n
+require_once __DIR__ . '/../lib/i18n.php';

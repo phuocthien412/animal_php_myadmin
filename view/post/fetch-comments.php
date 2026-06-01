@@ -3,6 +3,11 @@ require_once '../../controller/CommentController.php';
 require_once '../../controller/UserController.php';
 
 header('Content-Type: application/json');
+error_reporting(0);
+ob_clean();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -17,6 +22,9 @@ if ($post_id > 0) {
 
     // Fetch comments for the post
     $comments = $commentController->getCommentsByPostId($post_id);
+    if (!is_array($comments)) {
+        $comments = [];
+    }
 
     // Add usernames and likes to the comments
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;

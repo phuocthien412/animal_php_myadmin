@@ -4,12 +4,15 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../../config/env.php';
-require_once '../../controller/PostController.php';
-require_once '../../controller/CommentController.php';
-require_once '../../controller/UserController.php';
+require_once __DIR__ . '/../../controller/PostController.php';
+require_once __DIR__ . '/../../controller/CommentController.php';
+require_once __DIR__ . '/../../controller/UserController.php';
 
 // Get the post ID from the URL
-$post_id = $_GET['id'];
+$post_id = $_GET['id'] ?? null;
+if (!$post_id) {
+    die("Post ID không hợp lệ.");
+}
 
 // Initialize controllers
 $postController = new PostController();
@@ -18,6 +21,10 @@ $userController = new UserController();
 
 // Fetch the post details
 $post = $postController->getPostById($post_id);
+if (!$post) {
+    die("Không tìm thấy bài viết.");
+}
+
 $post['username'] = $userController->getUsernameById($post['user_id']); // Fetch the username for the post
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
 $post['likes_count'] = $postController->getLikeCount($post_id);
@@ -25,7 +32,9 @@ $post['is_liked'] = $postController->isLikedByUser($post_id, $user_id);
 
 // Fetch comments for the post
 $comments = $commentController->getCommentsByPostId($post_id);
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+if (!is_array($comments)) {
+    $comments = [];
+}
 foreach ($comments as $key => $comment) {
     $comments[$key]['username'] = $userController->getUsernameById($comment['user_id']); // Fetch the username for each comment
     $comments[$key]['likes_count'] = $commentController->getLikeCount($comment['id_cmt']);
@@ -243,7 +252,7 @@ foreach ($comments as $key => $comment) {
 
     // Function to fetch and update comments
     function fetchComments() {
-    fetch(`<?= $base ?>/view/post/fetch-comments.php?post_id=${postId}`)
+    fetch(`<?= $base ?>/view/post/fetch-comments.php?post_id=${postId}&_t=${new Date().getTime()}`)
         .then(response => response.json())
         .then(comments => {
             const commentsWrapper = document.getElementById('commentsWrapper');
