@@ -7,7 +7,7 @@ $base = BASE_URL;
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Lớp động vật</title>
+    <title>NEKOPARA — <?= __('admin_classanimals') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -29,8 +29,8 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
 ?>
 
 <div class="page-header">
-    <h1><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:10px;font-size:20px;"></i>Lớp động vật</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Lớp động vật</div>
+    <h1><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:10px;font-size:20px;"></i><?= __('admin_classanimals') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_classanimals') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -43,19 +43,19 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
 <div class="card table-card">
     <div class="card-header">
         <div>
-            <div class="card-title"><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:8px;"></i>Danh sách lớp động vật</div>
-            <div class="card-subtitle">Tổng cộng <?= $totalClassAnimals ?> lớp phân loại</div>
+            <div class="card-title"><i class="fa-solid fa-layer-group" style="color:var(--accent-teal);margin-right:8px;"></i><?= __('admin_classanimal_list') ?></div>
+            <div class="card-subtitle"><?= sprintf(__('admin_classanimal_desc'), $totalClassAnimals) ?></div>
         </div>
     </div>
     <div class="table-responsive-wrap">
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Ảnh / Video</th>
-                    <th>Tên lớp</th>
-                    <th>Thông tin</th>
-                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                    <th>#<?= __('table_id') ?></th>
+                    <th><?= __('table_media') ?></th>
+                    <th><?= __('table_class_name') ?></th>
+                    <th><?= __('table_info') ?></th>
+                    <?php if ($isAdmin): ?><th><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                 <tr><td colspan="4">
                     <div class="empty-state">
                         <i class="fa-solid fa-layer-group"></i>
-                        <p>Chưa có lớp động vật nào</p>
+                        <p><?= __('admin_no_classanimals') ?></p>
                     </div>
                 </td></tr>
                 <?php else: ?>
@@ -82,7 +82,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                                 <img src="<?= $base ?>/images/ClassAnimal/<?= $mediaName ?>" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
                             <?php endif;
                         else: ?>
-                            <span class="text-muted" style="font-size:12px;">Trống</span>
+                            <span class="text-muted" style="font-size:12px;"><?= __('empty') ?></span>
                         <?php endif; ?>
                     </td>
                     <td><strong><?= htmlspecialchars($cls['name']) ?></strong></td>
@@ -93,11 +93,11 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                     <td>
                         <div class="action-btns">
                             <a href="<?= $base ?>/admin/classanimals/detail/<?= urlencode($cls['id_class']) ?>"
-                               class="action-btn view" title="Xem lớp">
+                               class="action-btn view" title="<?= __('btn_view_class') ?>">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             <a href="<?= $base ?>/admin/classanimals/edit/<?= urlencode($cls['id_class']) ?>"
-                               class="action-btn edit" title="Chỉnh sửa">
+                               class="action-btn edit" title="<?= __('btn_edit') ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </div>
@@ -116,7 +116,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
     <nav aria-label="Pagination">
         <ul class="pagination">
             <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= max(1, $currentPage - 1) ?>"><?= __('pagination_prev') ?></a>
             </li>
             <?php for ($p = 1; $p <= $totalPages; $p++): ?>
             <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
@@ -124,7 +124,7 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
             </li>
             <?php endfor; ?>
             <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+                <a class="page-link" href="<?= $base ?>/admin/classanimals?page=<?= min($totalPages, $currentPage + 1) ?>"><?= __('pagination_next') ?></a>
             </li>
         </ul>
     </nav>

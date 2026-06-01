@@ -8,12 +8,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
 // Auth check
 if (!isset($_SESSION['roles']) || !in_array('ADMIN', $_SESSION['roles'])) {
-    header("Location: " . $base . "/admin/users?error=Unauthorized+access");
+    header("Location: " . $base . "/admin/users?error=" . urlencode(__('msg_unauthorized')));
     exit();
 }
 
 if (!isset($_GET['id'])) {
-    header("Location: " . $base . "/admin/users?error=Missing+user+ID");
+    header("Location: " . $base . "/admin/users?error=" . urlencode(__('msg_missing_user_id')));
     exit();
 }
 
@@ -27,9 +27,9 @@ $roles = $roleController->getAllRoles();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedRoles = $_POST['roles'] ?? [];
     if ($userController->updateUserRoles($userId, $selectedRoles)) {
-        header("Location: " . $base . "/admin/users?success=Cập+nhật+quyền+thành+công");
+        header("Location: " . $base . "/admin/users?success=" . urlencode(__('msg_update_role_success')));
     } else {
-        header("Location: " . $base . "/admin/users?error=Cập+nhật+thất+bại");
+        header("Location: " . $base . "/admin/users?error=" . urlencode(__('msg_update_fail')));
     }
     exit();
 }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Chỉnh quyền người dùng</title>
+    <title>NEKOPARA — <?= __('admin_edit_user_role') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include '../../headerAdmin.php'; ?>
 
 <div class="page-header">
-    <h1><i class="fa-solid fa-shield-halved" style="color:var(--accent-purple);margin-right:10px;font-size:20px;"></i>Chỉnh quyền người dùng</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Tài khoản <span>›</span> Chỉnh quyền</div>
+    <h1><i class="fa-solid fa-shield-halved" style="color:var(--accent-purple);margin-right:10px;font-size:20px;"></i><?= __('admin_edit_user_role') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_users') ?> <span>›</span> <?= __('admin_edit_role') ?></div>
 </div>
 
 <div class="card role-form-card">
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i class="fa-solid fa-user-shield" style="color:var(--accent-purple);margin-right:8px;"></i>
                 <?= htmlspecialchars($user['username']) ?>
             </div>
-            <div class="card-subtitle">Chọn các quyền bạn muốn cấp cho tài khoản này</div>
+            <div class="card-subtitle"><?= __('admin_edit_role_desc') ?></div>
         </div>
     </div>
     <div class="card-body">
@@ -102,10 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div style="display:flex;gap:10px;margin-top:24px;">
                 <button type="submit" class="btn-admin btn-admin-primary">
-                    <i class="fa-solid fa-check"></i> Lưu quyền
+                    <i class="fa-solid fa-check"></i> <?= __('btn_save_role') ?>
                 </button>
                 <a href="<?= $base ?>/admin/users" class="btn-admin btn-admin-outline">
-                    <i class="fa-solid fa-arrow-left"></i> Huỷ
+                    <i class="fa-solid fa-arrow-left"></i> <?= __('btn_cancel') ?>
                 </a>
             </div>
         </form>

@@ -50,23 +50,23 @@ include '../header.php';
     <div class="hero-container">
         <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
         <div class="hero-overlay">
-            <h1 class="textclassanimalName">Động vật </h1>
-            <h1 class="textclassanimalInfo">Động vật là nhóm sinh vật trong tự nhiên bao gồm các hình thái sống đa dạng, chúng có thể được tìm thấy ở mọi môi trường sống trên Trái Đất, từ đại dương sâu tới rừng rậm, sa mạc khô cằn. Chúng đóng vai trò quan trọng trong hệ sinh thái, tham gia vào chu trình thực vật, giữ cân bằng hệ sinh thái.</h1>
+            <h1 class="textclassanimalName"><?= __('animal_title') ?></h1>
+            <h1 class="textclassanimalInfo"><?= __('animal_desc') ?></h1>
         </div>
     </div>
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
                 <div class="glass-upload-card text-center p-4 p-md-5">
-                    <h2 class="fw-bold mb-3 text-white" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">Khám Phá Thế Giới Động Vật</h2>
-                    <p class="text-white mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Tải lên một bức ảnh để AI của chúng tôi nhận diện và tìm kiếm thông tin chi tiết.</p>
+                    <h2 class="fw-bold mb-3 text-white" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);"><?= __('find_animal_title') ?></h2>
+                    <p class="text-white mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"><?= __('find_animal_subtitle') ?></p>
                     
                     <div class="upload-area mb-4" id="upload-area">
                         <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-primary"></i>
-                        <h5 class="mb-2 text-dark fw-bold">Kéo thả ảnh vào đây</h5>
-                        <p class="text-muted small mb-3">Hoặc</p>
+                        <h5 class="mb-2 text-dark fw-bold"><?= __('find_animal_drag_drop') ?></h5>
+                        <p class="text-muted small mb-3"><?= __('find_animal_or') ?></p>
                         <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold custom-file-btn">
-                            Chọn Tệp Ảnh
+                            <?= __('find_animal_choose_file') ?>
                         </button>
                         <input type="file" id="image-upload" class="d-none" accept="image/*">
                     </div>
@@ -74,13 +74,13 @@ include '../header.php';
                     <div id="image-container" class="preview-container mb-4" style="display: none;">
                     </div>
                     <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-light btn-sm rounded-pill mb-3 shadow-sm fw-bold" style="display: none;">
-                        <i class="fas fa-undo me-1"></i> Chọn ảnh khác
+                        <i class="fas fa-undo me-1"></i> <?= __('find_animal_choose_other') ?>
                     </button>
                     
                     <div id="label-container" class="d-none"></div>
                     
                     <button type="button" onclick="predict()" id="search-btn" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold shadow-sm" style="display: none; background: linear-gradient(45deg, #007bff, #00c6ff); border: none;">
-                        <i class="fas fa-magic me-2"></i> Nhận Diện & Tìm Kiếm
+                        <i class="fas fa-magic me-2"></i> <?= __('find_animal_detect_search') ?>
                     </button>
                 </div>
             </div>
@@ -164,7 +164,7 @@ include '../header.php';
         async function predict() {
             const image = document.querySelector("#image-container img");
             if (!image) {
-                alert("Vui lòng tải hình ảnh");
+                alert("<?= __('find_animal_alert_upload') ?>");
                 return;
             }
 
@@ -204,7 +204,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
-            Bạn cần trợ giúp ?
+            <?= __('need_help') ?>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
@@ -223,7 +223,7 @@ include '../header.php';
                             <div class="row align-items-center text-left">
                                 <div class="col-md-6 p-3">
                                     <p class="text-white fw-bold fs-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                                        Tại đây bạn có thể chọn ảnh để tải lên!
+                                        <?= __('find_animal_tour_step1') ?>
                                     </p>
                                 </div>
                                 <div class="col-md-6 text-center">
@@ -237,7 +237,7 @@ include '../header.php';
                         element: document.querySelector('.fileup'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Tải ảnh con vật bạn muốn tìm kiếm
+                                    <?= __('find_animal_tour_step2') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -246,7 +246,7 @@ include '../header.php';
                         element: document.querySelector('.fileup'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Chờ cho đế khi hình ảnh hiển thị
+                                    <?= __('find_animal_tour_step3') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -255,7 +255,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Sau đó bấm tìm kiếm.
+                                    <?= __('find_animal_tour_step4') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -264,7 +264,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Hệ thống sẽ quét ảnh và tìm con vật bạn cần.
+                                    <?= __('find_animal_tour_step5') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text

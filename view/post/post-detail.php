@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../controller/UserController.php';
 // Get the post ID from the URL
 $post_id = $_GET['id'] ?? null;
 if (!$post_id) {
-    die("Post ID không hợp lệ.");
+    die(__('post_err_invalid_id'));
 }
 
 // Initialize controllers
@@ -22,7 +22,7 @@ $userController = new UserController();
 // Fetch the post details
 $post = $postController->getPostById($post_id);
 if (!$post) {
-    die("Không tìm thấy bài viết.");
+    die(__('post_err_not_found'));
 }
 
 $post['username'] = $userController->getUsernameById($post['user_id']); // Fetch the username for the post
@@ -157,18 +157,18 @@ foreach ($comments as $key => $comment) {
                         
                         <div class="mt-5 pt-4 border-top d-flex justify-content-between align-items-center" style="border-color: rgba(255,255,255,0.1) !important;">
                             <a href="<?= $base ?>/Posts" class="btn btn-light rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center" style="color: #0f172a; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">
-                                <i class="fas fa-arrow-left me-2"></i> Trở về
+                                <i class="fas fa-arrow-left me-2"></i> <?= __('btn_back') ?>
                             </a>
                             <div class="d-flex align-items-center">
                                 <button type="button" class="btn <?= $post['is_liked'] ? 'btn-primary' : 'btn-outline-light' ?> rounded-pill px-4 py-2 fw-bold me-3 shadow-sm btn-like-post" data-post-id="<?= $post['id_post'] ?>" style="transition: all 0.3s ease;">
-                                    <i class="fas fa-thumbs-up me-2"></i> Thích <span class="post-like-count ms-1" style="display: <?= $post['likes_count'] > 0 ? 'inline' : 'none' ?>">(<?= $post['likes_count'] ?>)</span>
+                                    <i class="fas fa-thumbs-up me-2"></i> <?= __('btn_like') ?> <span class="post-like-count ms-1" style="display: <?= $post['likes_count'] > 0 ? 'inline' : 'none' ?>">(<?= $post['likes_count'] ?>)</span>
                                 </button>
                                 <div class="dropdown d-inline-block">
                                     <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 fw-bold shadow-sm" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-share me-2"></i> Chia sẻ
+                                        <i class="fas fa-share me-2"></i> <?= __('btn_share') ?>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-0" style="background: rgba(15,23,42,0.9); backdrop-filter: blur(10px); border-radius: 12px; z-index: 1050;">
-                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> Sao chép liên kết</a></li>
+                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> <?= __('btn_copy_link') ?></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@ foreach ($comments as $key => $comment) {
                 <div class="card premium-glass border-0 rounded-4 overflow-hidden" style="height: 100%; display: flex; flex-direction: column;">
                     <div class="card-header bg-transparent p-4 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">
                         <h5 class="mb-0 fw-bold d-flex align-items-center text-white" style="font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: 0.5px;">
-                            <i class="far fa-comments me-3 text-primary fs-4"></i> Bình luận
+                            <i class="far fa-comments me-3 text-primary fs-4"></i> <?= __('admin_comments') ?>
                             <span class="badge bg-primary rounded-pill ms-auto px-3" style="font-size: 0.8rem;"><?= count($comments) ?></span>
                         </h5>
                     </div>
@@ -192,7 +192,7 @@ foreach ($comments as $key => $comment) {
                             <?php if (empty($comments)): ?>
                                 <div class="text-center py-5">
                                     <i class="far fa-comment-dots fs-1 mb-3" style="color: rgba(255,255,255,0.2);"></i>
-                                    <p class="text-white-50">Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+                                    <p class="text-white-50"><?= __('post_no_comments') ?></p>
                                 </div>
                             <?php else: ?>
                                 <?php foreach ($comments as $key => $comment): ?>
@@ -219,7 +219,7 @@ foreach ($comments as $key => $comment) {
                                                         <i class="fas fa-share"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-0" style="background: rgba(15,23,42,0.9); backdrop-filter: blur(10px); border-radius: 12px; z-index: 1050;">
-                                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> Sao chép liên kết</a></li>
+                                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> <?= __('btn_copy_link') ?></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -234,8 +234,8 @@ foreach ($comments as $key => $comment) {
                         <form id="commentForm" action="<?= $base ?>/view/post/add-comment.php" method="POST" class="m-0">
                             <input type="hidden" name="post_id" value="<?= htmlspecialchars($post_id) ?>" />
                             <div class="position-relative">
-                                <input type="text" class="form-control premium-input w-100" name="chatData" required placeholder="Viết bình luận của bạn..." autocomplete="off">
-                                <button type="submit" class="btn-submit-premium position-absolute top-50 end-0 translate-middle-y me-2 shadow-sm" title="Gửi">
+                                <input type="text" class="form-control premium-input w-100" name="chatData" required placeholder="<?= __('post_placeholder_comment') ?>" autocomplete="off">
+                                <button type="submit" class="btn-submit-premium position-absolute top-50 end-0 translate-middle-y me-2 shadow-sm" title="<?= __('btn_send') ?>">
                                     <i class="fas fa-paper-plane" style="margin-left: -2px;"></i>
                                 </button>
                             </div>
@@ -283,7 +283,7 @@ foreach ($comments as $key => $comment) {
                                         <i class="fas fa-share"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-0" style="background: rgba(15,23,42,0.9); backdrop-filter: blur(10px); border-radius: 12px; z-index: 1050;">
-                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> Sao chép liên kết</a></li>
+                                        <li><a class="dropdown-item d-flex align-items-center btn-copy-link" href="#" data-url="<?= "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"><i class="fas fa-link text-white-50 me-3 fs-5"></i> <?= __('btn_copy_link') ?></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@ foreach ($comments as $key => $comment) {
         if (copyBtn) {
             e.preventDefault();
             navigator.clipboard.writeText(copyBtn.getAttribute('data-url')).then(() => {
-                alert('Đã sao chép liên kết!');
+                alert('<?= __('post_link_copied') ?>');
             });
         }
 

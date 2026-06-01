@@ -136,13 +136,13 @@ include '../header.php';
             <!-- Layout Toolbar -->
             <div class="d-flex justify-content-end mb-4 classanimal-toolbar">
                 <div class="btn-group shadow-sm bg-white rounded-pill p-1" role="group">
-                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn active" data-layout="col-md-4" title="3 Hình/Hàng">
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn active" data-layout="col-md-4" title="<?= __('layout_3') ?>">
                         <i class="fas fa-th"></i> 3
                     </button>
-                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn mx-1" data-layout="col-md-6" title="2 Hình/Hàng">
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn mx-1" data-layout="col-md-6" title="<?= __('layout_2') ?>">
                         <i class="fas fa-th-large"></i> 2
                     </button>
-                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn" data-layout="col-md-12" title="1 Hình/Hàng">
+                    <button type="button" class="btn btn-light rounded-pill px-3 layout-btn" data-layout="col-md-12" title="<?= __('layout_1') ?>">
                         <i class="fas fa-square"></i> 1
                     </button>
                 </div>
@@ -206,7 +206,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 30px;">
-            Bạn cần trợ giúp ?
+            <?= __('need_help') ?>
         </div>
     </div>
 
@@ -222,7 +222,7 @@ include '../header.php';
                         element: document.querySelector('.textclassanimalName'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là tên nhóm động vật.
+                                    <?= __('tour_class_name') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -231,7 +231,7 @@ include '../header.php';
                         element: document.querySelector('.textclassanimalInfo'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đặc điểm về nhóm động vật này.
+                                   <?= __('tour_class_info') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -240,7 +240,7 @@ include '../header.php';
                         element: document.querySelector('.itemAvatar'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đây là động vật thuộc lớp đó.
+                                   <?= __('tour_class_animals') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -260,7 +260,7 @@ include '../header.php';
                         element: document.querySelector('.textclassanimalName'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là tên nhóm động vật.
+                                    <?= __('tour_class_name') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -269,7 +269,7 @@ include '../header.php';
                         element: document.querySelector('.textclassanimalInfo'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đặc điểm về nhóm động vật này.
+                                   <?= __('tour_class_info') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -278,7 +278,7 @@ include '../header.php';
                         element: document.querySelector('.itemAvatar'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Đây là động vật thuộc lớp đó.
+                                   <?= __('tour_class_animals') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -287,7 +287,7 @@ include '../header.php';
                         element: document.querySelector('.itemAvatar'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Ta hãy xem thử bên trong động vật có thông tin gì nhé!
+                                   <?= __('tour_class_animals_detail') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -296,7 +296,7 @@ include '../header.php';
                         element: document.querySelector('.list'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                   Tay hãy xem thử bên trong động vật có thông tin gì nhé!
+                                   <?= __('tour_class_animals_detail') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // filepath: e:\laragon\www\animal_php\view\animal\animals-list.php
 require_once '../../controller/AnimalController.php';
 require_once __DIR__ . '/../../config/env.php';
@@ -94,25 +94,22 @@ include '../header.php';
         <div class="hero-container">
             <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg"/>
             <div class="hero-overlay">
-                <h1 class="textclassanimalName">Động vật </h1>
-                <h1 class="textclassanimalInfo">Động vật là nhóm sinh vật trong tự nhiên bao gồm các
-                    hình thái sống đa dạng, chúng có thể được tìm thấy ở mọi môi trường sống trên Trái Đất, từ đại dương sâu tới
-                    rừng rậm, sa mạc khô cằn. Chúng đóng vai trò quan trọng trong hệ sinh thái, tham gia vào chu trình thực vật,
-                    giữ cân bằng hệ sinh thái.</h1>
+                <h1 class="textclassanimalName"><?= __('animal_title') ?></h1>
+                <h1 class="textclassanimalInfo"><?= __('animal_desc') ?></h1>
             </div>
         </div>
         <div class="PostList" style="margin-top: 50px; display: flex; justify-content: center; width: 100%;">
             <div class="popup">
                 <!-- Trigger/Open The Modal -->
                 <a id="mbtn" class="button">
-                    <span class="content">Kiểm tra kết quả!</span>
+                    <span class="content"><?= __('btn_check_result') ?></span>
                 </a>
                 <!-- The Modal -->
                 <div id="modalDialog" class="modal">
                     <div class="modal-content animate-top"
                          style="background-image: url('<?= $base ?>/images/Explore/bg.png');object-fit: cover;">
                         <div class="modal-header">
-                            <b class="modal-title" style="color:white;">Kết quả tìm kiếm</b>
+                            <b class="modal-title" style="color:white;"><?= __('search_results') ?></b>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -126,11 +123,9 @@ include '../header.php';
         </div>
         <div class="list" style="margin-top:-100px; display: flex; flex-wrap: wrap;">
             <?php if (empty($animals)) { ?>
-                <h1 class="textclassanimalName" style="margin-top:100px;">Chúng tôi rất tiếc vì con vật bạn tìm kiếm
-                    không có trong danh sách trên trang web. Nếu có thể, mong bạn hãy chia sẻ hình ảnh hoặc trải
-                    nghiệm của mình về con vật mà bạn muốn tìm thông qua kênh Community!</h1>
+                <h1 class="textclassanimalName" style="margin-top:100px;"><?= __('animal_not_found_msg') ?></h1>
                 <a href="<?= $base ?>/Posts" class="button" style="margin-top: 50px;">
-                    <span class="content">Cộng đồng!</span>
+                    <span class="content"><?= __('btn_community') ?></span>
                 </a>
             <?php } else { ?>
                 <?php foreach ($animals as $animal) { ?>
@@ -197,7 +192,7 @@ include '../header.php';
                 });
                 predictionResultsElement.html(resultsHtml);
             } else {
-                predictionResultsElement.html('No predictions available.');
+                predictionResultsElement.html('<?= __('no_predictions') ?>');
             }
         }
     </script>

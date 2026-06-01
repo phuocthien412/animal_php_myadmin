@@ -7,7 +7,7 @@ $base = BASE_URL;
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Quản lý bài viết</title>
+    <title>NEKOPARA — <?= __('admin_manage_posts') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -32,8 +32,8 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
 <div class="page-header">
-    <h1><i class="fa-solid fa-newspaper" style="color:var(--accent-orange);margin-right:10px;font-size:20px;"></i>Quản lý bài viết</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Bài viết</div>
+    <h1><i class="fa-solid fa-newspaper" style="color:var(--accent-orange);margin-right:10px;font-size:20px;"></i><?= __('admin_manage_posts') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_posts') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -46,26 +46,26 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 <div class="card table-card">
     <div class="card-header">
         <div>
-            <div class="card-title"><i class="fa-solid fa-newspaper" style="color:var(--accent-orange);margin-right:8px;"></i>Danh sách bài viết</div>
-            <div class="card-subtitle">Tổng cộng <?= $totalPosts ?> bài viết trong cộng đồng</div>
+            <div class="card-title"><i class="fa-solid fa-newspaper" style="color:var(--accent-orange);margin-right:8px;"></i><?= __('admin_post_list') ?></div>
+            <div class="card-subtitle"><?= sprintf(__('admin_post_desc'), $totalPosts) ?></div>
         </div>
     </div>
     <div class="table-toolbar">
         <div class="table-search">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="postSearch" placeholder="Tìm tiêu đề bài viết..." />
+            <input type="text" id="postSearch" placeholder="<?= __('admin_search_post') ?>" />
         </div>
     </div>
     <div class="table-responsive-wrap">
         <table class="admin-table" id="postsTable">
             <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Ảnh bìa</th>
-                    <th>Tiêu đề</th>
-                    <th>Tác giả</th>
-                    <th>Ngày đăng</th>
-                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                    <th>#<?= __('table_id') ?></th>
+                    <th><?= __('table_cover_image') ?></th>
+                    <th><?= __('table_title') ?></th>
+                    <th><?= __('table_author') ?></th>
+                    <th><?= __('table_date_posted') ?></th>
+                    <?php if ($isAdmin): ?><th><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -73,7 +73,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 <tr><td colspan="6">
                     <div class="empty-state">
                         <i class="fa-solid fa-newspaper"></i>
-                        <p>Chưa có bài viết nào</p>
+                        <p><?= __('admin_no_posts') ?></p>
                     </div>
                 </td></tr>
                 <?php else: ?>
@@ -108,12 +108,12 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <td>
                         <div class="action-btns">
                             <a href="<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>"
-                               class="action-btn view" title="Xem bài viết">
+                               class="action-btn view" title="<?= __('btn_view_post') ?>">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             <a href="<?= $base ?>/view/admin/posts/delete-post.php?id=<?= urlencode($post['id_post']) ?>"
-                               class="action-btn delete" title="Xoá bài viết"
-                               onclick="return confirm('Bạn có chắc muốn xoá bài viết này?')">
+                               class="action-btn delete" title="<?= __('btn_delete_post') ?>"
+                               onclick="return confirm('<?= __('confirm_delete_post') ?>')">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </div>
@@ -132,7 +132,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <nav aria-label="Pagination">
         <ul class="pagination">
             <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= max(1, $currentPage - 1) ?>"><?= __('pagination_prev') ?></a>
             </li>
             <?php for ($p = 1; $p <= $totalPages; $p++): ?>
             <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
@@ -140,7 +140,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
             </li>
             <?php endfor; ?>
             <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+                <a class="page-link" href="<?= $base ?>/admin/posts?page=<?= min($totalPages, $currentPage + 1) ?>"><?= __('pagination_next') ?></a>
             </li>
         </ul>
     </nav>

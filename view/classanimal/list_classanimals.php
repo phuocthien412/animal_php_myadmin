@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../config/env.php';
 ?>
 <!DOCTYPE html>
@@ -18,8 +18,8 @@ include '../header.php';
         <div class="hero-container">
             <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
             <div class="hero-overlay">
-                <h1 class="textclassanimalName">Khám phá các nhóm động vật</h1>
-                <h1 class="textclassanimalInfo">Chọn một nhóm để xem danh sách loài động vật tương ứng theo từng lớp.</h1>
+                <h1 class="textclassanimalName"><?= __('class_hero_title') ?></h1>
+                <h1 class="textclassanimalInfo"><?= __('class_hero_subtitle') ?></h1>
             </div>
         </div>
 
@@ -27,14 +27,14 @@ include '../header.php';
             <div class="container">
                 <div class="row g-4 align-items-stretch">
                 <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 text-center text-lg-start d-flex align-items-center">
-                        <h1 class="textexplore fw-bold">Khám phá các nhóm động vật cùng NEKOPARA</h1>
+                        <h1 class="textexplore fw-bold"><?= __('class_explore_title') ?></h1>
                 </div>
         <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="flip-container">
                 <a href="<?= $base ?>/classanimal/detail/1" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/bosat.png');">
-                        <h1 class="textexplore">Động vật bò sát</h1>
+                        <h1 class="textexplore"><?= __('class_reptiles') ?></h1>
                     </div>
                 </a>
             </div>
@@ -44,7 +44,7 @@ include '../header.php';
                 <a href="<?= $base ?>/classanimal/detail/2" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/ca.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/ca.png');">
-                        <h1 class="textexplore">Cá</h1>
+                        <h1 class="textexplore"><?= __('class_fish') ?></h1>
                     </div>
                 </a>
             </div>
@@ -54,7 +54,7 @@ include '../header.php';
                 <a href="<?= $base ?>/classanimal/detail/3" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/chim.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/chim.png');">
-                        <h1 class="textexplore">Chim</h1>
+                        <h1 class="textexplore"><?= __('class_birds') ?></h1>
                     </div>
                 </a>
             </div>
@@ -64,7 +64,7 @@ include '../header.php';
                 <a href="<?= $base ?>/classanimal/detail/4" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/dongvatcovu.png');">
-                        <h1 class="textexplore">Động vật có vú</h1>
+                        <h1 class="textexplore"><?= __('class_mammals') ?></h1>
                     </div>
                 </a>
             </div>
@@ -74,7 +74,7 @@ include '../header.php';
                 <a href="<?= $base ?>/classanimal/detail/5" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/khongxuongsong.png');">
-                        <h1 class="textexplore">Động vật không xương sống</h1>
+                        <h1 class="textexplore"><?= __('class_invertebrates') ?></h1>
                     </div>
                 </a>
             </div>
@@ -84,7 +84,7 @@ include '../header.php';
                 <a href="<?= $base ?>/classanimal/detail/6" class="card">
                     <div class="front" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');"></div>
                     <div class="back" style="background-image: url('<?= $base ?>/images/Explore/luongcu.png');">
-                        <h1 class="textexplore">Động vật lưỡng cư</h1>
+                        <h1 class="textexplore"><?= __('class_amphibians') ?></h1>
                     </div>
                 </a>
             </div>

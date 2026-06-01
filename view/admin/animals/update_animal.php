@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($result !== false) {
         require_once __DIR__ . '/../../../config/env.php';
-        header("Location: " . $base . "/admin/animals?success=Animal updated successfully");
+        header("Location: " . $base . "/admin/animals?success=" . urlencode(__('msg_update_animal_success')));
     } else {
         echo "Failed to update the animal.";
     }

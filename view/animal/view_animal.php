@@ -82,7 +82,7 @@ include '../header.php';
             </div>
             <div class="col-md-6 gioithieu">
                 <h1 class="texttitle" style="text-align:left;">
-                    Giới thiệu:
+                    <?= __('animal_intro') ?>
                 </h1>
                 <p class="textdata">
                 <?php echo htmlspecialchars($animal['gioi_thieu_text']); ?>
@@ -91,7 +91,7 @@ include '../header.php';
         </div>
         <div class="row" style="margin-top:80px">
             <h1 class="texttitle" style="text-align:left;margin-left:0;margin-top:50px;">
-                Lớp động vật:
+                <?= __('animal_class') ?>
             </h1>
             </h1>
             <h1 class="texttitle" style="text-align:left;margin-left:150px;margin-top:10px;">
@@ -120,7 +120,7 @@ include '../header.php';
             </div>
             <div class="col-md-6 noisinhsong">
                 <h1 class="texttitle" style="text-align:left;margin-top:50px;">
-                    Nơi sinh sống:
+                    <?= __('animal_habitat') ?>
                 </h1>
                 <p class="textdata" style="text-align:left;margin-top:10px;">
                 <?php echo htmlspecialchars($animal['noi_sinh_song_text']); ?>
@@ -130,7 +130,7 @@ include '../header.php';
         <div class="row" style="margin-top:80px">
             <div class="col-md-6 ngoaihinh">
                 <h1 class="texttitle" style="text-align:left;margin-left:150px;margin-top:50px;">
-                    Ngoại hình:
+                    <?= __('animal_appearance') ?>
                 </h1>
                 <p class="textdata" style="text-align:left;margin-left:150px;margin-top:10px;" >
                 <?php echo htmlspecialchars($animal['ngoai_hinh_text']); ?>
@@ -142,32 +142,32 @@ include '../header.php';
                         <img src="<?= $base ?>/images/Animal/3DQR/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="margin-top:50px; max-width: 100%; height: auto;">
                     </figure>
                     <h1 class="texttitle" style="text-align:center;margin-top:20px;">
-                        AR animal scan!
+                        <?= __('animal_ar_scan') ?>
                     </h1>
                     <div class="popup">
                         <!-- Trigger/Open The Modal -->
                         <a id="mbtn" class="button" style="margin-top:-10px">
-                            <span class="content">Hướng dẫn</span>
+                            <span class="content"><?= __('animal_guide') ?></span>
                         </a>
                         <!-- The Modal -->
                         <div id="modalDialog" class="modal" >
                             <div class="modal-content animate-top" style="width:30%">
                                 <div class="modal-header">
-                                    <b class="modal-title">Hướng dẫn sử dụng 3D QR</b>
+                                    <b class="modal-title"><?= __('animal_3d_guide_title') ?></b>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
                                 <div class="modal-body" >
                                     <p style="text-align:justify">
-                                        <span>B1:</span> Quét mã QR dưới đây và cài đặt phần mềm trên điện thoại.
+                                        <span><?= __('step_1') ?></span> <?= __('guide_step_1') ?>
                                     </p>
                                     <img src="<?= $base ?>/images/QRScan.png" alt="" class="itemListimg" style="max-width: 100%; height: auto;">
                                     <p style="text-align:justify">
-                                        <span>B2:</span> Chạy phần mềm và nhấn vào nút Scan Animal.
+                                        <span><?= __('step_2') ?></span> <?= __('guide_step_2') ?>
                                     </p>
                                     <p style="text-align:justify">
-                                        <span>B3:</span> Quét hình ảnh con vật ở mục ngoại hình và xem điều diệu kỳ.
+                                        <span><?= __('step_3') ?></span> <?= __('guide_step_3') ?>
                                     </p>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@ include '../header.php';
                         element: document.querySelector('.textAnimalName'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là tên động vật.
+                                    <?= __('tour_animal_name') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -243,7 +243,7 @@ include '../header.php';
                         element: document.querySelector('.gioithieu'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là phần giới thiệu về động vật.
+                                    <?= __('tour_animal_intro') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -252,7 +252,7 @@ include '../header.php';
                         element: document.querySelector('.listimage'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là hình ảnh về động vật.
+                                    <?= __('tour_animal_images') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -261,7 +261,7 @@ include '../header.php';
                         element: document.querySelector('.slide'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Bấm nút này để xem được nhiều hình khác nữa.
+                                    <?= __('tour_animal_more_images') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -270,7 +270,7 @@ include '../header.php';
                         element: document.querySelector('.noisinhsong'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Nơi sinh sống của động vật.
+                                    <?= __('tour_animal_habitat') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -279,7 +279,7 @@ include '../header.php';
                         element: document.querySelector('.ngoaihinh'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Ngoại hình của động vật.
+                                    <?= __('tour_animal_appearance') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -288,7 +288,7 @@ include '../header.php';
                         element: document.querySelector('.animal3d'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Chức năng xem con vật bằng AR.
+                                    <?= __('tour_animal_ar') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -297,7 +297,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Hướng dẫn cài đặt app.
+                                    <?= __('tour_animal_app_guide') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -306,7 +306,7 @@ include '../header.php';
                         element: document.querySelector('.scan3d'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Khởi động app và quét hình để xem điều kì diệu.
+                                    <?= __('tour_animal_scan') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -324,7 +324,7 @@ include '../header.php';
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
              style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
-            Bạn cần trợ giúp ?
+            <?= __('need_help') ?>
         </div>
     </div>
 
@@ -340,7 +340,7 @@ include '../header.php';
                         element: document.querySelector('.textAnimalName'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là tên động vật.
+                                    <?= __('tour_animal_name') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -349,7 +349,7 @@ include '../header.php';
                         element: document.querySelector('.gioithieu'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là phần giới thiệu về động vật.
+                                    <?= __('tour_animal_intro') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -358,7 +358,7 @@ include '../header.php';
                         element: document.querySelector('.listimage'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Đây là hình ảnh về động vật.
+                                    <?= __('tour_animal_images') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -367,7 +367,7 @@ include '../header.php';
                         element: document.querySelector('.slide'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Bấm nút này để xem được nhiều hình khác nữa.
+                                    <?= __('tour_animal_more_images') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -376,7 +376,7 @@ include '../header.php';
                         element: document.querySelector('.noisinhsong'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Nơi sinh sống của động vật.
+                                    <?= __('tour_animal_habitat') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -385,7 +385,7 @@ include '../header.php';
                         element: document.querySelector('.ngoaihinh'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Ngoại hình của động vật.
+                                    <?= __('tour_animal_appearance') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -394,7 +394,7 @@ include '../header.php';
                         element: document.querySelector('.animal3d'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Chức năng xem con vật bằng AR.
+                                    <?= __('tour_animal_ar') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -403,7 +403,7 @@ include '../header.php';
                         element: document.querySelector('.button'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Hướng dẫn cài đặt app.
+                                    <?= __('tour_animal_app_guide') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text
@@ -412,7 +412,7 @@ include '../header.php';
                         element: document.querySelector('.scan3d'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    Khởi động app và quét hình để xem điều kì diệu.
+                                    <?= __('tour_animal_scan') ?>
                                 </p>
                 `,
                         position: 'bottom' // Position tooltip directly below the text

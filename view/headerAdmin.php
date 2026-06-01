@@ -36,60 +36,60 @@ $adminNotificationCount = Notification::getUnreadCount();
     <a href="<?= $base ?>/Home" class="sidebar-brand">
         <div class="sidebar-brand-text">
             <span class="sidebar-brand-name">NEKOPARA</span>
-            <span class="sidebar-brand-sub">Admin Console</span>
+            <span class="sidebar-brand-sub"><?= __('admin_panel') ?></span>
         </div>
     </a>
 
     <!-- Nav -->
     <nav class="sidebar-nav">
 
-        <div class="sidebar-section-label">Tổng quan</div>
+        <div class="sidebar-section-label"><?= __('admin_overview') ?></div>
 
         <a href="<?= $base ?>/admin/dashboard"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-gauge-high"></i></span>
-            Dashboard
+            <?= __('admin_dashboard') ?>
         </a>
 
-        <div class="sidebar-section-label">Quản lý nội dung</div>
+        <div class="sidebar-section-label"><?= __('admin_content_management') ?></div>
 
         <a href="<?= $base ?>/admin/animals"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/animals') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-dragon"></i></span>
-            Động vật
+            <?= __('admin_animals') ?>
         </a>
 
         <a href="<?= $base ?>/admin/classanimals"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/classanimals') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-layer-group"></i></span>
-            Lớp động vật
+            <?= __('admin_classanimals') ?>
         </a>
 
         <a href="<?= $base ?>/admin/posts"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/posts') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-newspaper"></i></span>
-            Bài viết
+            <?= __('admin_posts') ?>
         </a>
 
         <a href="<?= $base ?>/admin/comments"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/comments') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-comments"></i></span>
-            Bình luận
+            <?= __('admin_comments') ?>
         </a>
 
         <a href="<?= $base ?>/admin/notifications"
             class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/notifications') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-bell"></i></span>
-            Thông báo
+            <?= __('admin_notifications') ?>
         </a>
 
-        <div class="sidebar-section-label">Hệ thống</div>
+        <div class="sidebar-section-label"><?= __('admin_system') ?></div>
 
         <?php if (isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'])): ?>
         <a href="<?= $base ?>/admin/users"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/users') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-users-gear"></i></span>
-            Tài khoản
+            <?= __('admin_users') ?>
         </a>
         <?php endif; ?>
 
@@ -112,16 +112,16 @@ $adminNotificationCount = Notification::getUnreadCount();
     </button>
 
     <div class="topbar-title" id="topbarTitle">
-        Dashboard <span>/ Quản trị</span>
+        <?= __('admin_dashboard') ?> <span>/ <?= __('admin_panel') ?></span>
     </div>
 
-    <div class="topbar-actions" style="display: flex; align-items: center;">
-        <a href="<?= $base ?>/Home" class="topbar-btn topbar-home-btn" title="Về trang chủ" aria-label="Về trang chủ">
+    <div class="topbar-actions" style="display: flex; align-items: center; gap: 15px;">
+        <a href="<?= $base ?>/Home" class="topbar-btn topbar-home-btn" title="<?= __('admin_home') ?>" aria-label="<?= __('admin_home') ?>">
             <i class="fa-solid fa-house"></i>
         </a>
 
         <div class="topbar-notification-wrap">
-            <button class="topbar-btn topbar-notification-btn" id="notificationToggle" title="Thông báo" aria-label="Thông báo" aria-expanded="false" aria-controls="adminNotificationPanel">
+            <button class="topbar-btn topbar-notification-btn" id="notificationToggle" title="<?= __('admin_notifications') ?>" aria-label="<?= __('admin_notifications') ?>" aria-expanded="false" aria-controls="adminNotificationPanel">
                 <i class="fa-regular fa-bell"></i>
                 <?php if ($adminNotificationCount > 0): ?>
                     <span class="badge-dot"></span>
@@ -132,10 +132,10 @@ $adminNotificationCount = Notification::getUnreadCount();
             <div class="notification-panel" id="adminNotificationPanel" hidden>
                 <div class="notification-panel-header">
                     <div>
-                        <div class="notification-panel-title">Thông báo</div>
-                            <div class="notification-panel-subtitle"><?= $adminNotificationCount ?> hành động gần nhất</div>
+                        <div class="notification-panel-title"><?= __('admin_notifications') ?></div>
+                            <div class="notification-panel-subtitle"><?= $adminNotificationCount ?> <?= __('admin_recent_actions') ?></div>
                     </div>
-                            <a href="<?= $base ?>/admin/notifications/" class="notification-panel-link">Xem tất cả</a>
+                            <a href="<?= $base ?>/admin/notifications/" class="notification-panel-link"><?= __('admin_view_all') ?></a>
                 </div>
 
                 <div class="notification-panel-list">
@@ -173,10 +173,32 @@ $adminNotificationCount = Notification::getUnreadCount();
                             </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="notification-empty">Chưa có thông báo mới.</div>
+                        <div class="notification-empty"><?= __('admin_no_notifications') ?></div>
                     <?php endif; ?>
                 </div>
             </div>
+        </div>
+
+        <?php
+        // Generate URL with updated lang parameter
+        $queryParams = $_GET;
+        $urlPath = strtok($_SERVER["REQUEST_URI"], '?');
+        
+        $queryParams['lang'] = 'vi';
+        $urlVi = $urlPath . '?' . http_build_query($queryParams);
+        
+        $queryParams['lang'] = 'en';
+        $urlEn = $urlPath . '?' . http_build_query($queryParams);
+        ?>
+        <!-- Language Toggle Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" style="height: 38px; display: flex; align-items: center; justify-content: center;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-globe me-1"></i> <?= ($_SESSION['lang'] ?? 'vi') === 'vi' ? 'VN' : 'EN' ?>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                <li><a class="dropdown-item" href="<?= htmlspecialchars($urlVi) ?>">🇻🇳 Tiếng Việt</a></li>
+                <li><a class="dropdown-item" href="<?= htmlspecialchars($urlEn) ?>">🇬🇧 English</a></li>
+            </ul>
         </div>
 
         <a href="<?= $base ?>/admin/profile" class="topbar-user" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
@@ -244,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tb = document.getElementById('topbarTitle');
     if (active && tb) {
         const txt = active.textContent.trim();
-        tb.innerHTML = txt + ' <span>/ Quản trị</span>';
+        tb.innerHTML = txt + ' <span>/ <?= __('admin_panel') ?></span>';
     }
 });
 </script>

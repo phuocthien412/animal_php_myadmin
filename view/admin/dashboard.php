@@ -74,8 +74,8 @@ foreach ($animalPerClass as $cid => $cnt) {
 
 <!-- ===================== PAGE HEADER ===================== -->
 <div class="page-header">
-    <h1><i class="fa-solid fa-gauge-high" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i>Dashboard — Quản trị</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Tổng quan</div>
+    <h1><i class="fa-solid fa-gauge-high" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i><?= __('admin_dashboard') ?> — <?= __('admin_panel') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> <?= __('admin_overview') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -91,32 +91,32 @@ foreach ($animalPerClass as $cid => $cnt) {
         <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
         <div class="stat-body">
             <div class="stat-value"><?= $totalUsers ?></div>
-            <div class="stat-label">Tổng người dùng</div>
-            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> Hệ thống</div>
+            <div class="stat-label"><?= __('dash_total_users') ?></div>
+            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> <?= __('admin_system') ?></div>
         </div>
     </div>
     <div class="stat-card" style="--stat-color: hsl(213,90%,55%);">
         <div class="stat-icon"><i class="fa-solid fa-dragon"></i></div>
         <div class="stat-body">
             <div class="stat-value"><?= $totalAnimals ?></div>
-            <div class="stat-label">Động vật</div>
-            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> Trong <?= count($classes) ?> lớp</div>
+            <div class="stat-label"><?= __('admin_animals') ?></div>
+            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> <?= sprintf(__('dash_in_classes'), count($classes)) ?></div>
         </div>
     </div>
     <div class="stat-card" style="--stat-color: hsl(32,90%,55%);">
         <div class="stat-icon"><i class="fa-solid fa-newspaper"></i></div>
         <div class="stat-body">
             <div class="stat-value"><?= $totalPosts ?></div>
-            <div class="stat-label">Bài viết</div>
-            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> Cộng đồng</div>
+            <div class="stat-label"><?= __('admin_posts') ?></div>
+            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> <?= __('community') ?></div>
         </div>
     </div>
     <div class="stat-card" style="--stat-color: hsl(265,70%,55%);">
         <div class="stat-icon"><i class="fa-solid fa-comments"></i></div>
         <div class="stat-body">
             <div class="stat-value"><?= $totalComments ?></div>
-            <div class="stat-label">Bình luận</div>
-            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> Tương tác</div>
+            <div class="stat-label"><?= __('admin_comments') ?></div>
+            <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> <?= __('dash_interactions') ?></div>
         </div>
     </div>
 </div>
@@ -126,8 +126,8 @@ foreach ($animalPerClass as $cid => $cnt) {
     <div class="card">
         <div class="card-header">
             <div>
-                <div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--green-primary);margin-right:8px;"></i>Động vật theo lớp</div>
-                <div class="card-subtitle">Số lượng động vật phân theo lớp phân loại</div>
+                <div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--green-primary);margin-right:8px;"></i><?= __('dash_animal_by_class') ?></div>
+                <div class="card-subtitle"><?= __('dash_animal_by_class_desc') ?></div>
             </div>
         </div>
         <div class="card-body">
@@ -138,8 +138,8 @@ foreach ($animalPerClass as $cid => $cnt) {
     <div class="card">
         <div class="card-header">
             <div>
-                <div class="card-title"><i class="fa-solid fa-chart-pie" style="color:var(--accent-purple);margin-right:8px;"></i>Phân bổ người dùng</div>
-                <div class="card-subtitle">Tỷ lệ vai trò trong hệ thống</div>
+                <div class="card-title"><i class="fa-solid fa-chart-pie" style="color:var(--accent-purple);margin-right:8px;"></i><?= __('dash_user_distribution') ?></div>
+                <div class="card-subtitle"><?= __('dash_user_role_ratio') ?></div>
             </div>
         </div>
         <div class="card-body">
@@ -157,7 +157,7 @@ foreach ($animalPerClass as $cid => $cnt) {
                 </li>
                 <li class="mini-list-item">
                     <span class="mini-dot" style="background:hsl(32,90%,55%);"></span>
-                    <div class="mini-info"><div class="mini-label">Khác</div></div>
+                    <div class="mini-info"><div class="mini-label"><?= __('dash_other') ?></div></div>
                     <div class="mini-value"><?= $roleCount['OTHER'] ?></div>
                 </li>
             </ul>
@@ -202,7 +202,7 @@ foreach ($animalPerClass as $cid => $cnt) {
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Admin', 'User', 'Khác'],
+            labels: ['Admin', 'User', '<?= __('dash_other') ?>'],
             datasets: [{
                 data: [<?= $roleCount['ADMIN'] ?>, <?= $roleCount['USER'] ?>, <?= $roleCount['OTHER'] ?>],
                 backgroundColor: ['hsl(265,70%,58%)','hsl(152,55%,38%)','hsl(32,90%,58%)'],

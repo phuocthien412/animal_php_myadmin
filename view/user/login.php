@@ -23,8 +23,8 @@ if (isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập — NEKOPARA</title>
-    <meta name="description" content="Đăng nhập vào NEKOPARA - Nền tảng khám phá thế giới động vật">
+    <title><?= __('login_page_title') ?></title>
+    <meta name="description" content="<?= __('login_meta_desc') ?>">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -408,27 +408,26 @@ if (isset($_SESSION['username'])) {
             </div>
 
             <h1 class="hero-headline">
-                Khám phá thế giới<br>
-                <em>động vật tuyệt vời</em>
+                <?= __('hero_headline_1') ?><br>
+                <em><?= __('hero_headline_2') ?></em>
             </h1>
 
             <p class="hero-desc">
-                Nền tảng thông tin về động vật phong phú nhất — với hình ảnh 3D,
-                nhận dạng bằng AI và cộng đồng yêu thiên nhiên.
+                <?= __('hero_desc') ?>
             </p>
 
             <div class="hero-stats">
                 <div class="hero-stat">
                     <div class="hero-stat-val"><?= $totalAnimals ?></div>
-                    <div class="hero-stat-lbl">Loài động vật</div>
+                    <div class="hero-stat-lbl"><?= __('hero_stat_animals') ?></div>
                 </div>
                 <div class="hero-stat">
                     <div class="hero-stat-val"><?= $totalUsers ?></div>
-                    <div class="hero-stat-lbl">Thành viên</div>
+                    <div class="hero-stat-lbl"><?= __('hero_stat_users') ?></div>
                 </div>
                 <div class="hero-stat">
                     <div class="hero-stat-val">AI</div>
-                    <div class="hero-stat-lbl">Nhận dạng ảnh</div>
+                    <div class="hero-stat-lbl"><?= __('hero_stat_ai') ?></div>
                 </div>
             </div>
         </div>
@@ -441,10 +440,10 @@ if (isset($_SESSION['username'])) {
             <div class="form-header">
                 <div class="form-greeting">
                     <i class="fa-solid fa-leaf"></i>
-                    Chào mừng trở lại
+                    <?= __('login_greeting') ?>
                 </div>
-                <h2 class="form-title">Đăng nhập</h2>
-                <p class="form-subtitle">Nhập thông tin tài khoản của bạn để tiếp tục</p>
+                <h2 class="form-title"><?= __('login_title') ?></h2>
+                <p class="form-subtitle"><?= __('login_subtitle') ?></p>
             </div>
 
             <!-- Error message -->
@@ -459,7 +458,7 @@ if (isset($_SESSION['username'])) {
 
                 <!-- Username -->
                 <div class="field-group">
-                    <label class="field-label" for="username">Tên đăng nhập</label>
+                    <label class="field-label" for="username"><?= __('form_username') ?></label>
                     <div class="field-wrap">
                         <span class="field-icon"><i class="fa-regular fa-user"></i></span>
                         <input
@@ -467,7 +466,7 @@ if (isset($_SESSION['username'])) {
                             type="text"
                             id="username"
                             name="username"
-                            placeholder="Nhập tên đăng nhập..."
+                            placeholder="<?= __('login_placeholder_username') ?>"
                             autocomplete="username"
                             required
                         >
@@ -476,7 +475,7 @@ if (isset($_SESSION['username'])) {
 
                 <!-- Password -->
                 <div class="field-group">
-                    <label class="field-label" for="password">Mật khẩu</label>
+                    <label class="field-label" for="password"><?= __('form_password') ?></label>
                     <div class="field-wrap">
                         <span class="field-icon"><i class="fa-solid fa-lock"></i></span>
                         <input
@@ -484,11 +483,11 @@ if (isset($_SESSION['username'])) {
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Nhập mật khẩu..."
+                            placeholder="<?= __('login_placeholder_password') ?>"
                             autocomplete="current-password"
                             required
                         >
-                        <button type="button" class="field-toggle" id="pwToggle" title="Hiện/ẩn mật khẩu">
+                        <button type="button" class="field-toggle" id="pwToggle" title="<?= __('login_toggle_password') ?>">
                             <i class="fa-regular fa-eye" id="pwToggleIcon"></i>
                         </button>
                     </div>
@@ -497,29 +496,29 @@ if (isset($_SESSION['username'])) {
                 <!-- Submit -->
                 <button type="submit" class="btn-login" id="loginBtn">
                     <i class="fa-solid fa-right-to-bracket"></i>
-                    Đăng nhập
+                    <?= __('login_title') ?>
                 </button>
             </form>
 
             <div class="form-links">
                 <span></span>
                 <a href="<?= $base ?>/Register" class="form-link">
-                    Chưa có tài khoản?
+                    <?= __('login_no_account') ?>
                 </a>
             </div>
 
             <div class="form-divider">
-                <hr><span>hoặc tiếp tục với</span><hr>
+                <hr><span><?= __('login_or_continue_with') ?></span><hr>
             </div>
 
             <div class="register-cta">
-                Là khách? <a href="<?= $base ?>/Home">Xem trang chủ →</a>
+                <?= __('login_guest') ?> <a href="<?= $base ?>/Home"><?= __('login_go_home') ?></a>
             </div>
 
             <p class="form-footnote">
-                Bằng cách đăng nhập, bạn đồng ý với
-                <a href="#" style="color:var(--forest-light);">Điều khoản sử dụng</a>
-                và <a href="#" style="color:var(--forest-light);">Chính sách bảo mật</a>.
+                <?= __('login_terms_prefix') ?>
+                <a href="#" style="color:var(--forest-light);"><?= __('login_terms') ?></a>
+                <?= __('login_terms_and') ?> <a href="#" style="color:var(--forest-light);"><?= __('login_privacy') ?></a>.
             </p>
         </div>
     </div>
@@ -540,7 +539,7 @@ pwToggle?.addEventListener('click', () => {
 // Loading state on submit
 document.getElementById('loginForm')?.addEventListener('submit', function() {
     const btn = document.getElementById('loginBtn');
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xử lý...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <?= __('login_processing') ?>';
     btn.disabled = true;
 });
 </script>

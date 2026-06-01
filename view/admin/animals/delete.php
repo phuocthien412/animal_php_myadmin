@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
     try {
         $animalController->deleteAnimal($animalId);
-        header("Location: " . $base . "/admin/animals?success=Xoá+động+vật+thành+công");
+        header("Location: " . $base . "/admin/animals?success=" . urlencode(__('msg_delete_animal_success')));
     } catch (Exception $e) {
         header("Location: " . $base . "/admin/animals?error=" . urlencode($e->getMessage()));
     }

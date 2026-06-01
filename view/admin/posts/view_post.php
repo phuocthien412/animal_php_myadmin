@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEKOPARA — Chi tiết bài viết</title>
+    <title>NEKOPARA — <?= __('admin_post_detail') ?></title>
     <style>
         .detail-card {
             padding: 20px;
@@ -83,17 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 <body>
     <?php include '../../headerAdmin.php'; ?>
     <div class="page-header">
-        <h1><i class="fa-solid fa-eye" style="color:var(--accent-orange);margin-right:10px;font-size:20px;"></i>Chi tiết bài viết</h1>
-        <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Bài viết <span>›</span> Chi tiết</div>
+        <h1><i class="fa-solid fa-eye" style="color:var(--accent-orange);margin-right:10px;font-size:20px;"></i><?= __('admin_post_detail') ?></h1>
+        <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_posts') ?> <span>›</span> <?= __('admin_detail') ?></div>
     </div>
     
     <div class="card detail-card">
         <h2 class="mt-2"><?= htmlspecialchars($post['title']) ?></h2>
         
         <div class="mb-4" style="color: var(--text-muted); font-size: 14px;">
-            <i class="fa-solid fa-user"></i> Đăng bởi: <strong><?= htmlspecialchars($username ?? 'Unknown') ?></strong>
+            <i class="fa-solid fa-user"></i> <?= __('admin_posted_by') ?>: <strong><?= htmlspecialchars($username ?? 'Unknown') ?></strong>
             <span style="margin: 0 10px;">|</span>
-            <i class="fa-regular fa-calendar"></i> Ngày đăng: <?= htmlspecialchars($post['date'] ?? '—') ?>
+            <i class="fa-regular fa-calendar"></i> <?= __('table_date_posted') ?>: <?= htmlspecialchars($post['date'] ?? '—') ?>
         </div>
 
         <?php if (!empty($post['image'])): ?>
@@ -108,19 +108,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         
         <!-- Comments panel -->
         <div class="mt-4" style="border-top:1px solid var(--border-light); padding-top:16px;">
-            <h4>Bình luận</h4>
+            <h4><?= __('admin_comments') ?></h4>
             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php" style="margin-bottom:12px;">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="post_id" value="<?= intval($post['id_post']) ?>">
                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
                 <div class="mb-2 d-flex gap-2">
-                    <input name="chat_data" class="form-control" placeholder="Viết bình luận (admin)..." required>
-                    <button class="btn btn-primary" type="submit">Thêm</button>
+                    <input name="chat_data" class="form-control" placeholder="<?= __('admin_write_comment') ?>" required>
+                    <button class="btn btn-primary" type="submit"><?= __('btn_add') ?></button>
                 </div>
             </form>
             <?php $comments = $commentController->getCommentsByPostId($post['id_post']); ?>
             <?php if (empty($comments)): ?>
-                <div class="text-muted">Chưa có bình luận</div>
+                <div class="text-muted"><?= __('admin_no_comments') ?></div>
             <?php else: ?>
                 <div class="comments-grid">
                 <?php foreach ($comments as $c): ?>
@@ -134,45 +134,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                                 <?= nl2br(htmlspecialchars($c['chat_data'])) ?>
                             </div>
                             <?php if ($isHidden): ?>
-                                <div class="text-warning small mt-2">(Đã ẩn bởi quản trị)</div>
+                                <div class="text-warning small mt-2">(<?= __('admin_hidden_by_admin') ?>)</div>
                                 <div class="orig-content d-none"><?= nl2br(htmlspecialchars($c['orig_chat_data'] ?? '')) ?></div>
                             <?php endif; ?>
                         </div>
                         <div class="actions">
                             <?php if ($isHidden && $hasOrig): ?>
-                                <button class="btn btn-sm btn-outline-primary toggle-hidden" type="button">Hiện tạm</button>
+                                <button class="btn btn-sm btn-outline-primary toggle-hidden" type="button"><?= __('btn_temp_show') ?></button>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php" style="display:inline-block; margin-left:6px;">
                                     <input type="hidden" name="action" value="unhide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-success" type="submit">Bỏ ẩn</button>
+                                    <button class="btn btn-sm btn-success" type="submit"><?= __('btn_unhide') ?></button>
                                 </form>
                             <?php elseif ($isHidden): ?>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php" style="display:inline-block;">
                                     <input type="hidden" name="action" value="unhide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-success" type="submit">Bỏ ẩn</button>
+                                    <button class="btn btn-sm btn-success" type="submit"><?= __('btn_unhide') ?></button>
                                 </form>
                             <?php else: ?>
                                 <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                     <input type="hidden" name="action" value="hide">
                                     <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                     <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                    <button class="btn btn-sm btn-warning" type="submit">Ẩn</button>
+                                    <button class="btn btn-sm btn-warning" type="submit"><?= __('btn_hide') ?></button>
                                 </form>
                             <?php endif; ?>
                             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Xoá bình luận này?')">Xoá</button>
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_comment') ?>')"><?= __('btn_delete') ?></button>
                             </form>
                             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                 <input type="hidden" name="action" value="bulk_delete_user">
                                 <input type="hidden" name="user_id" value="<?= intval($c['user_id']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Xoá tất cả bình luận của người dùng này?')">Xoá tất cả</button>
+                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_all_comments') ?>')"><?= __('btn_delete_all') ?></button>
                             </form>
                         </div>
                     </div>
@@ -195,19 +195,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                         card.dataset.placeholder = content.innerHTML;
                         content.innerHTML = orig.innerHTML;
                         orig.classList.remove('d-none');
-                        btn.textContent = 'Ẩn tạm';
+                        btn.textContent = '<?= __('btn_temp_hide') ?>';
                     } else {
                         // restore placeholder
-                        content.innerHTML = card.dataset.placeholder || '[Đã ẩn bởi quản trị]';
+                        content.innerHTML = card.dataset.placeholder || '[<?= __('admin_hidden_by_admin') ?>]';
                         orig.classList.add('d-none');
-                        btn.textContent = 'Hiện tạm';
+                        btn.textContent = '<?= __('btn_temp_show') ?>';
                     }
                 }
             });
         </script>
 
         <div class="mt-4" style="text-align: right; border-top: 1px solid var(--border-light); padding-top: 15px;">
-            <a href="<?= $base ?>/admin/posts" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Quay lại danh sách</a>
+            <a href="<?= $base ?>/admin/posts" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> <?= __('btn_back_to_list') ?></a>
         </div>
     </div>
     <?php include '../../footerAdmin.php'; ?>

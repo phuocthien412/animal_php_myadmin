@@ -7,7 +7,7 @@ $base = BASE_URL;
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Quản lý bình luận</title>
+    <title><?= __('admin_comments_title') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -34,8 +34,8 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
 <div class="page-header">
-    <h1><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:10px;font-size:20px;"></i>Quản lý bình luận</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Bình luận</div>
+    <h1><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:10px;font-size:20px;"></i><?= __('admin_comments_manage') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin_panel') ?> <span>›</span> <?= __('admin_comments') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -48,26 +48,26 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 <div class="card table-card">
     <div class="card-header">
         <div>
-            <div class="card-title"><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:8px;"></i>Danh sách bình luận</div>
-            <div class="card-subtitle">Tổng cộng <?= $totalComments ?> bình luận trong hệ thống</div>
+            <div class="card-title"><i class="fa-solid fa-comments" style="color:var(--accent-purple);margin-right:8px;"></i><?= __('admin_comments_list') ?></div>
+            <div class="card-subtitle"><?= sprintf(__('admin_comments_total_desc'), $totalComments) ?></div>
         </div>
     </div>
     <div class="table-toolbar">
         <div class="table-search">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="commentSearch" placeholder="Tìm nội dung bình luận..." />
+            <input type="text" id="commentSearch" placeholder="<?= __('admin_comments_search_placeholder') ?>" />
         </div>
     </div>
     <div class="table-responsive-wrap">
         <table class="admin-table" id="commentsTable">
             <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Người bình luận</th>
-                    <th>Bài viết #</th>
-                    <th>Nội dung</th>
-                    <th>Thời gian</th>
-                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                    <th>#<?= __('table_id') ?></th>
+                    <th><?= __('table_commenter') ?></th>
+                    <th><?= __('table_post_num') ?></th>
+                    <th><?= __('table_content') ?></th>
+                    <th><?= __('table_time') ?></th>
+                    <?php if ($isAdmin): ?><th><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 <tr><td colspan="6">
                     <div class="empty-state">
                         <i class="fa-solid fa-comments-slash"></i>
-                        <p>Chưa có bình luận nào</p>
+                        <p><?= __('admin_comments_empty') ?></p>
                     </div>
                 </td></tr>
                 <?php else: ?>
@@ -92,7 +92,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                         </div>
                     </td>
                     <td>
-                        <span class="role-badge default">Bài #<?= htmlspecialchars($comment['post_id']) ?></span>
+                        <span class="role-badge default"><?= __('admin_comments_post_label') ?><?= htmlspecialchars($comment['post_id']) ?></span>
                     </td>
                     <td style="max-width:260px;">
                         <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;">
@@ -107,8 +107,8 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <td>
                         <div class="action-btns">
                             <a href="<?= $base ?>/view/admin/comments/delete-comment.php?id=<?= urlencode($comment['id_cmt']) ?>"
-                               class="action-btn delete" title="Xoá bình luận"
-                               onclick="return confirm('Bạn có chắc muốn xoá bình luận này?')">
+                               class="action-btn delete" title="<?= __('action_delete_comment') ?>"
+                               onclick="return confirm('<?= htmlspecialchars(__('confirm_delete_comment'), ENT_QUOTES) ?>')">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </div>
@@ -127,7 +127,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <nav aria-label="Pagination">
         <ul class="pagination">
             <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= max(1, $currentPage - 1) ?>"><?= __('pagination_prev') ?></a>
             </li>
             <?php for ($p = 1; $p <= $totalPages; $p++): ?>
             <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
@@ -135,7 +135,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
             </li>
             <?php endfor; ?>
             <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+                <a class="page-link" href="<?= $base ?>/admin/comments?page=<?= min($totalPages, $currentPage + 1) ?>"><?= __('pagination_next') ?></a>
             </li>
         </ul>
     </nav>

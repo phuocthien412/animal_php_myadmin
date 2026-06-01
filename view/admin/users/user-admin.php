@@ -7,7 +7,7 @@ $base = BASE_URL;
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Tài khoản</title>
+    <title>NEKOPARA — <?= __('admin_users') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -34,8 +34,8 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 
 <!-- ===================== PAGE HEADER ===================== -->
 <div class="page-header">
-    <h1><i class="fa-solid fa-users-gear" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i>Quản lý Tài khoản</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Hệ thống <span>›</span> Tài khoản</div>
+    <h1><i class="fa-solid fa-users-gear" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i><?= __('admin_manage_users') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_system') ?> <span>›</span> <?= __('admin_users') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -49,25 +49,25 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 <div class="card table-card" style="margin: 0 20px;">
     <div class="card-header">
         <div>
-            <div class="card-title"><i class="fa-solid fa-users" style="color:var(--green-primary);margin-right:8px;"></i>Danh sách tài khoản</div>
-            <div class="card-subtitle">Quản lý người dùng và phân quyền - Tổng cộng <?= $totalUsers ?> tài khoản</div>
+            <div class="card-title"><i class="fa-solid fa-users" style="color:var(--green-primary);margin-right:8px;"></i><?= __('admin_user_list') ?></div>
+            <div class="card-subtitle"><?= __('admin_user_desc') ?> <?= $totalUsers ?> <?= mb_strtolower(__('admin_users')) ?></div>
         </div>
     </div>
     <div class="table-toolbar">
         <div class="table-search">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="tableSearchInput" placeholder="Tìm tên, email..." />
+            <input type="text" id="tableSearchInput" placeholder="<?= __('admin_search_user') ?>" />
         </div>
     </div>
     <div class="table-responsive-wrap">
         <table class="admin-table" id="usersTable">
             <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Người dùng</th>
-                    <th>Email</th>
-                    <th>Vai trò</th>
-                    <?php if ($isAdmin): ?><th>Hành động</th><?php endif; ?>
+                    <th>#<?= __('table_id') ?></th>
+                    <th><?= __('table_user') ?></th>
+                    <th><?= __('table_email') ?></th>
+                    <th><?= __('table_role') ?></th>
+                    <?php if ($isAdmin): ?><th><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 <tr><td colspan="5">
                     <div class="empty-state">
                         <i class="fa-solid fa-users-slash"></i>
-                        <p>Chưa có người dùng nào</p>
+                        <p><?= __('admin_no_users') ?></p>
                     </div>
                 </td></tr>
                 <?php else: ?>
@@ -100,12 +100,12 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                         <td>
                             <div class="action-btns">
                                 <a href="<?= $base ?>/admin/users/editRole/<?= urlencode($user['id']) ?>"
-                                   class="action-btn role" title="Chỉnh quyền">
+                                   class="action-btn role" title="<?= __('btn_edit_role') ?>">
                                     <i class="fa-solid fa-shield-halved"></i>
                                 </a>
                                 <a href="<?= $base ?>/admin/users/delete/<?= urlencode($user['id']) ?>"
-                                   class="action-btn delete" title="Xoá tài khoản"
-                                   onclick="return confirm('Bạn có chắc muốn xoá tài khoản này?')">
+                                   class="action-btn delete" title="<?= __('btn_delete_user') ?>"
+                                   onclick="return confirm('<?= __('confirm_delete_user') ?>')">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </div>
@@ -124,7 +124,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <nav aria-label="Pagination">
         <ul class="pagination">
             <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/users?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+                <a class="page-link" href="<?= $base ?>/admin/users?page=<?= max(1, $currentPage - 1) ?>"><?= __('pagination_prev') ?></a>
             </li>
             <?php for ($p = 1; $p <= $totalPages; $p++): ?>
             <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
@@ -132,7 +132,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
             </li>
             <?php endfor; ?>
             <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/users?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+                <a class="page-link" href="<?= $base ?>/admin/users?page=<?= min($totalPages, $currentPage + 1) ?>"><?= __('pagination_next') ?></a>
             </li>
         </ul>
     </nav>

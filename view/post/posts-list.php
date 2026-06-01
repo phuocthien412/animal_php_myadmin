@@ -34,7 +34,7 @@ if ($showOnlyMyPosts) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community</title>
+    <title><?= __('community') ?></title>
     <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -57,8 +57,8 @@ if ($showOnlyMyPosts) {
             <div class="hero-container">
                 <img src="<?= $base ?>/images/ClassAnimal/Background/Background.jpg" alt="Background" class="classbg" />
                 <div class="hero-overlay">
-                    <h1 class="display-3 fw-bold text-white text-center" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Cộng đồng</h1>
-                    <h4 class="text-white text-center mt-3 fw-medium" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Hãy cùng nhau chia sẻ những trải nghiệm của bản thân về thế giới động vật phong phú</h4>
+                    <h1 class="display-3 fw-bold text-white text-center" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);"><?= __('community') ?></h1>
+                    <h4 class="text-white text-center mt-3 fw-medium" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);"><?= __('posts_hero_subtitle') ?></h4>
                 </div>
             </div>
             <div class="container mt-5">
@@ -70,12 +70,12 @@ if ($showOnlyMyPosts) {
                             style="transform: scale(1.6); cursor: pointer; border-color: rgba(255,255,255,0.5);">
                         <label class="form-check-label text-white fw-bold mb-0" for="showOnlyMyPosts"
                             style="font-size: 1.2rem; cursor: pointer; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-                            Hiển thị bài viết của tôi
+                            <?= __('posts_show_my_posts') ?>
                         </label>
                     </div>
                     <div>
                         <a id="mbtn" class="btn text-white fw-bold rounded-pill shadow-lg px-4 py-2" style="background: linear-gradient(135deg, #f59e0b, #d97706); cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 20px rgba(245,158,11,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 .5rem 1rem rgba(0,0,0,.15)';">
-                            <i class="fas fa-pen me-2"></i> Tạo bài viết
+                            <i class="fas fa-pen me-2"></i> <?= __('posts_create_post') ?>
                         </a>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ if ($showOnlyMyPosts) {
                     <div class="modal-content animate-top"
                         style="background-image: url('<?= $base ?>/images/Explore/bg.png'); object-fit: cover; border-radius: 20px;">
                         <div class="modal-header border-0">
-                            <h4 class="modal-title fw-bold" style="color:white; text-shadow: 1px 1px 2px black;">Đăng bài viết mới</h4>
+                            <h4 class="modal-title fw-bold" style="color:white; text-shadow: 1px 1px 2px black;"><?= __('posts_new_post_modal_title') ?></h4>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1; text-shadow: 1px 1px 2px black;">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -93,17 +93,17 @@ if ($showOnlyMyPosts) {
                         <div class="modal-body">
                             <form action="<?= $base ?>/view/post/add.php" method="post" enctype="multipart/form-data">
                                 <div class="form-group mb-4">
-                                    <label class="fw-bold mb-2" style="color:white; text-shadow: 1px 1px 2px black;">Tiêu đề bài viết:</label>
-                                    <input type="text" name="title" class="form-control rounded-pill px-4" required placeholder="Nhập tiêu đề..." />
+                                    <label class="fw-bold mb-2" style="color:white; text-shadow: 1px 1px 2px black;"><?= __('posts_post_title_label') ?></label>
+                                    <input type="text" name="title" class="form-control rounded-pill px-4" required placeholder="<?= __('posts_title_placeholder') ?>" />
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label class="fw-bold mb-2" style="color:white; text-shadow: 1px 1px 2px black;">Tải lên hình ảnh:</label>
+                                    <label class="fw-bold mb-2" style="color:white; text-shadow: 1px 1px 2px black;"><?= __('posts_upload_image_label') ?></label>
                                     <input type="file" class="form-control rounded-pill px-4" id="imageFile" name="imageFile" accept="image/*" required onchange="previewImage(event)" />
                                 </div>
                                 <div class="text-center mb-4">
                                     <img id="imagePreview" class="img-fluid rounded shadow" alt="Image Preview" style="display: none; max-height: 250px;" />
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold">Thêm bài viết</button>
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold"><?= __('posts_add_post_btn') ?></button>
                             </form>
                         </div>
                     </div>
@@ -157,7 +157,7 @@ if ($showOnlyMyPosts) {
                                     </div>
                                     <div class="card-footer bg-transparent border-top d-flex justify-content-between align-items-center p-3" style="border-color: rgba(255,255,255,0.08) !important;">
                                         <span class="text-white-50"><i class="far fa-comment-dots me-2"></i></span>
-                                        <span class="text-white fw-bold px-4 py-2 rounded-pill" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 4px 15px rgba(59,130,246,0.4); font-size: 0.9rem;">Thảo luận ngay <i class="fas fa-arrow-right ms-2 fs-6"></i></span>
+                                        <span class="text-white fw-bold px-4 py-2 rounded-pill" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 4px 15px rgba(59,130,246,0.4); font-size: 0.9rem;"><?= __('posts_discuss_now') ?> <i class="fas fa-arrow-right ms-2 fs-6"></i></span>
                                     </div>
                                 </div>
                             </a>

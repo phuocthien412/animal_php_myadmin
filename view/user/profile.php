@@ -21,14 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_SESSION['user_id'])) {
                 $userController->updateUserAvatar($_SESSION['user_id'], $fileName);
                 $_SESSION['avatar'] = $fileName;
-                header("Location: " . $base . "/Profile?success=" . urlencode("Cập nhật avatar thành công!"));
+                header("Location: " . $base . "/Profile?success=" . urlencode(__('profile_avatar_success')));
                 exit();
             } else {
-                header("Location: " . $base . "/Profile?error=" . urlencode("Lỗi: Không tìm thấy ID người dùng."));
+                header("Location: " . $base . "/Profile?error=" . urlencode(__('profile_err_user_id')));
                 exit();
             }
         } else {
-            header("Location: " . $base . "/Profile?error=" . urlencode("Lỗi upload ảnh!"));
+            header("Location: " . $base . "/Profile?error=" . urlencode(__('profile_err_upload')));
             exit();
         }
     } elseif (isset($_POST['current_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
@@ -37,14 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirm = $_POST['confirm_password'];
         
         if ($new !== $confirm) {
-            header("Location: " . $base . "/Profile?error=" . urlencode("Mật khẩu xác nhận không khớp."));
+            header("Location: " . $base . "/Profile?error=" . urlencode(__('profile_err_confirm_pwd')));
             exit();
         } else {
             if ($userController->updatePassword($_SESSION['user_id'], $current, $new)) {
-                header("Location: " . $base . "/Profile?success=" . urlencode("Cập nhật mật khẩu thành công!"));
+                header("Location: " . $base . "/Profile?success=" . urlencode(__('profile_pwd_success')));
                 exit();
             } else {
-                header("Location: " . $base . "/Profile?error=" . urlencode("Mật khẩu hiện tại không đúng."));
+                header("Location: " . $base . "/Profile?error=" . urlencode(__('profile_err_current_pwd')));
                 exit();
             }
         }
@@ -57,7 +57,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>Hồ sơ cá nhân — NEKOPARA</title>
+    <title><?= __('profile_page_title') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
@@ -308,7 +308,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             <div class="col-lg-10">
                 <div class="profile-card">
                     <div class="profile-header">
-                        <h2><i class="fa-solid fa-id-badge me-2 text-primary"></i>Hồ sơ của bạn</h2>
+                        <h2><i class="fa-solid fa-id-badge me-2 text-primary"></i><?= __('profile_your_profile') ?></h2>
                     </div>
                     
                     <?php if ($success): ?>
@@ -336,7 +336,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                                     
                                     <div class="avatar-upload-overlay">
                                         <i class="fa-solid fa-camera"></i>
-                                        <span>Thay đổi</span>
+                                        <span><?= __('profile_change_avatar') ?></span>
                                     </div>
                                 </div>
                                 <input type="file" id="avatar_file_input" name="avatar_file" accept="image/*" required onchange="document.getElementById('avatarForm').submit()">
@@ -349,7 +349,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                                         <span class="role-badge mx-1"><?= htmlspecialchars($role) ?></span>
                                     <?php endforeach; ?>
                                 <?php else: ?>
-                                    <span class="text-muted fst-italic small">User</span>
+                                    <span class="text-muted fst-italic small"><?= __('profile_default_role') ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -358,41 +358,41 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                         <div class="col-md-8 right-column position-relative z-1">
                             
                             <div class="section-title">
-                                <i class="fa-solid fa-user-shield me-2"></i> Thông tin tài khoản
+                                <i class="fa-solid fa-user-shield me-2"></i> <?= __('profile_account_info') ?>
                             </div>
                             
                             <div class="mb-4">
-                                <label class="form-label fw-bold text-muted small">Tên đăng nhập</label>
+                                <label class="form-label fw-bold text-muted small"><?= __('form_username') ?></label>
                                 <input type="text" class="form-control" value="<?= htmlspecialchars($_SESSION['username']) ?>" disabled>
                             </div>
                             
                             <div class="section-title mt-5">
-                                <i class="fa-solid fa-lock me-2"></i> Đổi mật khẩu
+                                <i class="fa-solid fa-lock me-2"></i> <?= __('profile_change_pwd') ?>
                             </div>
                             
                             <form action="<?= $base ?>/Profile" method="POST">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold text-muted small">Mật khẩu hiện tại</label>
+                                    <label class="form-label fw-bold text-muted small"><?= __('profile_current_pwd') ?></label>
                                     <div class="input-group">
-                                        <input type="password" name="current_password" class="form-control pwd-input" placeholder="Nhập mật khẩu hiện tại" required>
+                                        <input type="password" name="current_password" class="form-control pwd-input" placeholder="<?= __('profile_placeholder_current_pwd') ?>" required>
                                         <button class="btn btn-toggle-pwd toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold text-muted small">Mật khẩu mới</label>
+                                    <label class="form-label fw-bold text-muted small"><?= __('profile_new_pwd') ?></label>
                                     <div class="input-group">
-                                        <input type="password" name="new_password" class="form-control pwd-input" placeholder="Nhập mật khẩu mới" required>
+                                        <input type="password" name="new_password" class="form-control pwd-input" placeholder="<?= __('profile_placeholder_new_pwd') ?>" required>
                                         <button class="btn btn-toggle-pwd toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label fw-bold text-muted small">Xác nhận mật khẩu mới</label>
+                                    <label class="form-label fw-bold text-muted small"><?= __('profile_confirm_new_pwd') ?></label>
                                     <div class="input-group">
-                                        <input type="password" name="confirm_password" class="form-control pwd-input" placeholder="Nhập lại mật khẩu mới" required>
+                                        <input type="password" name="confirm_password" class="form-control pwd-input" placeholder="<?= __('profile_placeholder_confirm_pwd') ?>" required>
                                         <button class="btn btn-toggle-pwd toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary-gradient"><i class="fa-solid fa-check-circle me-2"></i> Lưu thay đổi</button>
+                                <button type="submit" class="btn btn-primary-gradient"><i class="fa-solid fa-check-circle me-2"></i> <?= __('btn_save_changes') ?></button>
                             </form>
                         </div>
                     </div>

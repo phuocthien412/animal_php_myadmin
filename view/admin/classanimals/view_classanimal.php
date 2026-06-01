@@ -22,13 +22,13 @@ $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEKOPARA — Chi tiết lớp động vật</title>
+    <title>NEKOPARA — <?= __('admin_classanimal_detail') ?></title>
 </head>
 <body>
     <?php include '../../headerAdmin.php'; ?>
     <div class="page-header">
-        <h1><i class="fa-solid fa-eye" style="color:var(--accent-teal);margin-right:10px;font-size:20px;"></i>Chi tiết lớp động vật</h1>
-        <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Lớp động vật <span>›</span> Chi tiết</div>
+        <h1><i class="fa-solid fa-eye" style="color:var(--accent-teal);margin-right:10px;font-size:20px;"></i><?= __('admin_classanimal_detail') ?></h1>
+        <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_classanimals') ?> <span>›</span> <?= __('admin_detail') ?></div>
     </div>
     
     <div class="card" style="margin: 0 20px 20px; padding: 30px;">
@@ -39,13 +39,13 @@ $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
                     <span class="badge bg-secondary" style="font-size: 14px; vertical-align: middle;">#ID: <?= htmlspecialchars($classanimal['id_class']) ?></span>
                 </h3>
                 
-                <h5 class="mt-4" style="border-bottom: 1px solid #ddd; padding-bottom: 10px;">Thông tin chung</h5>
+                <h5 class="mt-4" style="border-bottom: 1px solid #ddd; padding-bottom: 10px;"><?= __('admin_general_info') ?></h5>
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; margin-top: 15px; line-height: 1.6;">
                     <?= nl2br(htmlspecialchars($classanimal['info'])) ?>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <h5 class="mt-4" style="border-bottom: 1px solid #ddd; padding-bottom: 10px;">Đa phương tiện (Ảnh / Video nền)</h5>
+                <h5 class="mt-4" style="border-bottom: 1px solid #ddd; padding-bottom: 10px;"><?= __('admin_media_background') ?></h5>
                 
                 <div class="text-center mt-3 p-3" style="border: 1px solid #eee; border-radius: 8px; background: #fff;">
                     <?php if(!empty($classanimal['background_video'])): ?>
@@ -56,15 +56,15 @@ $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
                         <?php endif; ?>
                         <div class="mt-2 text-muted" style="font-size: 0.9em;">File: <code><?= $mediaName ?></code></div>
                     <?php else: ?>
-                        <div class="text-muted p-4">Chưa có đa phương tiện</div>
+                        <div class="text-muted p-4"><?= __('admin_no_media') ?></div>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
         
         <div class="mt-4" style="text-align: right; border-top: 1px solid #ddd; padding-top: 20px;">
-            <a href="<?= $base ?>/admin/classanimals" class="btn btn-secondary" style="margin-right: 10px;"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
-            <a href="<?= $base ?>/admin/classanimals/edit/<?= urlencode($classanimal['id_class']) ?>" class="btn btn-primary"><i class="fa-solid fa-pen"></i> Chỉnh sửa</a>
+            <a href="<?= $base ?>/admin/classanimals" class="btn btn-secondary" style="margin-right: 10px;"><i class="fa-solid fa-arrow-left"></i> <?= __('btn_back') ?></a>
+            <a href="<?= $base ?>/admin/classanimals/edit/<?= urlencode($classanimal['id_class']) ?>" class="btn btn-primary"><i class="fa-solid fa-pen"></i> <?= __('btn_edit') ?></a>
         </div>
     </div>
     <?php include '../../footerAdmin.php'; ?>

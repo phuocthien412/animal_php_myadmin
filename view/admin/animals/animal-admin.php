@@ -7,7 +7,7 @@ $base = BASE_URL;
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>NEKOPARA — Quản lý động vật</title>
+    <title><?= __('admin_animals_title') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -29,8 +29,8 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 ?>
 
 <div class="page-header">
-    <h1><i class="fa-solid fa-dragon" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i>Quản lý động vật</h1>
-    <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Động vật</div>
+    <h1><i class="fa-solid fa-dragon" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i><?= __('admin_animals_manage') ?></h1>
+    <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin_panel') ?> <span>›</span> <?= __('admin_animals') ?></div>
 </div>
 
 <?php if ($success): ?>
@@ -43,19 +43,19 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 <div class="card table-card">
     <div class="card-header">
         <div>
-            <div class="card-title"><i class="fa-solid fa-dragon" style="color:var(--green-primary);margin-right:8px;"></i>Danh sách động vật</div>
-            <div class="card-subtitle">Tổng cộng <?= $totalAnimals ?> động vật trong hệ thống</div>
+            <div class="card-title"><i class="fa-solid fa-dragon" style="color:var(--green-primary);margin-right:8px;"></i><?= __('admin_animals_list') ?></div>
+            <div class="card-subtitle"><?= sprintf(__('admin_animals_total_desc'), $totalAnimals) ?></div>
         </div>
     </div>
     <div class="table-toolbar">
         <div class="table-search">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="animalSearch" placeholder="Tìm tên động vật..." />
+            <input type="text" id="animalSearch" placeholder="<?= __('admin_animals_search_placeholder') ?>" />
         </div>
         <div class="table-actions">
             <?php if ($isAdmin): ?>
             <a href="<?= $base ?>/admin/animals/add" class="btn-admin btn-admin-primary">
-                <i class="fa-solid fa-plus"></i> Thêm động vật
+                <i class="fa-solid fa-plus"></i> <?= __('dash_add_animal') ?>
             </a>
             <?php endif; ?>
         </div>
@@ -64,12 +64,12 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
         <table class="admin-table" id="animalsTable">
             <thead>
                 <tr>
-                    <th style="width: 5%">#ID</th>
-                    <th style="width: 10%">Ảnh đại diện</th>
-                    <th style="width: 20%">Tên động vật</th>
-                    <th style="width: 15%">Lớp</th>
-                    <th style="width: 35%">Giới thiệu</th>
-                    <?php if ($isAdmin): ?><th style="width: 15%">Hành động</th><?php endif; ?>
+                    <th style="width: 5%">#<?= __('table_id') ?></th>
+                    <th style="width: 10%"><?= __('table_avatar') ?></th>
+                    <th style="width: 20%"><?= __('table_animal_name') ?></th>
+                    <th style="width: 15%"><?= __('table_class') ?></th>
+                    <th style="width: 35%"><?= __('table_introduction') ?></th>
+                    <?php if ($isAdmin): ?><th style="width: 15%"><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +77,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 <tr><td colspan="6">
                     <div class="empty-state">
                         <i class="fa-solid fa-dragon"></i>
-                        <p>Chưa có động vật nào</p>
+                        <p><?= __('admin_animals_empty') ?></p>
                     </div>
                 </td></tr>
                 <?php else: ?>
@@ -88,7 +88,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                         <img src="<?= $base ?>/images/Animal/Avatar/<?= htmlspecialchars($animal['avatar']) ?>" alt="<?= htmlspecialchars($animal['name']) ?>">
                     </td>
                     <td><strong><?= htmlspecialchars($animal['name']) ?></strong></td>
-                    <td><span class="role-badge default">Lớp #<?= htmlspecialchars($animal['classanimals_id']) ?></span></td>
+                    <td><span class="role-badge default"><?= __('admin_animals_class_label') ?><?= htmlspecialchars($animal['classanimals_id']) ?></span></td>
                     <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--text-secondary);">
                         <?= htmlspecialchars(substr($animal['gioi_thieu_text'] ?? '', 0, 80)) ?>...
                     </td>
@@ -96,16 +96,16 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <td>
                         <div class="action-btns">
                             <a href="<?= $base ?>/admin/animals/detail/<?= urlencode($animal['id_animal']) ?>"
-                               class="action-btn view" title="Xem chi tiết">
+                               class="action-btn view" title="<?= __('action_view_details') ?>">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             <a href="<?= $base ?>/admin/animals/edit/<?= urlencode($animal['id_animal']) ?>"
-                               class="action-btn edit" title="Chỉnh sửa">
+                               class="action-btn edit" title="<?= __('action_edit') ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                             <a href="<?= $base ?>/admin/animals/delete/<?= urlencode($animal['id_animal']) ?>"
-                               class="action-btn delete" title="Xoá"
-                               onclick="return confirm('Bạn có chắc muốn xoá động vật này?')">
+                               class="action-btn delete" title="<?= __('action_delete') ?>"
+                               onclick="return confirm('<?= htmlspecialchars(__('confirm_delete_animal'), ENT_QUOTES) ?>')">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </div>
@@ -124,7 +124,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <nav aria-label="Pagination">
         <ul class="pagination">
             <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= max(1, $currentPage - 1) ?>">Trước</a>
+                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= max(1, $currentPage - 1) ?>"><?= __('pagination_prev') ?></a>
             </li>
             <?php for ($p = 1; $p <= $totalPages; $p++): ?>
             <li class="page-item <?= $p === $currentPage ? 'active' : '' ?>">
@@ -132,7 +132,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
             </li>
             <?php endfor; ?>
             <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= min($totalPages, $currentPage + 1) ?>">Sau</a>
+                <a class="page-link" href="<?= $base ?>/admin/animals?page=<?= min($totalPages, $currentPage + 1) ?>"><?= __('pagination_next') ?></a>
             </li>
         </ul>
     </nav>

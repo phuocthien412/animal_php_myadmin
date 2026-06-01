@@ -1,8 +1,13 @@
 <?php
 require_once '../../controller/UserController.php';
 
-session_start();
+require_once '../../config/env.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$base = BASE_URL;
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -19,17 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $userController->createUser($data);
 
     if ($result === 'duplicate_email') {
-        $error = 'Email đã tồn tại. Vui lòng sử dụng email khác.';
+        $error = __('reg_err_email');
     } elseif ($result === 'duplicate_phone') {
-        $error = 'Số điện thoại đã tồn tại. Vui lòng sử dụng số điện thoại khác.';
+        $error = __('reg_err_phone');
     } elseif ($result === 'duplicate_username') {
-        $error = 'Tên người dùng đã tồn tại. Vui lòng sử dụng tên người dùng khác.';
+        $error = __('reg_err_username');
     } else {
         // Set session variables for instant login
         $_SESSION['user_id'] = $result['id'];
         $_SESSION['username'] = $result['username'];
         $_SESSION['roles'] = $result['roles'];
-        header("Location: /animal_php/Home");
+        header("Location: " . $base . "/Home");
         exit();
     }
 }
@@ -40,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title><?= __('reg_title') ?> - NEKOPARA</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -73,23 +78,23 @@ include '../header.php';
 <section layout:fragment="content" style="padding: 0;">
 <section class="ClassAnimal" style="width:100%;">
     <div class="login-container" style="margin: 0 auto;">
-        <h2>Register</h2>
+        <h2><?= __('reg_title') ?></h2>
         <?php if ($error): ?>
             <div class="alert alert-danger">
                 <?= htmlspecialchars($error) ?>
             </div>
         <?php endif; ?>
-        <form action="/animal_php/Register" method="POST">
+        <form action="<?= $base ?>/Register" method="POST">
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email"><?= __('form_email') ?></label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password"><?= __('form_password') ?></label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="form-group">
-                <label for="phone">Phone</label>
+                <label for="phone"><?= __('form_phone') ?></label>
                 <input type="text" class="form-control" id="phone" name="phone">
             </div>
             <div class="form-group hidden">
@@ -97,7 +102,7 @@ include '../header.php';
                 <input type="text" class="form-control" id="provider" name="provider" value="">
             </div>
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username"><?= __('form_username') ?></label>
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group hidden">
@@ -106,7 +111,7 @@ include '../header.php';
                     <option value="2" selected>User</option> <!-- Assuming '2' is the ID for the 'user' role -->
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block"><?= __('reg_title') ?></button>
         </form>
     </div>
 </section>
