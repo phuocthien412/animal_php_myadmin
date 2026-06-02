@@ -7,9 +7,11 @@ if (!isset($base)) {
     require_once __DIR__ . '/../../../config/env.php';
 }
 
-if (!isset($all_notifications)) {
-    $all_notifications = [];
+require_once __DIR__ . '/../../../model/Notification.php';
+if (!isset($all_notifications) || empty($all_notifications)) {
+    $all_notifications = Notification::getAll(100);
 }
+Notification::markAllAsRead();
 
 include __DIR__ . '/../../headerAdmin.php';
 ?>
@@ -73,8 +75,8 @@ include __DIR__ . '/../../headerAdmin.php';
                         <i class="fa-solid <?php echo htmlspecialchars($notificationIcon); ?>"></i>
                     </span>
                     <span class="notification-content" style="flex:1; min-width:0;">
-                        <strong class="notification-title"><?php echo htmlspecialchars($notification['title'] ?? __('admin_notifications')); ?></strong>
-                        <span class="notification-message"><?php echo htmlspecialchars($notification['message'] ?? $notification['action'] ?? ''); ?></span>
+                        <strong class="notification-title"><?php echo htmlspecialchars(__($notification['title'] ?? __('admin_notifications'))); ?></strong>
+                        <span class="notification-message"><?php echo htmlspecialchars(__($notification['message'] ?? $notification['action'] ?? '')); ?></span>
                         <small style="color:var(--text-muted); margin-top:4px; display:block;"><?php echo htmlspecialchars(!empty($notification['created_at']) ? date('d/m/Y H:i', strtotime($notification['created_at'])) : ''); ?></small>
                     </span>
                     <span class="badge" style="background:<?php echo $notificationType === 'post' ? 'var(--accent-blue)' : 'var(--accent-orange)'; ?>; color:#fff; border-radius:999px; padding:6px 10px; font-size:11px; font-weight:700; flex-shrink:0;">

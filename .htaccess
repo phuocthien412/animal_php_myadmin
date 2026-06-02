@@ -6,19 +6,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Routes chính [NC = case-insensitive]
-RewriteRule ^Home$ view/home/index.php [L,NC]
-RewriteRule ^FindAnimal$ view/home/FindAnimal.php [L,NC]
-RewriteRule ^ClassAnimal$ view/classanimal/list_classanimals.php [L,NC]
-RewriteRule ^Login$ view/user/login.php [L,NC]
-RewriteRule ^Register$ view/user/add_user.php [L,NC]
-RewriteRule ^Profile$ view/user/profile.php [L,NC]
-RewriteRule ^classanimal/detail/([0-9]+)$ view/classanimal/detail_classanimal.php?id=$1 [L,NC]
-RewriteRule ^animal/detail/([0-9]+)$ view/animal/view_animal.php?id=$1 [L,NC]
-RewriteRule ^search/(.*)$ view/animal/animals-list.php?searchQuery=$1 [L,QSA,NC]
+RewriteRule ^Home$ view/client/home/index.php [L,NC]
+RewriteRule ^FindAnimal$ view/client/home/FindAnimal.php [L,NC]
+RewriteRule ^ClassAnimal$ view/client/classanimals/list_classanimals.php [L,NC]
+RewriteRule ^Login$ view/client/users/login.php [L,NC]
+RewriteRule ^Register$ view/client/users/add_user.php [L,NC]
+RewriteRule ^Profile$ view/client/users/profile.php [L,NC]
+RewriteRule ^classanimal/detail/([0-9]+)$ view/client/classanimals/detail_classanimal.php?id=$1 [L,NC]
+RewriteRule ^animal/detail/([0-9]+)$ view/client/animals/view_animal.php?id=$1 [L,NC]
+RewriteRule ^search/(.*)$ view/client/animals/animals-list.php?searchQuery=$1 [L,QSA,NC]
 
 # User admin
 RewriteRule ^admin/dashboard$ view/admin/dashboard.php [L,NC]
 RewriteRule ^admin/profile$ view/admin/profile.php [L,NC]
+RewriteRule ^admin/notifications/?$ view/admin/notifications/notification-list.php [L,NC]
 RewriteRule ^admin/users/delete/([0-9]+)$ view/admin/users/delete.php?id=$1 [L,NC]
 RewriteRule ^admin/users/editRole/([0-9]+)$ view/admin/users/editRole.php?id=$1 [L,NC]
 RewriteRule ^admin/users$ view/admin/users/user-admin.php [L,NC]
@@ -40,8 +41,8 @@ RewriteRule ^admin/classanimals/detail/([0-9]+)$ view/admin/classanimals/view_cl
 RewriteRule ^admin/classanimals$ view/admin/classanimals/classanimal-admin.php [L,NC]
 
 # Post & Comment
-RewriteRule ^Posts$ view/post/posts-list.php [L,NC]
-RewriteRule ^posts/detail/([0-9]+)$ view/post/post-detail.php?id=$1 [L,NC]
+RewriteRule ^Posts$ view/client/posts/posts-list.php [L,NC]
+RewriteRule ^posts/detail/([0-9]+)$ view/client/posts/post-detail.php?id=$1 [L,NC]
 RewriteRule ^admin/posts$ view/admin/posts/post-admin.php [L,NC]
 RewriteRule ^admin/posts/detail/([0-9]+)$ view/admin/posts/view_post.php?id=$1 [L,NC]
-RewriteRule ^admin/comments$ view/admin/comments/comment-admin.php [L,NC]
+RewriteRule ^admin/comments$ view/admin/posts/comment-admin.php [L,NC]

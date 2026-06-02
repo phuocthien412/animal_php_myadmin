@@ -104,6 +104,7 @@ return [
     'table_media' => 'Ảnh / Video',
     'table_class_name' => 'Tên lớp',
     'table_info' => 'Thông tin',
+    'table_animal_count' => 'Số lượng động vật',
     'admin_no_classanimals' => 'Chưa có lớp động vật nào',
     'empty' => 'Trống',
     'btn_view_class' => 'Xem lớp',

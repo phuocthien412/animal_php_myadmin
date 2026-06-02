@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                             <?php $isHidden = isset($c['hidden']) && intval($c['hidden']) === 1; ?>
                             <?php $hasOrig = $isHidden && !empty($c['orig_chat_data']); ?>
                             <div class="mt-2 comment-content" style="white-space:pre-wrap;">
-                                <?= nl2br(htmlspecialchars($c['chat_data'])) ?>
+                                <?= nl2br(htmlspecialchars(__($c['chat_data']))) ?>
                             </div>
                             <?php if ($isHidden): ?>
                                 <div class="text-warning small mt-2">(<?= __('admin_hidden_by_admin') ?>)</div>

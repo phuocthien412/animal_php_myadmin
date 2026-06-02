@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 // Get the post ID from the URL
 $post_id = $_GET['id'] ?? null;
@@ -36,6 +36,7 @@ foreach ($comments as $key => $comment) {
     $comments[$key]['username'] = $userController->getUsernameById($comment['user_id']); // Fetch the username for each comment
     $comments[$key]['likes_count'] = $commentController->getLikeCount($comment['id_cmt']);
     $comments[$key]['is_liked'] = $commentController->isLikedByUser($comment['id_cmt'], $user_id);
+    $comments[$key]['chat_data'] = __($comment['chat_data']);
 }
 ?>
 
@@ -228,7 +229,7 @@ foreach ($comments as $key => $comment) {
 
                     <!-- Add Comment Form -->
                     <div class="card-footer bg-transparent border-top p-4" style="border-color: rgba(255,255,255,0.08) !important;">
-                        <form id="commentForm" action="<?= $base ?>/view/post/add-comment.php" method="POST" class="m-0">
+                        <form id="commentForm" action="<?= $base ?>/view/client/posts/add-comment.php" method="POST" class="m-0">
                             <input type="hidden" name="post_id" value="<?= htmlspecialchars($post_id) ?>" />
                             <div class="position-relative">
                                 <input type="text" class="form-control premium-input w-100" name="chatData" required placeholder="<?= __('post_placeholder_comment') ?>" autocomplete="off">
@@ -249,7 +250,7 @@ foreach ($comments as $key => $comment) {
 
     // Function to fetch and update comments
     function fetchComments() {
-    fetch(`<?= $base ?>/view/post/fetch-comments.php?post_id=${postId}&_t=${new Date().getTime()}`)
+    fetch(`<?= $base ?>/view/client/posts/fetch-comments.php?post_id=${postId}&_t=${new Date().getTime()}`)
         .then(response => response.json())
         .then(comments => {
             const commentsWrapper = document.getElementById('commentsWrapper');
@@ -312,7 +313,7 @@ foreach ($comments as $key => $comment) {
 
         const formData = new FormData(commentForm);
 
-        fetch('<?= $base ?>/view/post/add-comment.php', {
+        fetch('<?= $base ?>/view/client/posts/add-comment.php', {
             method: 'POST',
             body: formData
         })
@@ -346,7 +347,7 @@ foreach ($comments as $key => $comment) {
             const formData = new FormData();
             formData.append('comment_id', commentId);
 
-            fetch('<?= $base ?>/view/post/like-comment.php', {
+            fetch('<?= $base ?>/view/client/posts/like-comment.php', {
                 method: 'POST',
                 body: formData
             })
@@ -381,7 +382,7 @@ foreach ($comments as $key => $comment) {
             const formData = new FormData();
             formData.append('post_id', postId);
 
-            fetch('<?= $base ?>/view/post/like-post.php', {
+            fetch('<?= $base ?>/view/client/posts/like-post.php', {
                 method: 'POST',
                 body: formData
             })

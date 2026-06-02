@@ -164,8 +164,8 @@ $adminNotificationCount = Notification::getUnreadCount();
                                     <i class="fa-solid <?= htmlspecialchars($notificationIcon) ?>"></i>
                                 </span>
                                 <span class="notification-content" style="flex:1; min-width:0; display:flex !important; flex-direction:column !important; align-items:flex-start; gap:2px;">
-                                    <span class="notification-title" style="display:block; line-height:1.25;"><?= htmlspecialchars($notification['title']) ?></span>
-                                    <span class="notification-action" style="display:block; line-height:1.35; white-space:normal; word-break:break-word;"><?= htmlspecialchars($notification['action'] ?? $notification['message'] ?? $notification['title']) ?></span>
+                                    <span class="notification-title" style="display:block; line-height:1.25;"><?= htmlspecialchars(__($notification['title'])) ?></span>
+                                    <span class="notification-action" style="display:block; line-height:1.35; white-space:normal; word-break:break-word;"><?= htmlspecialchars(__($notification['action'] ?? $notification['message'] ?? $notification['title'])) ?></span>
                                     <span class="notification-time" style="display:block; line-height:1.3; white-space:nowrap;">
                                         <?= htmlspecialchars(!empty($notification['created_at']) ? date('d/m/Y H:i', strtotime($notification['created_at'])) : '') ?>
                                     </span>

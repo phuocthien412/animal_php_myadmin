@@ -1,6 +1,6 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\animal\animals-list.php
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 $animalController = new AnimalController();
 $searchQuery = isset($_GET['searchQuery']) ? $_GET['searchQuery'] : '';

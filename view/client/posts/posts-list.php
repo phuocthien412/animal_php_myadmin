@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 
 $postController = new PostController();
@@ -89,7 +89,7 @@ if ($showOnlyMyPosts) {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?= $base ?>/view/post/add.php" method="post" enctype="multipart/form-data">
+                            <form action="<?= $base ?>/view/client/posts/add.php" method="post" enctype="multipart/form-data">
                                 <div class="form-group mb-4">
                                     <label class="fw-bold mb-2" style="color:white; text-shadow: 1px 1px 2px black;"><?= __('posts_post_title_label') ?></label>
                                     <input type="text" name="title" class="form-control rounded-pill px-4" required placeholder="<?= __('posts_title_placeholder') ?>" />

@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/../config/env.php';
+require_once __DIR__ . '/../../config/env.php';
 ?>
 <!-- Header Styles and Links -->
 <title>NEKOPARA</title>
@@ -211,7 +211,7 @@ require_once __DIR__ . '/../config/env.php';
                                         </li>
                                         <li><a class="dropdown-item py-2" href="<?= $base ?>/Profile"><i class="fa-regular fa-user me-2"></i> <?= __('profile') ?></a></li>
                                         <li>
-                                            <form action="<?= $base ?>/view/user/logout.php" method="post" class="m-0">
+                                            <form action="<?= $base ?>/view/client/users/logout.php" method="post" class="m-0">
                                                 <button class="dropdown-item py-2 text-danger" type="submit"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> <?= __('logout') ?></button>
                                             </form>
                                         </li>

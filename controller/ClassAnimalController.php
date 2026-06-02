@@ -50,6 +50,14 @@ class ClassAnimalController extends BaseController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Fetch count of animals related to a specific class animal
+    public function getAnimalsCountByClassId($id) {
+        $sql = "SELECT COUNT(*) FROM animals WHERE classanimals_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return (int)$stmt->fetchColumn();
+    }
+
     // Update an existing class animal
     public function updateClassAnimal($id, $data) {
         $current = $this->getClassAnimalById($id);

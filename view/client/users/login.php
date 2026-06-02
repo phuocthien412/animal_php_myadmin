@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 // Load BASE_URL từ .env → $base
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 $animalController = new AnimalController();
 $userController = new UserController();
@@ -452,7 +452,7 @@ if (isset($_SESSION['username'])) {
                 </div>
             <?php endif; ?>
 
-            <form action="<?= $base ?>/view/user/login_process.php" method="POST" id="loginForm">
+            <form action="<?= $base ?>/view/client/users/login_process.php" method="POST" id="loginForm">
 
                 <!-- Username -->
                 <div class="field-group">

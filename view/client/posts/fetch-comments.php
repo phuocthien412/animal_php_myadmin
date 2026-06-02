@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../../config/env.php';
-
+require_once __DIR__ . '/../../../config/env.php';
 
 header('Content-Type: application/json');
 error_reporting(0);
@@ -26,12 +25,13 @@ if ($post_id > 0) {
         $comments = [];
     }
 
-    // Add usernames and likes to the comments
+    // Add usernames, likes, and translation to the comments
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
     foreach ($comments as $key => $comment) {
         $comments[$key]['username'] = $userController->getUsernameById($comment['user_id']);
         $comments[$key]['likes_count'] = $commentController->getLikeCount($comment['id_cmt']);
         $comments[$key]['is_liked'] = $commentController->isLikedByUser($comment['id_cmt'], $user_id);
+        $comments[$key]['chat_data'] = __($comment['chat_data']);
     }
 
     // Return comments as JSON

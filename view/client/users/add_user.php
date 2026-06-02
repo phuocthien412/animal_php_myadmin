@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../config/env.php';
+require_once '../../../config/env.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

@@ -59,13 +59,14 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                     <th>#<?= __('table_id') ?></th>
                     <th><?= __('table_media') ?></th>
                     <th><?= __('table_class_name') ?></th>
+                    <th><?= __('table_animal_count') ?></th>
                     <th><?= __('table_info') ?></th>
                     <?php if ($isAdmin): ?><th><?= __('table_action') ?></th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($classAnimals)): ?>
-                <tr><td colspan="4">
+                <tr><td colspan="6">
                     <div class="empty-state">
                         <i class="fa-solid fa-layer-group"></i>
                         <p><?= __('admin_no_classanimals') ?></p>
@@ -91,6 +92,14 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                         <?php endif; ?>
                     </td>
                     <td><strong><?= htmlspecialchars($cls['name']) ?></strong></td>
+                    <td>
+                        <?php 
+                        $animalCount = $classAnimalController->getAnimalsCountByClassId($cls['id_class']);
+                        ?>
+                        <span class="badge rounded-pill <?php echo $animalCount > 0 ? 'bg-primary' : 'bg-secondary'; ?>" style="font-size: 12px; font-weight: 600; padding: 6px 12px;">
+                            <?= $animalCount ?>
+                        </span>
+                    </td>
                     <td style="max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--text-secondary);">
                         <?= htmlspecialchars(substr($cls['info'] ?? '', 0, 100)) ?>...
                     </td>
@@ -101,13 +110,19 @@ $isAdmin      = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles'
                                class="action-btn edit" title="<?= __('btn_edit') ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="<?= $base ?>/admin/classanimals/delete/<?= urlencode($cls['id_class']) ?>"
-                               class="action-btn delete" title="<?= __('action_delete') ?? 'Xoá' ?>"
-                               data-confirm="<?= htmlspecialchars(__('confirm_delete_classanimal'), ENT_QUOTES) ?>"
-                               data-confirm-title="<?= htmlspecialchars(__('action_delete') ?? 'Xóa', ENT_QUOTES) ?>"
-                               data-confirm-type="danger">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
+                            <?php if ($animalCount > 0): ?>
+                                <button type="button" class="action-btn delete" style="opacity: 0.5; cursor: not-allowed;" onclick="event.stopPropagation(); showToast('<?= htmlspecialchars(__('msg_classanimal_has_animals'), ENT_QUOTES) ?>', 'danger');" title="<?= __('action_delete') ?? 'Xoá' ?>">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            <?php else: ?>
+                                <a href="<?= $base ?>/admin/classanimals/delete/<?= urlencode($cls['id_class']) ?>"
+                                   class="action-btn delete" title="<?= __('action_delete') ?? 'Xoá' ?>"
+                                   data-confirm="<?= htmlspecialchars(__('confirm_delete_classanimal'), ENT_QUOTES) ?>"
+                                   data-confirm-title="<?= htmlspecialchars(__('action_delete') ?? 'Xóa', ENT_QUOTES) ?>"
+                                   data-confirm-type="danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </td>
                     <?php endif; ?>

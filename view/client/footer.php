@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/env.php';
+require_once __DIR__ . '/../../config/env.php';
 ?>
 <!-- Premium Senior Dev Custom CSS Style for Footer -->
 <style>

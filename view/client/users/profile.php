@@ -5,13 +5,13 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userController = new UserController();
     
     if (isset($_FILES['avatar_file'])) {
-        $uploadDir = __DIR__ . '/../../images/';
+        $uploadDir = __DIR__ . '/../../../images/';
         
         if ($_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
             $safeName = generateSafeFilename($_FILES['avatar_file']['name']);

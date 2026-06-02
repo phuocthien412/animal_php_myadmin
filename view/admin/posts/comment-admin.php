@@ -92,7 +92,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     </td>
                     <td style="max-width:260px;">
                         <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;">
-                            <?= htmlspecialchars($comment['chat_data']) ?>
+                            <?= htmlspecialchars(__($comment['chat_data'])) ?>
                         </div>
                     </td>
                     <td style="font-size:13px;color:var(--text-muted);white-space:nowrap;">
@@ -102,7 +102,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <?php if ($isAdmin): ?>
                     <td>
                         <div class="action-btns">
-                            <a href="<?= $base ?>/view/admin/comments/delete-comment.php?id=<?= urlencode($comment['id_cmt']) ?>"
+                            <a href="<?= $base ?>/view/admin/posts/delete-comment.php?id=<?= urlencode($comment['id_cmt']) ?>"
                                class="action-btn delete" title="<?= __('action_delete_comment') ?>"
                                data-confirm="<?= htmlspecialchars(__('confirm_delete_comment'), ENT_QUOTES) ?>"
                                data-confirm-title="<?= htmlspecialchars(__('action_delete_comment'), ENT_QUOTES) ?>"

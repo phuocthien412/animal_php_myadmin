@@ -1,6 +1,6 @@
 <?php
 // filepath: e:\laragon\www\animal_php\view\classanimal\detail_classanimal.php
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 
 // Get the class animal ID from the URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;

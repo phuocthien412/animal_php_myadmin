@@ -105,6 +105,7 @@ return [
     'table_media' => 'Image / Video',
     'table_class_name' => 'Class Name',
     'table_info' => 'Information',
+    'table_animal_count' => 'Animals Count',
     'admin_no_classanimals' => 'No animal classes yet',
     'empty' => 'Empty',
     'btn_view_class' => 'View Class',
