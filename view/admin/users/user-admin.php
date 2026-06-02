@@ -41,12 +41,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_system') ?> <span>›</span> <?= __('admin_users') ?></div>
 </div>
 
-<?php if ($success): ?>
-    <div class="alert-admin success"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
-<?php endif; ?>
-<?php if ($error): ?>
-    <div class="alert-admin danger"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+
 
 <!-- ===================== USER TABLE ===================== -->
 <div class="card table-card" style="margin: 0 20px;">
@@ -108,7 +103,9 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                                 </a>
                                 <a href="<?= $base ?>/admin/users/delete/<?= urlencode($user['id']) ?>"
                                    class="action-btn delete" title="<?= __('btn_delete_user') ?>"
-                                   onclick="return confirm('<?= __('confirm_delete_user') ?>')">
+                                   data-confirm="<?= htmlspecialchars(__('confirm_delete_user'), ENT_QUOTES) ?>"
+                                   data-confirm-title="<?= htmlspecialchars(__('btn_delete_user'), ENT_QUOTES) ?>"
+                                   data-confirm-type="danger">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </div>

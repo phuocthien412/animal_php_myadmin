@@ -152,7 +152,7 @@ include '../header.php';
                                     <p style="text-align:justify">
                                         <span><?= __('step_1') ?></span> <?= __('guide_step_1') ?>
                                     </p>
-                                    <img src="<?= $base ?>/images/QRScan.png" alt="" class="itemListimg" style="max-width: 100%; height: auto;">
+                                    <img src="<?= $base ?>/images/Animal/3DQR/<?php echo htmlspecialchars($animal['imgqr3d']); ?>" alt="" class="itemListimg" style="max-width: 100%; height: auto;">
                                     <p style="text-align:justify">
                                         <span><?= __('step_2') ?></span> <?= __('guide_step_2') ?>
                                     </p>

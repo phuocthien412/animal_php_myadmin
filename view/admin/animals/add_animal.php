@@ -9,22 +9,40 @@ $classAnimalController = new ClassAnimalController();
 $classAnimals = $classAnimalController->getAllClassAnimals();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Giới hạn dung lượng tệp tối đa 10MB
+    $maxSize = 10 * 1024 * 1024;
+    // Tái sử dụng file_validator để kiểm tra dung lượng tệp
+    require_once __DIR__ . '/../components/file_validator.php';
+    validateUploadedFiles($_FILES, 10 * 1024 * 1024);
+
+
+    // Generate safe, unique names for uploaded files according to Senior Developer standards
+    $avatarName = !empty($_FILES['avatar']['name']) ? generateSafeFilename($_FILES['avatar']['name']) : '';
+    $nssName = !empty($_FILES['noi_sinh_song_image']['name']) ? generateSafeFilename($_FILES['noi_sinh_song_image']['name']) : '';
+    $qrName = !empty($_FILES['imgqr3d']['name']) ? generateSafeFilename($_FILES['imgqr3d']['name']) : '';
+
     $data = [
         'name' => $_POST['name'],
         'gioi_thieu_text' => $_POST['gioi_thieu_text'],
         'ngoai_hinh_text' => $_POST['ngoai_hinh_text'],
         'noi_sinh_song_text' => $_POST['noi_sinh_song_text'],
-        'avatar' => $_FILES['avatar']['name'], // Handle file upload
-        'noi_sinh_song_image' => $_FILES['noi_sinh_song_image']['name'], // Handle file upload
-        'imgqr3d' => $_FILES['imgqr3d']['name'], // Handle file upload
+        'avatar' => $avatarName,
+        'noi_sinh_song_image' => $nssName,
+        'imgqr3d' => $qrName,
         'classanimals_id' => $_POST['classanimals_id'] // Save the selected class animal ID
     ];
 
     // Handle file uploads
     $uploadDir = '../../../images/';
-    move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadDir . 'Animal/Avatar/' . $_FILES['avatar']['name']);
-    move_uploaded_file($_FILES['noi_sinh_song_image']['tmp_name'], $uploadDir . 'Animal/NoiSinhSong/' . $_FILES['noi_sinh_song_image']['name']);
-    move_uploaded_file($_FILES['imgqr3d']['tmp_name'], $uploadDir . 'Animal/3DQR/' . $_FILES['imgqr3d']['name']);
+    if ($avatarName !== '') {
+        move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadDir . 'Animal/Avatar/' . $avatarName);
+    }
+    if ($nssName !== '') {
+        move_uploaded_file($_FILES['noi_sinh_song_image']['tmp_name'], $uploadDir . 'Animal/NoiSinhSong/' . $nssName);
+    }
+    if ($qrName !== '') {
+        move_uploaded_file($_FILES['imgqr3d']['tmp_name'], $uploadDir . 'Animal/3DQR/' . $qrName);
+    }
 
     // Add the animal to the database
     $animalController = new AnimalController();
@@ -33,14 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handle multiple images from a single input file for the list_image table
     $listAnimalController = new ListAnimalController();
     if (!empty($_FILES['list_images']['name'][0])) {
-        foreach ($_FILES['list_images']['name'] as $key => $imageName) {
+        foreach ($_FILES['list_images']['name'] as $key => $originalName) {
             $tmpName = $_FILES['list_images']['tmp_name'][$key];
-            $imagePath = $uploadDir . 'Animal/ListImage/' . $imageName;
-            if (move_uploaded_file($tmpName, $imagePath)) {
-                $listAnimalController->addImage([
-                    'animalimage' => $imageName, // Store only the image name
-                    'animals_id' => $animalId   // Use the correct animal ID
-                ]);
+            if ($_FILES['list_images']['error'][$key] === UPLOAD_ERR_OK) {
+                $safeName = generateSafeFilename($originalName);
+                $imagePath = $uploadDir . 'Animal/ListImage/' . $safeName;
+                if (move_uploaded_file($tmpName, $imagePath)) {
+                    $listAnimalController->addImage([
+                        'animalimage' => $safeName, // Store only the safe image name
+                        'animals_id' => $animalId   // Use the correct animal ID
+                    ]);
+                }
             }
         }
     }
@@ -51,119 +72,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm động vật</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .form-container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin: 0 auto;
-        }
-        .form-container h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .preview-images img {
-            max-width: 100px;
-            margin: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-    </style>
-    <script>
-        function previewImage(input, previewId) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById(previewId).src = e.target.result;
-                    document.getElementById(previewId).style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function previewImages(input, previewContainerId) {
-            const previewContainer = document.getElementById(previewContainerId);
-            previewContainer.innerHTML = ''; // Clear previous previews
-            if (input.files) {
-                Array.from(input.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.alt = 'Preview';
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
-    </script>
-</head>
-<body>
-    <?php include '../../headerAdmin.php'; ?>
+<?php
+require_once __DIR__ . '/../components/file_uploader.php';
+?>
+<?php include '../../headerAdmin.php'; ?>
     <div class="form-container">
-        <h2>Thêm động vật</h2>
-        <?php if (isset($_GET['success'])): ?>
-            <div class="alert alert-success">Động vật đã được thêm thành công!</div>
-        <?php endif; ?>
-        <form action="/animal_php/admin/animals/add" method="POST" enctype="multipart/form-data">
+        <h2><?= __('admin_animals_add_title') ?? 'Thêm động vật' ?></h2>
+        
+        <form action="<?= $base ?>/admin/animals/add" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">Tên:</label>
+                <label for="name"><?= __('form_animal_name') ?></label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="gioi_thieu_text">Giới thiệu:</label>
+                <label for="gioi_thieu_text"><?= __('form_animal_intro') ?></label>
                 <textarea class="form-control" id="gioi_thieu_text" name="gioi_thieu_text" required></textarea>
             </div>
             <div class="form-group">
-                <label for="ngoai_hinh_text">Ngoại hình:</label>
+                <label for="ngoai_hinh_text"><?= __('form_animal_appearance') ?></label>
                 <textarea class="form-control" id="ngoai_hinh_text" name="ngoai_hinh_text" required></textarea>
             </div>
             <div class="form-group">
-                <label for="noi_sinh_song_text">Nơi sinh sống:</label>
+                <label for="noi_sinh_song_text"><?= __('form_animal_habitat') ?></label>
                 <textarea class="form-control" id="noi_sinh_song_text" name="noi_sinh_song_text" required></textarea>
             </div>
+            <?php renderFileUploader('avatar', 'avatar', __('form_animal_avatar'), '', '', 'image/*', false, true); ?>
+
+            <?php renderFileUploader('noi_sinh_song_image', 'noi_sinh_song_image', __('form_animal_habitat_map'), '', '', 'image/*', false, true); ?>
+
+            <?php renderFileUploader('imgqr3d', 'imgqr3d', __('form_animal_qr3d'), '', '', 'image/*', false, true); ?>
+
+            <?php renderFileUploader('list_images', 'list_images[]', __('form_animal_gallery'), '', '', 'image/*', true, false); ?>
             <div class="form-group">
-                <label for="avatar">Hình ảnh đại diện:</label>
-                <input type="file" class="form-control" id="avatar" name="avatar" required onchange="previewImage(this, 'avatarPreview')">
-                <img id="avatarPreview" style="display:none; margin-top:10px; width:200px" alt="Avatar Preview">
-            </div>
-            <div class="form-group">
-                <label for="noi_sinh_song_image">Hình ảnh nơi sinh sống:</label>
-                <input type="file" class="form-control" id="noi_sinh_song_image" name="noi_sinh_song_image" required onchange="previewImage(this, 'habitatPreview')">
-                <img id="habitatPreview" style="display:none; margin-top:10px; width:200px" alt="Habitat Preview">
-            </div>
-            <div class="form-group">
-                <label for="imgqr3d">Hình ảnh QR 3D:</label>
-                <input type="file" class="form-control" id="imgqr3d" name="imgqr3d" required onchange="previewImage(this, 'qrPreview')">
-                <img id="qrPreview" style="display:none; margin-top:10px; width:200px" alt="QR Preview">
-            </div>
-            <div class="form-group">
-                <label for="list_images">Hình ảnh phụ (tối đa 3):</label>
-                <input type="file" class="form-control" id="list_images" name="list_images[]" multiple onchange="previewImages(this, 'previewContainer')">
-                <div id="previewContainer" class="preview-images"></div>
-            </div>
-            <div class="form-group">
-                <label for="classanimals_id">Class Animal:</label>
+                <label for="classanimals_id"><?= __('form_animal_class') ?></label>
                 <select class="form-control" id="classanimals_id" name="classanimals_id" required>
-                    <option value="" disabled selected>Chọn Class Animal</option>
+                    <option value="" disabled selected><?= __('form_animal_class_select') ?></option>
                     <?php foreach ($classAnimals as $classAnimal): ?>
                         <option value="<?= htmlspecialchars($classAnimal['id_class']) ?>">
                             <?= htmlspecialchars($classAnimal['name']) ?>
@@ -171,8 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Thêm</button>
+            <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align: right; margin-bottom: 30px;">
+                <a href="<?= $base ?>/admin/animals" class="btn btn-secondary" style="margin-right: 10px;"><?= __('btn_cancel') ?></a>
+                <button type="submit" class="btn btn-primary" data-confirm="<?= htmlspecialchars(__('confirm_add_animal'), ENT_QUOTES) ?>" data-confirm-title="<?= htmlspecialchars(__('confirm_add_animal_title'), ENT_QUOTES) ?>" data-confirm-type="success"><i class="fa-solid fa-floppy-disk" style="margin-right:5px;"></i><?= __('btn_add_new') ?></button>
+            </div>
         </form>
     </div>
-</body>
-</html>
+<?php include '../../footerAdmin.php'; ?>

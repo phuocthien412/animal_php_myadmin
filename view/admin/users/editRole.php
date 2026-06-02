@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div style="display:flex;gap:10px;margin-top:24px;">
-                <button type="submit" class="btn-admin btn-admin-primary">
+                <button type="submit" class="btn-admin btn-admin-primary" data-confirm="Xác nhận thay đổi quyền của người dùng này?" data-confirm-title="Lưu thay đổi" data-confirm-type="warning">
                     <i class="fa-solid fa-check"></i> <?= __('btn_save_role') ?>
                 </button>
                 <a href="<?= $base ?>/admin/users" class="btn-admin btn-admin-outline">

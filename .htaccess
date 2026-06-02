@@ -32,6 +32,8 @@ RewriteRule ^admin/animals/detail/([0-9]+)$ view/admin/animals/view_animal.php?i
 RewriteRule ^admin/animals$ view/admin/animals/animal-admin.php [L,NC]
 
 # ClassAnimal admin
+RewriteRule ^admin/classanimals/add$ view/admin/classanimals/add_classanimal.php [L,NC]
+RewriteRule ^admin/classanimals/delete/([0-9]+)$ view/admin/classanimals/delete.php?id=$1 [L,NC]
 RewriteRule ^admin/classanimals/edit/([0-9]+)$ view/admin/classanimals/update_classanimal.php?id=$1 [L,NC]
 RewriteRule ^admin/classanimals/edit$ view/admin/classanimals/update_classanimal.php [L,NC]
 RewriteRule ^admin/classanimals/detail/([0-9]+)$ view/admin/classanimals/view_classanimal.php?id=$1 [L,NC]

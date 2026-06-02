@@ -56,3 +56,55 @@ Dưới đây là danh sách toàn bộ các file đã được chỉnh sửa đ
 
 ### Ghi chú
 - Nếu sau này cần bật realtime lại, nên làm theo hướng cache/cursor để chỉ gửi phần thay đổi thay vì polling toàn bộ dữ liệu liên tục.
+
+## 6. Tổng Hợp Thay Đổi - Cố Định Giao Diện Admin & Refactor (Mới nhất)
+
+### Các thay đổi đã thực hiện
+- **Sửa lỗi CSS Modal Xác nhận:**
+  - Sửa lỗi modal xác nhận (Confirm Modal) luôn tự động hiển thị khi vừa load trang do CSS `.confirm-modal { display: flex; }` ghi đè thuộc tính `hidden` của HTML.
+  - Chỉnh lại CSS sử dụng `.confirm-modal { display: none; }` và `.confirm-modal.is-open { display: flex; }` kết hợp với class JS để toggle bật/tắt chính xác.
+
+- **Sửa lỗi mất định dạng CSS toàn bộ trang:**
+  - **Nguyên nhân:** Các trang `add_animal.php`, `update_animal.php` và `update_classanimal.php` khai báo trùng lặp khung HTML (`<!DOCTYPE html><html><head><body>`) trong khi đã include `headerAdmin.php` (file này cũng chứa bộ khung y hệt). Việc này khiến trình duyệt loại bỏ thẻ `<head>` chứa CSS.
+  - **Khắc phục:** Xóa bỏ bộ khung HTML dư thừa ở đầu và thẻ đóng `</body></html>` ở cuối trong các file này.
+
+- **Refactor (Tối ưu code) Component Validate:**
+  - Gom toàn bộ logic kiểm tra dung lượng file (tối đa 10MB) rải rác trong các file Controller/View vào một Component dùng chung tại `view/admin/components/file_validator.php`.
+  - Tích hợp sử dụng trong `add_animal.php`, `update_animal.php`, `update_classanimal.php` và `profile.php`.
+  - Khắc phục lỗi mất ảnh hiện tại khi người dùng cập nhật thông tin chữ (do sai lệch tên biến `$_POST` với thẻ `<input type="hidden">` sinh ra từ `file_uploader.php`).
+
+- **Đa ngôn ngữ (i18n):**
+  - Tích hợp hàm dịch `__()` vào trong thông báo lỗi của `file_validator.php`.
+  - Bổ sung 2 biến dịch `msg_files_size_exceeded` và `msg_file_size_exceeded` vào cả hai file cấu hình ngôn ngữ `config/lang/vi.php` và `config/lang/en.php`.
+
+## 7. Tổng Hợp Thay Đổi - Nâng Cấp Hệ Thống Thông Báo (Shadcn UI Toast)
+
+### Các thay đổi đã thực hiện
+- **Gỡ bỏ hệ thống Alert tĩnh lỗi thời:**
+  - Xóa bỏ các khối `<div class="alert-admin success/danger">` tĩnh được nhúng thủ công và tốn diện tích ở đầu 7 trang admin (`animal-admin.php`, `classanimal-admin.php`, `user-admin.php`, `post-admin.php`, `comment-admin.php`, `dashboard.php`, `profile.php`).
+
+- **Tích hợp Global Toast chuẩn Shadcn UI (`view/footerAdmin.php`):**
+  - Khai báo bộ khung HTML Toast vào vị trí cố định ở góc trên bên phải (Top-Right) để tránh đè các thao tác dưới đáy trang.
+  - Viết hệ thống CSS chuẩn Shadcn UI cho Toast bao gồm: bóng đổ (box-shadow), bo góc, hiệu ứng trượt vào (`slideInToast`), mờ dần (`fadeOutToast`), và thanh thời gian đếm ngược (progress bar).
+  - Viết hàm Javascript toàn cục `window.showToast(message, type)` để gọi thông báo ở mọi nơi nếu cần thiết. Hàm sẽ kích hoạt hiệu ứng thanh chạy trong 4 giây rồi tự xóa DOM của Toast để giải phóng bộ nhớ.
+
+- **Cơ chế Auto-trigger (Tự động bắt thông báo) & Fix Bug Lặp Lại:**
+  - Lập trình PHP quét thẳng vào các biến `$_GET['success']`, `$_GET['error']`, `$_SESSION['success']` và `$_SESSION['error']`. Nếu phát hiện có thông báo, PHP sẽ tự sinh ra đoạn script chèn vào trang để tự động gọi `window.showToast`.
+  - Bổ sung logic JavaScript (`window.history.replaceState`) dùng để tự động xóa sạch các tham số `?success=...` và `?error=...` khỏi thanh địa chỉ URL sau khi Toast hiện lên. Nhờ đó, người dùng khi bấm tải lại trang (F5) sẽ không bị dội lại các thông báo cũ một cách khó chịu.
+
+## 8. Tổng Hợp Thay Đổi - Hoàn thiện tính năng Quản lý Lớp Động Vật & Đa Ngôn Ngữ
+
+### Các thay đổi đã thực hiện
+- **Đa ngôn ngữ (i18n) cho tính năng Thêm/Sửa Động vật:**
+  - Bổ sung thêm các khóa (keys) vào file `config/lang/vi.php` và `config/lang/en.php`.
+  - Thay thế toàn bộ chữ cứng (hardcode) bằng lệnh `__()` trong file `add_animal.php` và `update_animal.php`.
+
+- **Hoàn thiện tính năng Thêm Lớp Động vật (ClassAnimal):**
+  - Cập nhật file `.htaccess` định tuyến đường dẫn `admin/classanimals/add`.
+  - Khởi tạo file `add_classanimal.php` tuân thủ đúng kiến trúc hiện hành và tích hợp module Upload ảnh/video chung.
+  - Bổ sung nút "+ Thêm lớp động vật" cho trang danh sách `classanimal-admin.php`.
+
+- **Hoàn thiện tính năng Xóa Lớp Động vật (ClassAnimal):**
+  - Cập nhật file `.htaccess` định tuyến đường dẫn `admin/classanimals/delete/id`.
+  - Tạo trang `delete.php` ở `view/admin/classanimals/` để xử lý logic xóa. Đã bắt lỗi chặt chẽ, nếu Lớp đang có chứa động vật thì sẽ ngăn chặn hành vi xóa và hiển thị thông báo lỗi bằng Toast.
+  - Bổ sung nút "Xóa" tích hợp hệ thống xác nhận Shadcn Modal.

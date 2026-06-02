@@ -38,12 +38,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
     <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('admin_posts') ?></div>
 </div>
 
-<?php if ($success): ?>
-    <div class="alert-admin success"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
-<?php endif; ?>
-<?php if ($error): ?>
-    <div class="alert-admin danger"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+
 
 <div class="card table-card">
     <div class="card-header">
@@ -112,7 +107,9 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
 
                             <a href="<?= $base ?>/view/admin/posts/delete-post.php?id=<?= urlencode($post['id_post']) ?>"
                                class="action-btn delete" title="<?= __('btn_delete_post') ?>"
-                               onclick="return confirm('<?= __('confirm_delete_post') ?>')">
+                               data-confirm="<?= htmlspecialchars(__('confirm_delete_post'), ENT_QUOTES) ?>"
+                               data-confirm-title="<?= htmlspecialchars(__('btn_delete_post'), ENT_QUOTES) ?>"
+                               data-confirm-type="danger">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </div>

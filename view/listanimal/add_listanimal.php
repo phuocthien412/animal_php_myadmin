@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($_FILES['animalimage']['name'] as $key => $name) {
         if ($key < 3 && $_FILES['animalimage']['error'][$key] == 0) {
             $tmpName = $_FILES['animalimage']['tmp_name'][$key];
-            $fileName = basename($name);
-            $uploadFile = $uploadDir . $fileName;
+            $safeName = generateSafeFilename($name);
+            $uploadFile = $uploadDir . $safeName;
 
             if (move_uploaded_file($tmpName, $uploadFile)) {
-                $animalImages[] = $fileName;
+                $animalImages[] = $safeName;
             }
         }
     }

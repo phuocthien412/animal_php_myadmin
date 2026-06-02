@@ -1,43 +1,46 @@
-# Refactoring Codebase to "Senior Dev" Standards
+# Kế hoạch triển khai nâng cấp giao diện tải tệp tin và giới hạn dung lượng 10MB
 
-Sau khi kiểm tra toàn bộ mã nguồn (cả Client và Admin), tôi nhận thấy dự án đã có những bước tiến lớn (như tạo `BaseController`, cải thiện giao diện bằng các thành phần Shadcn). Tuy nhiên, dưới góc nhìn của một Senior Developer, dự án **vẫn chưa hoàn toàn đạt chuẩn**. Còn một số điểm "nặng" cần phải giải quyết để dễ quản lý API, tái sử dụng mã và bảo mật tốt hơn.
+Tài liệu này chi tiết hóa kế hoạch nâng cấp các trường tải lên tệp tin (Choose Files) trong khu vực Admin của dự án Nekopara sang phong cách **Shadcn/Radix UI** hiện đại, kết hợp hỗ trợ xem ảnh trực quan và ràng buộc giới hạn dung lượng **10MB** ở cả phía máy khách (Client) và máy chủ (Server).
 
-## Open Questions
-- Bạn có muốn cài đặt **Composer** để quản lý Autoloading chuẩn PSR-4 không? Đây là tiêu chuẩn bắt buộc của các dự án PHP hiện đại.
-- Việc tách hoàn toàn logic xử lý (PHP) ra khỏi giao diện (HTML) ở các trang thêm/sửa có thể thay đổi cấu trúc file một chút, bạn có đồng ý để tôi tái cấu trúc lại các thư mục này không?
+## User Review Required
 
-## Vấn đề hiện tại (Tại sao chưa chuẩn Senior)
+> [!IMPORTANT]
+> - **Giao diện hiện đại (Shadcn-style Upload Zones):** Các input dạng tệp tin mặc định của trình duyệt ("Choose File") sẽ được ẩn đi. Thay thế bằng các phân vùng kéo thả (Drag-and-Drop Zones) được bo góc mềm mại, viền nét đứt thanh lịch, tích hợp biểu tượng tương ứng và hỗ trợ kéo thả tệp.
+> - **Xem trước tệp đa phương tiện trực quan (Interactive Previews):** Khi người dùng chọn hình ảnh hoặc video, hệ thống lập tức hiển thị một thẻ xem trước (Preview Card) dạng ô vuông bo góc, có nút xóa nhanh góc trên và thanh tên tệp mờ ở dưới, loại bỏ hoàn toàn hiển thị chữ thô kệch mặc định.
+> - **Giới hạn 10MB:** Ràng buộc chặt chẽ 10MB ở cả JS (ngăn chặn sớm và thông báo trực quan qua Alert) và PHP (bảo vệ tuyệt đối ở server qua thuộc tính `size` của `$_FILES`).
 
-> [!WARNING]
-> **Lỗ hổng bảo mật nghiêm trọng:** Hiện tại chỉ có các file `delete.php` được bảo vệ bằng hàm `authorize('ADMIN')`. Các trang như `add_animal.php`, `update_animal.php` **không hề kiểm tra quyền**. Bất kỳ ai biết URL đều có thể truy cập và thực hiện thao tác Thêm/Sửa vào cơ sở dữ liệu.
+## Proposed Changes
 
-1. **Thiếu Autoloading (Dependency Management):**
-   - Hiện tại, mọi file đều phải gọi `require_once '../../controller/UserController.php';` thủ công. Rất khó bảo trì và dễ gây lỗi đường dẫn.
-2. **Logic và View bị trộn lẫn (MVC chưa triệt để):**
-   - Trong các file như `add_animal.php`, phần xử lý form (POST) và giao diện (HTML) nằm chung. Chuẩn Senior yêu cầu phần POST phải được xử lý bên trong một method của `AnimalController` (ví dụ: `store()`), sau đó mới redirect.
-3. **Quản lý Routing (Định tuyến):**
-   - Người dùng truy cập trực tiếp vào các file `.php` vật lý thay vì thông qua một luồng (Router). Mặc dù việc xây dựng lại toàn bộ Router có thể hơi tốn thời gian, nhưng ít nhất chúng ta phải gom logic xử lý vào Controller.
+### 1. Thành phần Style chung (Admin CSS)
+#### [MODIFY] [admin.css](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/css/admin.css)
+- Đã được cập nhật thành công ở bước trước, chứa toàn bộ các lớp thiết kế `.shadcn-upload-zone`, `.upload-preview-container`, `.upload-preview-card`, `.remove-btn`, và `.file-name`.
 
-## Proposed Changes (Kế hoạch Refactor)
+### 2. Form thêm mới động vật
+#### [MODIFY] [add_animal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/add_animal.php)
+- **Server-side (PHP):** Bổ sung đoạn kiểm tra dung lượng `$_FILES['...']['size'] > 10MB` ở ngay đầu POST handler và báo lỗi bằng tiếng Việt chuyên nghiệp.
+- **Client-side (HTML/JS):** Thay thế 4 trường tải ảnh bằng cấu trúc `.shadcn-upload-zone` hiện đại, cập nhật hàm JavaScript kiểm tra kích thước sớm và kết xuất hình ảnh/video xem trước động.
 
-### 1. Triển khai Autoloading (Loại bỏ require_once)
-#### [NEW] [composer.json](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/composer.json)
-- Khởi tạo Composer với chuẩn PSR-4 autoloading cho thư mục `controller` và `model`.
-- Xóa bỏ hàng trăm dòng `require_once` thừa thãi trên toàn bộ dự án.
+### 3. Form chỉnh sửa động vật
+#### [MODIFY] [update_animal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/update_animal.php)
+- **Server-side (PHP):** Tích hợp kiểm tra 10MB cho tệp đại diện mới, ảnh nơi sinh sống mới, mã QR mới và các ảnh bộ sưu tập mới.
+- **Client-side (HTML/JS):** Nâng cấp giao diện tải tệp tương tự và nhúng hàm `validateAndPreviewFile` để xử lý kiểm tra sớm.
 
-### 2. Bảo mật toàn diện khu vực Admin
-#### [MODIFY] Admin Action Scripts (`view/admin/*/*.php`)
-- Cập nhật **TẤT CẢ** các trang (Thêm, Sửa, Dashboard) để gọi `$controller->authorize('ADMIN', '/Home');` ở ngay đầu file.
-- Không để bất kỳ file nào trong thư mục `/admin/` có thể bị truy cập bởi User thường hoặc khách.
+### 4. Form chỉnh sửa lớp động vật
+#### [MODIFY] [update_classanimal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/update_classanimal.php)
+- **Server-side (PHP):** Thêm ràng buộc 10MB đối với video/ảnh nền lớp động vật.
+- **Client-side (HTML/JS):** Cấu hình phân vùng kéo thả và hỗ trợ xem trước hình ảnh hoặc video động.
 
-### 3. Đưa logic vào Controller (Chuẩn MVC)
-#### [MODIFY] [AnimalController.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/controller/AnimalController.php) (và các controller khác)
-- Tạo thêm các method chuyên biệt như `store()`, `update()`.
-- Di chuyển đoạn mã xử lý file upload và insert Database từ `add_animal.php` sang `AnimalController::store()`.
-- Lặp lại quy trình này cho User, Post, Comment.
+### 5. Form hồ sơ cá nhân Admin
+#### [MODIFY] [profile.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/profile.php)
+- **Server-side (PHP):** Thêm kiểm tra 10MB đối với ảnh đại diện.
+- **Client-side (HTML/JS):** Áp dụng thiết kế kéo thả ảnh đại diện cực kỳ mượt mà.
+
+---
 
 ## Verification Plan
-### Automated & Manual Testing
-- Chạy thử việc truy cập `add_animal.php` bằng tài khoản User thường -> Phải bị văng ra trang chủ với thông báo lỗi quyền.
-- Test quá trình Autoloading: Đảm bảo mọi trang vẫn chạy bình thường sau khi xóa `require_once`.
-- Thử thêm mới / cập nhật động vật để đảm bảo logic trong Controller hoạt động mượt mà.
+
+### Kiểm thử tự động & thủ công
+1. **Kiểm thử kích thước file nhỏ (< 10MB):** Đảm bảo ảnh tải lên thành công, hiển thị xem trước mượt mà, lưu vào CSDL và đĩa với tên tệp chuẩn hóa an toàn.
+2. **Kiểm thử kích thước file lớn (> 10MB):**
+   - Thử chọn một file ảnh có dung lượng lớn hơn 10MB: Phải hiển thị cảnh báo ngay lập tức trên màn hình bằng tiếng Việt và làm sạch (reset) input.
+   - Trường hợp vượt qua client: Thử bypass client để submit lên server -> Server PHP phải bắt được và chặn yêu cầu, không cho phép lưu file lớn vào đĩa.

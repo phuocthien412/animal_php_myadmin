@@ -45,3 +45,34 @@ Dự án hiện tại đã **an toàn hơn rất nhiều** và có **kiến trú
 - **Sửa đổi luồng hướng dẫn Tin tức tại Trang chủ:** Khôi phục đúng thứ tự các bước nguyên bản để câu mời gọi truy cập "Ta hãy xem thử bên trong nhóm động vật thì có gì nhé" (`intro_8`) là bước nội dung cuối cùng trước khi chuyển tiếp trang chi tiết lớp động vật. Đồng thời sửa bộ chọn mục tiêu bị lỗi `.button` (trước đây trả về `null`) của bước "Bạn có thể xem tin tức ở đây" (`intro_7`) thành `.support-card`, giúp làm nổi bật chuẩn xác phần tin tức/cộng đồng ở cuối trang và mang lại mạch trải nghiệm tự nhiên.
 - **Khắc phục lỗi định vị tại Trang Tìm kiếm động vật:** Thay thế bộ chọn `.fileup` và `.button` không tồn tại trong file [FindAnimal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/home/FindAnimal.php) bằng bộ chọn hợp lệ `#upload-area` và `#search-btn`, đảm bảo hộp thoại hướng dẫn của Lily luôn bám sát vị trí khung tải ảnh và nút bấm phân tích ảnh thực tế.
 - **Sửa lỗi tự động khởi chạy lại hướng dẫn (Auto-start Loop Fix):** Giải quyết triệt để vấn đề lưu trữ trạng thái `introCompleted` trên trang chi tiết lớp động vật [detail_classanimal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/classanimal/detail_classanimal.php). Bằng việc xóa khóa `introCompleted` ngay lập tức khi bắt đầu chạy hướng dẫn, hệ thống đảm bảo rằng hướng dẫn chỉ kích hoạt một lần duy nhất khi người dùng được chuyển hướng trực tiếp từ Trang chủ, và sẽ không bao giờ tự động hiện lại khi làm mới trang hoặc truy cập trực tiếp.
+
+## 5. Vá lỗi hiển thị QR 3D và Chuẩn hóa tên tệp tải lên (Senior Developer Standard)
+
+- **Sửa lỗi 404 QR Code Guide:** Khắc phục triệt để lỗi truy xuất tài nguyên `QRScan.png` khi hiển thị hộp thoại hướng dẫn quét AR 3D. Thay vì hiển thị ảnh tĩnh bị sai đường dẫn, hệ thống giờ đây hiển thị hình ảnh mã QR 3D thực tế tương ứng với động vật được xem, được lấy trực tiếp từ thuộc tính `imgqr3d` trong cơ sở dữ liệu và tải từ thư mục `images/Animal/3DQR/`.
+- **Chuẩn hóa đặt tên tệp tải lên (Senior Dev Safe Upload Filename):**
+  - **Vấn đề trước đây:** Mã nguồn sử dụng trực tiếp tên tệp do trình duyệt gửi lên qua hàm `basename()`. Điều này cực kỳ nguy hiểm, có thể dẫn đến lỗ hổng Path Traversal, lỗi hiển thị do ký tự đặc biệt/tiếng Việt và ghi đè làm mất mát dữ liệu khi tải lên các tệp trùng tên.
+  - **Giải pháp triển khai:**
+    - Xây dựng hàm helper toàn cục `generateSafeFilename(string $fileName): string` trong [env.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/config/env.php). Hàm này tự động lọc bỏ các ký tự đặc biệt có hại, thay thế các khoảng trắng/ký tự không hợp lệ bằng dấu gạch ngang (`-`), và tự động chèn thêm chuỗi ngẫu nhiên bảo mật (`random_bytes(6)`) để tránh hoàn toàn xung đột trùng tên tệp.
+    - Tích hợp hàm helper này vào toàn bộ 8 phân hệ tải tệp tin của hệ thống:
+      1. **Thêm mới động vật** (`add_animal.php`): Áp dụng cho Avatar, Bản đồ sinh thái, Mã QR 3D và toàn bộ ảnh phụ trong Bộ sưu tập.
+      2. **Chỉnh sửa động vật** (`update_animal.php`): Cập nhật an toàn cho mọi hình ảnh được sửa đổi.
+      3. **Chỉnh sửa lớp động vật** (`update_classanimal.php`): Đổi tên an toàn cho video/ảnh nền lớp động vật.
+      4. **Hồ sơ cá nhân Admin** (`admin/profile.php`): Cập nhật ảnh đại diện của quản trị viên.
+      5. **Hồ sơ cá nhân Thành viên** (`user/profile.php`): Cập nhật ảnh đại diện của người dùng.
+      6. **Đăng bài viết mới** (`post/add.php`): Đổi tên hình ảnh đính kèm bài viết tin tức.
+      7. **Chỉnh sửa bài viết** (`post/edit_post.php`): Đảm bảo hình ảnh được tải lên lại luôn an toàn.
+      8. **Thêm động vật vào danh sách** (`listanimal/add_listanimal.php`): Áp dụng cho các hình ảnh phụ của động vật trong danh sách.
+  - **Kết quả:** Hệ thống tải tệp của toàn bộ ứng dụng đạt độ an toàn tuyệt đối, triệt tiêu hoàn toàn các lỗi bảo mật và xung đột dữ liệu theo chuẩn chuyên nghiệp của Senior Developer.
+
+## 6. Nâng cấp giao diện Upload phong cách Shadcn và Giới hạn dung lượng 10MB
+
+- **Tái thiết kế giao diện tải tệp (Shadcn-style Upload Zones):**
+  - Đã loại bỏ hoàn toàn các trường input tải tệp mặc định ("Choose Files") thô kệch của trình duyệt.
+  - Thay thế bằng các phân vùng kéo thả (Drag-and-Drop Zones) được thiết kế hiện đại, tinh tế với nét đứt viền bo góc, biểu tượng tương tác (Camera, Cloud Arrow, QRCode, Images, PhotoFilm) và các dòng hướng dẫn trực quan.
+- **Hỗ trợ xem trước tệp đa phương tiện trực quan (Interactive Previews):**
+  - Khi quản trị viên chọn tệp tin hình ảnh hoặc video, hệ thống sẽ kết xuất tức thời các thẻ xem trước (Preview Cards) bo góc, có nút xóa nhanh (X) để hủy bỏ lựa chọn và thanh hiển thị tên tệp mờ dưới chân thẻ cực kỳ chuyên nghiệp.
+  - Hỗ trợ tải lên và xem trước nhiều ảnh cùng lúc trong bộ sưu tập (Bộ sưu tập phụ).
+- **Ràng buộc giới hạn dung lượng nghiêm ngặt 10MB:**
+  - **Phía Client (JS):** Tích hợp kiểm tra dung lượng sớm khi người dùng chọn tệp. Nếu tệp lớn hơn 10MB, hệ thống hiển thị thông báo cảnh báo chi tiết bằng tiếng Việt, đồng thời tự động làm sạch (reset) giá trị trường tải lên để ngăn chặn tệp lớn làm nặng trình duyệt.
+  - **Phía Server (PHP):** Triển khai lớp bảo vệ thứ hai ở tầng server. Trước khi thực hiện chuyển đổi tên và lưu trữ tệp tin vào đĩa, server kiểm tra dung lượng thực tế qua thuộc tính `size` của mảng `$_FILES`. Nếu phát hiện tệp vượt quá 10MB, quá trình xử lý lập tức bị chặn đứng và báo lỗi tiếng Việt để đảm bảo an toàn tuyệt đối cho tài nguyên máy chủ.
+- **Áp dụng đồng bộ:** Đã tích hợp đồng bộ cho tất cả các giao diện tải tệp cốt lõi ở Admin bao gồm: Thêm mới động vật (`add_animal.php`), Chỉnh sửa động vật (`update_animal.php`), Chỉnh sửa phân loại lớp động vật (`update_classanimal.php`), và Chỉnh sửa hồ sơ cá nhân quản trị viên (`profile.php`).

@@ -50,3 +50,37 @@ require_once __DIR__ . '/../lib/i18n.php';
 
 // Load Autoloader
 require_once __DIR__ . '/autoload.php';
+
+/**
+ * Generates a secure, unique filename according to Senior Developer standards
+ */
+function generateSafeFilename(string $fileName): string {
+    $pathInfo = pathinfo($fileName);
+    $extension = isset($pathInfo['extension']) ? strtolower($pathInfo['extension']) : '';
+    $filenameWithoutExt = isset($pathInfo['filename']) ? $pathInfo['filename'] : '';
+
+    // Sanitize the filename: replace non-alphanumeric characters with hyphens
+    $sanitized = preg_replace('/[^a-zA-Z0-9_\-]/', '-', $filenameWithoutExt);
+    $sanitized = preg_replace('/-+/', '-', $sanitized);
+    $sanitized = trim($sanitized, '-');
+
+    if ($sanitized === '') {
+        $sanitized = 'file';
+    }
+
+    // Append unique cryptographically secure random suffix to prevent collisions
+    try {
+        $suffix = bin2hex(random_bytes(6));
+    } catch (Exception $e) {
+        $suffix = uniqid();
+    }
+    
+    $uniqueName = $sanitized . '_' . $suffix;
+    
+    if ($extension !== '') {
+        $uniqueName .= '.' . $extension;
+    }
+    
+    return $uniqueName;
+}
+

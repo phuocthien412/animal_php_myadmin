@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../config/env.php';
+require_once __DIR__ . '/../components/file_uploader.php';
 $authController = new UserController();
 $authController->authorize('ADMIN', '/Login');
 
@@ -15,6 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    // Giới hạn dung lượng tệp tối đa 10MB
+    $maxSize = 10 * 1024 * 1024;
+    // Tái sử dụng file_validator để kiểm tra dung lượng tệp
+    require_once __DIR__ . '/../components/file_validator.php';
+    validateUploadedFiles($_FILES, 10 * 1024 * 1024);
+
     $animalId = intval($_POST['id']);
     $data = [
         'name' => $_POST['name'],
@@ -22,29 +29,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         'ngoai_hinh_text' => $_POST['ngoai_hinh_text'],
         'noi_sinh_song_text' => $_POST['noi_sinh_song_text'],
         'classanimals_id' => $_POST['classanimals_id'],
-        'avatar' => $_POST['current_avatar'] ?? '',
-        'noi_sinh_song_image' => $_POST['current_noi_sinh_song_image'] ?? '',
-        'imgqr3d' => $_POST['current_imgqr3d'] ?? ''
+        'avatar' => $_POST['current_avatar_file'] ?? '',
+        'noi_sinh_song_image' => $_POST['current_nss_file'] ?? '',
+        'imgqr3d' => $_POST['current_qr_file'] ?? ''
     ];
 
     $uploadDir = __DIR__ . '/../../../images/';
     
     if (isset($_FILES['avatar_file']) && $_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
-        $fileName = basename($_FILES['avatar_file']['name']);
-        move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . 'Animal/Avatar/' . $fileName);
-        $data['avatar'] = $fileName;
+        $safeName = generateSafeFilename($_FILES['avatar_file']['name']);
+        move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . 'Animal/Avatar/' . $safeName);
+        $data['avatar'] = $safeName;
     }
     
     if (isset($_FILES['nss_file']) && $_FILES['nss_file']['error'] === UPLOAD_ERR_OK) {
-        $fileName = basename($_FILES['nss_file']['name']);
-        move_uploaded_file($_FILES['nss_file']['tmp_name'], $uploadDir . 'Animal/NoiSinhSong/' . $fileName);
-        $data['noi_sinh_song_image'] = $fileName;
+        $safeName = generateSafeFilename($_FILES['nss_file']['name']);
+        move_uploaded_file($_FILES['nss_file']['tmp_name'], $uploadDir . 'Animal/NoiSinhSong/' . $safeName);
+        $data['noi_sinh_song_image'] = $safeName;
     }
 
     if (isset($_FILES['qr_file']) && $_FILES['qr_file']['error'] === UPLOAD_ERR_OK) {
-        $fileName = basename($_FILES['qr_file']['name']);
-        move_uploaded_file($_FILES['qr_file']['tmp_name'], $uploadDir . 'Animal/3DQR/' . $fileName);
-        $data['imgqr3d'] = $fileName;
+        $safeName = generateSafeFilename($_FILES['qr_file']['name']);
+        move_uploaded_file($_FILES['qr_file']['tmp_name'], $uploadDir . 'Animal/3DQR/' . $safeName);
+        $data['imgqr3d'] = $safeName;
     }
 
     // Handle deleting slide images
@@ -59,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $count = count($_FILES['new_slide_images']['name']);
         for ($i = 0; $i < $count; $i++) {
             if ($_FILES['new_slide_images']['error'][$i] === UPLOAD_ERR_OK) {
-                $fileName = basename($_FILES['new_slide_images']['name'][$i]);
-                move_uploaded_file($_FILES['new_slide_images']['tmp_name'][$i], $uploadDir . 'Animal/ListImage/' . $fileName);
-                $animalController->addAnimalImage($animalId, $fileName);
+                $safeName = generateSafeFilename($_FILES['new_slide_images']['name'][$i]);
+                move_uploaded_file($_FILES['new_slide_images']['tmp_name'][$i], $uploadDir . 'Animal/ListImage/' . $safeName);
+                $animalController->addAnimalImage($animalId, $safeName);
             }
         }
     }
@@ -78,19 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chỉnh sửa động vật</title>
-</head>
-<body>
-    <?php include '../../headerAdmin.php'; ?>
+<?php include '../../headerAdmin.php'; ?>
     
     <div class="page-header">
-        <h1><i class="fa-solid fa-pen-to-square" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i>Chỉnh sửa động vật</h1>
-        <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Động vật <span>›</span> Chỉnh sửa</div>
+        <h1><i class="fa-solid fa-pen-to-square" style="color:var(--green-primary);margin-right:10px;font-size:20px;"></i><?= __('admin_animals_edit_title') ?></h1>
+        <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> Động vật <span>›</span> <?= __('admin_animals_edit_title') ?></div>
     </div>
 
     <div class="card" style="margin: 0 20px 20px; padding: 20px;">
@@ -100,16 +99,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             <div class="row">
                 <!-- Cột trái: Văn bản -->
                 <div class="col-md-6 mb-4">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;">Thông tin chung</h4>
+                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;"><?= __('admin_general_info') ?></h4>
                     
                     <div class="mb-3">
-                        <label for="name" class="form-label font-weight-bold">Tên động vật:</label>
+                        <label for="name" class="form-label font-weight-bold"><?= __('form_animal_name') ?>:</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($animal['name']) ?>" required>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="classanimals_id" class="form-label font-weight-bold">Lớp động vật:</label>
+                        <label for="classanimals_id" class="form-label font-weight-bold"><?= __('form_animal_class') ?>:</label>
                         <select class="form-select" id="classanimals_id" name="classanimals_id" required>
+                            <option value="" disabled><?= __('form_animal_class_select') ?></option>
                             <?php foreach ($classAnimals as $classAnimal): ?>
                                 <option value="<?= htmlspecialchars($classAnimal['id_class']) ?>" <?= $classAnimal['id_class'] == $animal['classanimals_id'] ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($classAnimal['name']) ?>
@@ -119,54 +119,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="gioi_thieu_text" class="form-label font-weight-bold">Giới thiệu:</label>
+                        <label for="gioi_thieu_text" class="form-label font-weight-bold"><?= __('form_animal_intro') ?></label>
                         <textarea class="form-control" id="gioi_thieu_text" name="gioi_thieu_text" rows="4" required><?= htmlspecialchars($animal['gioi_thieu_text']) ?></textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="ngoai_hinh_text" class="form-label font-weight-bold">Ngoại hình:</label>
+                        <label for="ngoai_hinh_text" class="form-label font-weight-bold"><?= __('form_animal_appearance') ?></label>
                         <textarea class="form-control" id="ngoai_hinh_text" name="ngoai_hinh_text" rows="4" required><?= htmlspecialchars($animal['ngoai_hinh_text']) ?></textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="noi_sinh_song_text" class="form-label font-weight-bold">Nơi sinh sống:</label>
+                        <label for="noi_sinh_song_text" class="form-label font-weight-bold"><?= __('form_animal_habitat') ?></label>
                         <textarea class="form-control" id="noi_sinh_song_text" name="noi_sinh_song_text" rows="4" required><?= htmlspecialchars($animal['noi_sinh_song_text']) ?></textarea>
                     </div>
                 </div>
 
                 <!-- Cột phải: Hình ảnh -->
                 <div class="col-md-6 mb-4">
-                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;">Hình ảnh</h4>
+                    <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;"><?= __('admin_media') ?? 'Hình ảnh' ?></h4>
                     
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold">Ảnh đại diện (Avatar):</label><br>
-                        <?php if(!empty($animal['avatar'])): ?>
-                            <img src="<?= $base ?>/images/Animal/Avatar/<?= htmlspecialchars($animal['avatar']) ?>" style="height: 100px; border-radius: 5px; border: 1px solid #ddd;" class="mb-2"><br>
-                        <?php endif; ?>
-                        <input type="hidden" name="current_avatar" value="<?= htmlspecialchars($animal['avatar'] ?? '') ?>">
-                        <input type="file" class="form-control" name="avatar_file" accept="image/*">
-                    </div>
+                    <?php renderFileUploader('avatar_file', 'avatar_file', __('form_animal_avatar'), $animal['avatar'] ?? '', 'Animal/Avatar'); ?>
                     
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold">Mã QR 3D:</label><br>
-                        <?php if(!empty($animal['imgqr3d'])): ?>
-                            <img src="<?= $base ?>/images/Animal/3DQR/<?= htmlspecialchars($animal['imgqr3d']) ?>" style="height: 100px; border-radius: 5px; border: 1px solid #ddd;" class="mb-2"><br>
-                        <?php endif; ?>
-                        <input type="hidden" name="current_imgqr3d" value="<?= htmlspecialchars($animal['imgqr3d'] ?? '') ?>">
-                        <input type="file" class="form-control" name="qr_file" accept="image/*">
-                    </div>
+                    <?php renderFileUploader('qr_file', 'qr_file', __('form_animal_qr3d'), $animal['imgqr3d'] ?? '', 'Animal/3DQR'); ?>
 
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold">Ảnh nơi sinh sống (Bản đồ):</label><br>
-                        <?php if(!empty($animal['noi_sinh_song_image'])): ?>
-                            <img src="<?= $base ?>/images/Animal/NoiSinhSong/<?= htmlspecialchars($animal['noi_sinh_song_image']) ?>" style="height: 120px; border-radius: 5px; border: 1px solid #ddd;" class="mb-2"><br>
-                        <?php endif; ?>
-                        <input type="hidden" name="current_noi_sinh_song_image" value="<?= htmlspecialchars($animal['noi_sinh_song_image'] ?? '') ?>">
-                        <input type="file" class="form-control" name="nss_file" accept="image/*">
-                    </div>
+                    <?php renderFileUploader('nss_file', 'nss_file', __('form_animal_habitat_map'), $animal['noi_sinh_song_image'] ?? '', 'Animal/NoiSinhSong'); ?>
                     
                     <div class="mb-4">
-                        <label class="form-label font-weight-bold">Bộ sưu tập ảnh (Đánh dấu để xóa):</label>
+                        <label class="form-label font-weight-bold"><?= __('form_animal_gallery') ?>:</label>
                         <div class="d-flex flex-wrap" style="gap: 15px; background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #eee;">
                             <?php 
                             $existingImages = $animalController->getAnimalImagesById($animalId);
@@ -183,26 +162,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                                 endforeach; 
                             else:
                             ?>
-                                <span class="text-muted" style="font-size: 0.9em;">Chưa có ảnh trong bộ sưu tập</span>
+                                <span class="text-muted" style="font-size: 0.9em;"><?= __('admin_no_file') ?? 'Chưa có ảnh trong bộ sưu tập' ?></span>
                             <?php endif; ?>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold">Thêm ảnh mới vào bộ sưu tập:</label>
-                        <input type="file" class="form-control" name="new_slide_images[]" multiple accept="image/*">
-                        <small class="text-muted">Có thể chọn nhiều file ảnh cùng lúc.</small>
-                    </div>
+                    <?php renderFileUploader('new_slide_images', 'new_slide_images[]', __('form_animal_gallery'), '', '', 'image/*', true, false); ?>
                 </div>
             </div>
 
-            <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align: right;">
-                <a href="<?= $base ?>/admin/animals" class="btn btn-secondary" style="margin-right: 10px;">Huỷ</a>
-                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" style="margin-right:5px;"></i>Cập nhật</button>
+            <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align: right; margin-bottom: 30px;">
+                <a href="<?= $base ?>/admin/animals" class="btn btn-secondary" style="margin-right: 10px;"><?= __('btn_cancel') ?></a>
+                <button type="submit" class="btn btn-primary" data-confirm="<?= htmlspecialchars(__('confirm_update_animal'), ENT_QUOTES) ?>" data-confirm-title="<?= htmlspecialchars(__('confirm_update_animal_title'), ENT_QUOTES) ?>" data-confirm-type="success"><i class="fa-solid fa-floppy-disk" style="margin-right:5px;"></i><?= __('btn_update') ?></button>
             </div>
         </form>
     </div>
     
     <?php include '../../footerAdmin.php'; ?>
-</body>
-</html>

@@ -77,12 +77,7 @@ foreach ($animalPerClass as $cid => $cnt) {
     <div class="breadcrumb-text">NEKOPARA <span>›</span> Admin <span>›</span> <?= __('admin_overview') ?></div>
 </div>
 
-<?php if ($success): ?>
-    <div class="alert-admin success"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
-<?php endif; ?>
-<?php if ($error): ?>
-    <div class="alert-admin danger"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+
 
 <!-- ===================== STAT CARDS ===================== -->
 <div class="stats-grid">

@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadDir = __DIR__ . '/../../images/';
         
         if ($_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
-            $fileName = time() . '_' . basename($_FILES['avatar_file']['name']);
-            move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $fileName);
+            $safeName = generateSafeFilename($_FILES['avatar_file']['name']);
+            move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $safeName);
             
             if (isset($_SESSION['user_id'])) {
-                $userController->updateUserAvatar($_SESSION['user_id'], $fileName);
-                $_SESSION['avatar'] = $fileName;
+                $userController->updateUserAvatar($_SESSION['user_id'], $safeName);
+                $_SESSION['avatar'] = $safeName;
                 header("Location: " . $base . "/Profile?success=" . urlencode(__('profile_avatar_success')));
                 exit();
             } else {

@@ -167,13 +167,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id_cmt" value="<?= intval($c['id_cmt']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_comment') ?>')" title="<?= __('btn_delete') ?>"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-sm btn-danger" type="submit"
+                                    data-confirm="<?= htmlspecialchars(__('confirm_delete_comment'), ENT_QUOTES) ?>"
+                                    data-confirm-title="<?= htmlspecialchars(__('btn_delete'), ENT_QUOTES) ?>"
+                                    data-confirm-type="danger"
+                                    title="<?= __('btn_delete') ?>"><i class="fa-solid fa-trash"></i></button>
                             </form>
                             <form method="post" action="<?= $base ?>/view/admin/posts/comment-action.php">
                                 <input type="hidden" name="action" value="bulk_delete_user">
                                 <input type="hidden" name="user_id" value="<?= intval($c['user_id']) ?>">
                                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($base . '/admin/posts/detail/' . intval($post['id_post'])) ?>">
-                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('<?= __('confirm_delete_all_comments') ?>')" title="<?= __('btn_delete_all') ?>"><i class="fa-solid fa-ban"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" type="submit"
+                                    data-confirm="<?= htmlspecialchars(__('confirm_delete_all_comments'), ENT_QUOTES) ?>"
+                                    data-confirm-title="<?= htmlspecialchars(__('btn_delete_all'), ENT_QUOTES) ?>"
+                                    data-confirm-type="danger"
+                                    title="<?= __('btn_delete_all') ?>"><i class="fa-solid fa-ban"></i></button>
                             </form>
                         </div>
                     </div>

@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/components/file_uploader.php';
+require_once __DIR__ . '/components/file_validator.php';
 $authController = new UserController();
 $authController->authorize('ADMIN', '/Login');
 
@@ -15,12 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadDir = __DIR__ . '/../../images/';
         
         if ($_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
-            $fileName = time() . '_' . basename($_FILES['avatar_file']['name']);
-            move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $fileName);
+            // Tái sử dụng file_validator để kiểm tra dung lượng tệp
+            $validationResult = validateUploadedFiles($_FILES, 10 * 1024 * 1024, true);
+            if ($validationResult !== true) {
+                header("Location: " . $base . "/admin/profile?error=" . urlencode($validationResult));
+                exit();
+            }
+
+            $safeName = generateSafeFilename($_FILES['avatar_file']['name']);
+            move_uploaded_file($_FILES['avatar_file']['tmp_name'], $uploadDir . $safeName);
             
             if (isset($_SESSION['user_id'])) {
-                $userController->updateUserAvatar($_SESSION['user_id'], $fileName);
-                $_SESSION['avatar'] = $fileName;
+                $userController->updateUserAvatar($_SESSION['user_id'], $safeName);
+                $_SESSION['avatar'] = $safeName;
                 header("Location: " . $base . "/admin/profile?success=" . urlencode(__('profile_update_success')));
                 exit();
             } else {
@@ -69,12 +78,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     <div class="breadcrumb-text">NEKOPARA <span>›</span> <?= __('admin') ?> <span>›</span> <?= __('profile') ?></div>
 </div>
 
-<?php if ($success): ?>
-    <div class="alert-admin success" style="margin: 0 20px 20px;"><i class="fa-solid fa-circle-check"></i> <?= htmlspecialchars($success) ?></div>
-<?php endif; ?>
-<?php if ($error): ?>
-    <div class="alert-admin danger" style="margin: 0 20px 20px;"><i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+
 
 <div class="container-fluid" style="padding: 0 20px;">
     <div class="row">
@@ -104,9 +108,8 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                 </div>
 
                 <form action="<?= $base ?>/admin/profile" method="POST" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px; text-align: left;">
-                    <label class="form-label font-weight-bold" style="font-size: 14px;"><?= __('form_change_avatar') ?></label>
-                    <input type="file" class="form-control mb-2" name="avatar_file" accept="image/*" required style="font-size: 14px;" onchange="this.form.submit()">
-                    <button type="submit" class="btn btn-primary btn-sm w-100 d-none"><i class="fa-solid fa-upload"></i> <?= __('form_upload_image') ?></button>
+                    <?php renderFileUploader('avatar_file', 'avatar_file', __('form_change_avatar'), '', '', 'image/*', false, true); ?>
+                    <button type="submit" class="btn btn-primary btn-sm w-100" data-confirm="Bạn có chắc chắn muốn thay đổi ảnh đại diện?" data-confirm-title="Cập nhật Avatar" data-confirm-type="success"><i class="fa-solid fa-upload"></i> <?= __('form_upload_image') ?></button>
                 </form>
             </div>
         </div>
@@ -151,7 +154,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                             <button class="btn btn-outline-secondary toggle-pwd" type="button"><i class="fa-regular fa-eye"></i></button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> <?= __('profile_save_changes') ?></button>
+                    <button type="submit" class="btn btn-primary" data-confirm="Bạn có chắc chắn muốn thay đổi mật khẩu?" data-confirm-title="Đổi mật khẩu" data-confirm-type="warning"><i class="fa-solid fa-key"></i> <?= __('profile_save_changes') ?></button>
                 </form>
             </div>
         </div>
