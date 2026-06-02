@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../../config/env.php'; // Load $base từ .env
-
+$base = BASE_URL;
 $userController = new UserController();
 
 $username = $_POST['username'] ?? '';
@@ -20,4 +20,3 @@ if ($user) {
     header('Location: ' . $base . '/Login');
 }
 exit();
-?>
