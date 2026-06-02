@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/env.php';
 $authController = new UserController();
-$authController->authorize('ADMIN', '/Home');
+$authController->authorize('ADMIN', '/Login');
 
 if (!isset($base)) {
     require_once __DIR__ . '/../../../config/env.php';

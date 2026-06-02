@@ -1,7 +1,7 @@
 <?php
 
 $commentController = new CommentController();
-$commentController->authorize('ADMIN', '/admin/comments');
+$commentController->authorize('ADMIN', '/Login');
 
 if (isset($_GET['id'])) {
     $commentId = intval($_GET['id']);

@@ -1,7 +1,7 @@
 <?php
 
 $postController = new PostController();
-$postController->authorize('ADMIN', '/admin/posts');
+$postController->authorize('ADMIN', '/Login');
 
 if (isset($_GET['id'])) {
     $postId = intval($_GET['id']);

@@ -1,7 +1,7 @@
 <?php
 
 $userController = new UserController();
-$userController->authorize('ADMIN', '/admin/users');
+$userController->authorize('ADMIN', '/Login');
 
 if (!isset($_GET['id'])) {
     $userController->redirect('/admin/users', 'msg_missing_user_id', 'error');

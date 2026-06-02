@@ -1,7 +1,7 @@
 <?php
 
 $animalController = new AnimalController();
-$animalController->authorize('ADMIN', '/admin/animals');
+$animalController->authorize('ADMIN', '/Login');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $animalId = intval($_GET['id']);

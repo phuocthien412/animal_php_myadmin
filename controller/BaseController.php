@@ -39,13 +39,12 @@ abstract class BaseController {
     /**
      * Helper to verify if the user has a specific role, redirecting on failure
      */
-    public function authorize($role, $redirectPath = '/Login', $errorMessageKey = 'msg_unauthorized') {
+     public function authorize($role, $redirectPath = '/Login', $errorMessageKey = 'msg_unauthorized') {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         if (!isset($_SESSION['roles']) || !in_array($role, $_SESSION['roles'])) {
-            $message = __($errorMessageKey);
-            header('Location: ' . BASE_URL . $redirectPath . '?error=' . urlencode($message));
+            header('Location: ' . BASE_URL . $redirectPath);
             exit();
         }
     }

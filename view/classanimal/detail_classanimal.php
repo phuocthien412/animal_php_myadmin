@@ -244,15 +244,16 @@ include '../header.php';
     </script>
     <script type="text/javascript">
         if (localStorage.getItem('introCompleted') === 'true') {
+            localStorage.removeItem('introCompleted');
             introJs().setOptions({
                 steps: [
                     {
                         element: document.querySelector('.textclassanimalName'),
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
-                                    <?= __('tour_class_name') ?>
-                                </p>
-                `,
+                                     <?= __('tour_class_name') ?>
+                                 </p>
+                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
@@ -260,8 +261,8 @@ include '../header.php';
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
                                    <?= __('tour_class_info') ?>
-                                </p>
-                `,
+                                 </p>
+                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
@@ -269,8 +270,8 @@ include '../header.php';
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
                                    <?= __('tour_class_animals') ?>
-                                </p>
-                `,
+                                 </p>
+                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
@@ -278,8 +279,8 @@ include '../header.php';
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
                                    <?= __('tour_class_animals_detail') ?>
-                                </p>
-                `,
+                                 </p>
+                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     {
@@ -287,8 +288,8 @@ include '../header.php';
                         intro: `
                                  <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
                                    <?= __('tour_class_animals_detail') ?>
-                                </p>
-                `,
+                                 </p>
+                 `,
                         position: 'bottom' // Position tooltip directly below the text
                     },
                     // Add more steps as needed...
@@ -299,7 +300,6 @@ include '../header.php';
             }).onchange(function (targetElement) {
                 // Check if the current step is the last step
                 if (targetElement === document.querySelector('.list')) {
-                    localStorage.removeItem('introCompleted');
                     localStorage.setItem('introAnimal', 'true');
                     window.location.href = '<?= $base ?>/animal/detail/1';
                 }

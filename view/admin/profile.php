@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/env.php';
 $authController = new UserController();
-$authController->authorize('ADMIN', '/Home');
+$authController->authorize('ADMIN', '/Login');
 
 if (!isset($_SESSION['username'])) {
     header("Location: /animal_php_myadmin/animal_php_myadmin/Login");
