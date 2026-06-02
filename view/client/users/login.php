@@ -10,7 +10,6 @@ $animalController = new AnimalController();
 $userController = new UserController();
 $totalAnimals = count($animalController->getAllAnimals());
 $totalUsers = count($userController->getAllUsers());
-// Redirect nếu đã đăng nhập
 if (isset($_SESSION['username'])) {
     header('Location: ' . $base . '/Home');
     exit;

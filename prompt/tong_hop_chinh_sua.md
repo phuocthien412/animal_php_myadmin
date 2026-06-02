@@ -105,6 +105,25 @@ Dưới đây là danh sách toàn bộ các file đã được chỉnh sửa đ
   - Bổ sung nút "+ Thêm lớp động vật" cho trang danh sách `classanimal-admin.php`.
 
 - **Hoàn thiện tính năng Xóa Lớp Động vật (ClassAnimal):**
-  - Cập nhật file `.htaccess` định tuyến đường dẫn `admin/classanimals/delete/id`.
+  - Cập nhật tệp `.htaccess` định tuyến đường dẫn `admin/classanimals/delete/id`.
   - Tạo trang `delete.php` ở `view/admin/classanimals/` để xử lý logic xóa. Đã bắt lỗi chặt chẽ, nếu Lớp đang có chứa động vật thì sẽ ngăn chặn hành vi xóa và hiển thị thông báo lỗi bằng Toast.
   - Bổ sung nút "Xóa" tích hợp hệ thống xác nhận Shadcn Modal.
+
+## 9. Tổng Hợp Thay Đổi - Khắc phục lỗi trang Thông báo và Đa ngôn ngữ động nhật ký
+- **Sửa lỗi hiển thị trang Trung tâm thông báo trống:**
+  - Nạp trực tiếp model [Notification.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/model/Notification.php) trong tệp [notification-list.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/notifications/notification-list.php).
+  - Tự động nạp dữ liệu bằng cách gọi hàm `Notification::getAll(100)` nếu danh sách rỗng để tránh trường hợp trang trống khi được điều hướng qua RewriteRule.
+  - Tự động đánh dấu tất cả thông báo là đã đọc bằng cách gọi `Notification::markAllAsRead()` ngay khi Admin truy cập trang, giúp cập nhật lại chính xác số lượng thông báo chưa đọc trên menu trên cùng.
+- **Đa ngôn ngữ hóa (i18n) động cho các bản ghi từ Controller & Bình luận ẩn:**
+  - Nâng cấp hàm dịch `__()` trong tệp [i18n.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/lib/i18n.php), bổ sung từ điển dịch thuật tĩnh kết hợp regex pattern matching để tự động chuyển ngữ các nội dung nhật ký tiếng Việt động lưu trữ trong cơ sở dữ liệu (ví dụ: *Vừa thêm loài "Sư tử"* -> *Added species "Sư tử"*) sang tiếng Anh khi chọn ngôn ngữ `'en'`.
+  - Bao bọc toàn bộ đầu ra tiêu đề, nội dung và hành động thông báo trong `__()` tại [headerAdmin.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/headerAdmin.php) và [notification-list.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/notifications/notification-list.php).
+  - Bao bọc hiển thị nội dung bình luận `chat_data` trong `__()` ở cả phía Client ([post-detail.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/posts/post-detail.php), [fetch-comments.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/posts/fetch-comments.php)) và Admin ([comment-admin.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/comment-admin.php), [view_post.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/view_post.php)) để tự động dịch cụm từ ẩn comment `[Đã ẩn bởi quản trị]` thành `[Hidden by admin]`.
+
+## 10. Tổng Hợp Thay Đổi - Hiển thị ràng buộc và Vô hiệu hóa Xóa Lớp động vật
+- **Cải tiến danh sách Lớp động vật ở Admin:**
+  - Viết thêm hàm đếm số lượng loài `getAnimalsCountByClassId($id)` trong [ClassAnimalController.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/controller/ClassAnimalController.php).
+  - Thêm cột **"Số lượng loài" (Animal Count)** vào bảng danh sách lớp động vật tại [classanimal-admin.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/classanimal-admin.php), hiển thị số lượng loài hiện thuộc từng lớp bằng nhãn Badge trực quan.
+  - Vô hiệu hóa nút **Xóa (Delete)** (đặt `opacity: 0.5`, con trỏ chuột `not-allowed`) đối với các lớp động vật có số lượng loài liên kết > 0.
+  - Tích hợp sự kiện JavaScript trên nút xóa bị vô hiệu hóa, khi bấm sẽ hiển thị thông báo Toast cảnh báo lỗi màu đỏ ngay lập tức: *"Không thể xóa lớp động vật này vì đang chứa động vật!"* thay vì hiển thị modal xác nhận xóa như thông thường.
+  - Duy trì kiểm tra an toàn ở backend tại [delete.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/delete.php) để ngăn chặn truy cập xóa trực tiếp qua URL.
+
