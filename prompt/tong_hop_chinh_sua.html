@@ -795,6 +795,53 @@
                 </div>
             </div>
 
+            <!-- Card 12: Feature Completeness & Hotfixes -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="system">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-amber-500/10 text-amber-400">Hệ Thống</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Fix Bug</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-pink-500/10 text-pink-400">UI/UX</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Hoàn thiện tính năng & Cập nhật giao diện (Hotfixes)</h3>
+                        <p class="text-slate-400 text-sm font-light">Tích hợp thêm tính năng Đăng bài Cộng đồng, làm lại giao diện Đăng ký theo phong cách Shadcn và khắc phục triệt để các lỗi truy vấn CSDL, lỗi bộ gõ tiếng Việt.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="card-detail hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                             <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                             <ul class="list-disc pl-4 space-y-1">
+                                 <li><strong>Mục Lục Dự Án</strong>: Cải tiến khu vực Quick References thành một Mục lục trực quan. Xử lý triệt để lỗi <code>css-lcurlyexpected</code> do IDE hiểu nhầm thẻ HTML là mã CSS.</li>
+                                 <li><strong>Tính năng Cộng đồng</strong>: Phát triển luồng <code>view/client/posts/add.php</code> xử lý việc tạo bài viết mới từ phía Frontend, xác thực form an toàn.</li>
+                                 <li><strong>Làm mới giao diện Đăng ký</strong>: Thay thế giao diện Bootstrap cũ của trang Đăng Ký bằng phong cách <strong>Nature Theme (Shadcn)</strong>.</li>
+                                 <li><strong>Bảo vệ môi trường Git</strong>: Bổ sung <code>.gitignore</code> và <code>.gitkeep</code> chặn file rác upload. Xử lý lỗi Include ở tính năng Xóa User Admin.</li>
+                                 <li><strong>Vá lỗi Backend</strong>: Sửa lỗi truy vấn CSDL (Ràng buộc khoá ngoại Role) trong `UserController`, và sửa lỗi ngắt đoạn chuỗi tiếng Việt bị bể chữ bằng hàm <code>mb_substr()</code> trong bảng Động vật.</li>
+                             </ul>
+                        </div>
+                        <div class="space-y-2">
+                             <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                             <div class="space-y-2">
+                                 <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/users/add_user.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                     <i class="fa-solid fa-file-code mr-1"></i> view/client/users/add_user.php
+                                 </a>
+                                 <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/posts/add.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                     <i class="fa-solid fa-file-code mr-1"></i> view/client/posts/add.php
+                                 </a>
+                                 <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/controller/UserController.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                     <i class="fa-solid fa-file-code mr-1"></i> controller/UserController.php
+                                 </a>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
