@@ -88,7 +88,7 @@ $isAdmin  = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                     <td><strong><?= htmlspecialchars($animal['name']) ?></strong></td>
                     <td><span class="role-badge default"><?= __('admin_animals_class_label') ?><?= htmlspecialchars($animal['classanimals_id']) ?></span></td>
                     <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--text-secondary);">
-                        <?= htmlspecialchars(substr($animal['gioi_thieu_text'] ?? '', 0, 80)) ?>...
+                        <?= htmlspecialchars(mb_substr($animal['gioi_thieu_text'] ?? '', 0, 80, 'UTF-8')) ?>...
                     </td>
                     <?php if ($isAdmin): ?>
                     <td>
