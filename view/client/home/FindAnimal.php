@@ -26,32 +26,32 @@ include '../header.php';
             <h1 class="textclassanimalInfo"><?= __('animal_desc') ?></h1>
         </div>
     </div>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5" style="position: relative; z-index: 2;">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="glass-upload-card text-center p-4 p-md-5">
-                    <h2 class="fw-bold mb-3 text-white" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);"><?= __('find_animal_title') ?></h2>
-                    <p class="text-white mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"><?= __('find_animal_subtitle') ?></p>
+            <div class="col-md-10 col-lg-8">
+                <div class="glass-upload-card text-center p-4 p-md-5" style="background: rgba(15, 34, 26, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                    <h2 class="fw-bold mb-3 text-white" style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; letter-spacing: -0.025em; text-shadow: 0 4px 12px rgba(0,0,0,0.5);"><i class="fa-solid fa-camera-retro text-emerald-400 mr-2"></i><?= __('find_animal_title') ?></h2>
+                    <p class="text-slate-300 mb-5" style="font-size: 1.1rem;"><?= __('find_animal_subtitle') ?></p>
                     
-                    <div class="upload-area mb-4" id="upload-area">
-                        <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-primary"></i>
-                        <h5 class="mb-2 text-dark fw-bold"><?= __('find_animal_drag_drop') ?></h5>
-                        <p class="text-muted small mb-3"><?= __('find_animal_or') ?></p>
-                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold custom-file-btn">
+                    <div class="upload-area mb-4" id="upload-area" style="background: rgba(5, 11, 8, 0.4); border: 2px dashed rgba(16, 185, 129, 0.4); border-radius: 16px; padding: 40px 20px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.borderColor='rgba(16, 185, 129, 0.8)'; this.style.background='rgba(16, 185, 129, 0.05)';" onmouseout="this.style.borderColor='rgba(16, 185, 129, 0.4)'; this.style.background='rgba(5, 11, 8, 0.4)';">
+                        <i class="fas fa-cloud-upload-alt fa-4x mb-4 text-emerald-500"></i>
+                        <h5 class="mb-2 text-white fw-bold"><?= __('find_animal_drag_drop') ?></h5>
+                        <p class="text-slate-400 small mb-4"><?= __('find_animal_or') ?></p>
+                        <button type="button" class="btn rounded-pill px-5 py-2.5 fw-bold" style="background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); transition: all 0.2s;" onmouseover="this.style.background='rgba(16, 185, 129, 0.2)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.1)'">
                             <?= __('find_animal_choose_file') ?>
                         </button>
                         <input type="file" id="image-upload" class="d-none" accept="image/*">
                     </div>
 
-                    <div id="image-container" class="preview-container mb-4" style="display: none;">
+                    <div id="image-container" class="preview-container mb-4" style="display: none; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
                     </div>
-                    <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-light btn-sm rounded-pill mb-3 shadow-sm fw-bold" style="display: none;">
+                    <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-sm rounded-pill mb-4 shadow-sm fw-bold px-4 py-2" style="display: none; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
                         <i class="fas fa-undo me-1"></i> <?= __('find_animal_choose_other') ?>
                     </button>
                     
                     <div id="label-container" class="d-none"></div>
                     
-                    <button type="button" onclick="predict()" id="search-btn" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold shadow-sm" style="display: none; background: linear-gradient(45deg, #007bff, #00c6ff); border: none;">
+                    <button type="button" onclick="predict()" id="search-btn" class="btn btn-lg rounded-pill w-100 fw-bold shadow-lg py-3" style="display: none; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; letter-spacing: 0.5px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
                         <i class="fas fa-magic me-2"></i> <?= __('find_animal_detect_search') ?>
                     </button>
                 </div>
