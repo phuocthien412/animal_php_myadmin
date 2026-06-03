@@ -1,4 +1,12 @@
 images/ClassAnimal/Background/*
 
+# Ignore user uploads but keep the directory
+images/Posts/*
+!images/Posts/.gitkeep
+images/Animal/*
+!images/Animal/.gitkeep
+images/Post/*
+!images/Post/.gitkeep
+
 # Environment config — không commit lên git
 .env

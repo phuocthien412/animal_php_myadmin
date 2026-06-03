@@ -61,7 +61,7 @@ class UserController extends BaseController {
             $userId = $this->db->lastInsertId();
     
             // Assign the default role (user) to the new user
-            $roleId = 3; // Assuming '2' is the ID for the 'user' role
+            $roleId = 2; // '2' is the ID for the 'user' role
             $sql = "INSERT INTO user_role (user_id, role_id) VALUES (:user_id, :role_id)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([

@@ -1,5 +1,6 @@
 <?php
-
+require_once __DIR__ . '/../../../config/env.php';
+require_once __DIR__ . '/../../../controller/UserController.php';
 $userController = new UserController();
 $userController->authorize('ADMIN', '/Login');
 
