@@ -20,11 +20,19 @@ $adminNotificationCount = Notification::getUnreadCount();
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="<?= $base ?>/css/admin.css" />
+    <link rel="stylesheet" href="<?= $base ?>/css/admin.css?v=<?= filemtime(__DIR__ . '/../css/admin.css') ?>" />
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
-<body class="admin-body">
+<body class="admin-body preload">
+<script>
+    (function() {
+        const collapsed = localStorage.getItem('admin-sidebar-collapsed') === 'true';
+        if (collapsed) {
+            document.body.classList.add('sidebar-collapsed');
+        }
+    })();
+</script>
 
 <!-- Sidebar Overlay (mobile) -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -48,7 +56,7 @@ $adminNotificationCount = Notification::getUnreadCount();
         <a href="<?= $base ?>/admin/dashboard"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-gauge-high"></i></span>
-            <?= __('admin_dashboard') ?>
+            <span class="sidebar-item-text"><?= __('admin_dashboard') ?></span>
         </a>
 
         <div class="sidebar-section-label"><?= __('admin_content_management') ?></div>
@@ -56,31 +64,31 @@ $adminNotificationCount = Notification::getUnreadCount();
         <a href="<?= $base ?>/admin/animals"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/animals') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-dragon"></i></span>
-            <?= __('admin_animals') ?>
+            <span class="sidebar-item-text"><?= __('admin_animals') ?></span>
         </a>
 
         <a href="<?= $base ?>/admin/classanimals"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/classanimals') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-layer-group"></i></span>
-            <?= __('admin_classanimals') ?>
+            <span class="sidebar-item-text"><?= __('admin_classanimals') ?></span>
         </a>
 
         <a href="<?= $base ?>/admin/posts"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/posts') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-newspaper"></i></span>
-            <?= __('admin_posts') ?>
+            <span class="sidebar-item-text"><?= __('admin_posts') ?></span>
         </a>
 
         <a href="<?= $base ?>/admin/comments"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/comments') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-comments"></i></span>
-            <?= __('admin_comments') ?>
+            <span class="sidebar-item-text"><?= __('admin_comments') ?></span>
         </a>
 
         <a href="<?= $base ?>/admin/notifications"
-            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/notifications') !== false) ? 'active' : ''; ?>">
+             class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/notifications') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-bell"></i></span>
-            <?= __('admin_notifications') ?>
+            <span class="sidebar-item-text"><?= __('admin_notifications') ?></span>
         </a>
 
         <div class="sidebar-section-label"><?= __('admin_system') ?></div>
@@ -89,7 +97,7 @@ $adminNotificationCount = Notification::getUnreadCount();
         <a href="<?= $base ?>/admin/users"
            class="sidebar-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/users') !== false) ? 'active' : ''; ?>">
             <span class="si-icon"><i class="fa-solid fa-users-gear"></i></span>
-            <?= __('admin_users') ?>
+            <span class="sidebar-item-text"><?= __('admin_users') ?></span>
         </a>
         <?php endif; ?>
 
@@ -108,7 +116,7 @@ $adminNotificationCount = Notification::getUnreadCount();
     </button>
 
     <button class="topbar-toggle topbar-collapse-toggle" id="sidebarCollapseToggle" title="Ẩn/hiện thanh bên" aria-label="Ẩn/hiện thanh bên">
-        <i class="fa-solid fa-angles-left"></i>
+        <i class="fa-solid fa-chevron-left"></i>
     </button>
 
     <div class="topbar-title" id="topbarTitle">
@@ -241,7 +249,7 @@ if (overlay) overlay.addEventListener('click', () => {
 if (collapseToggle) collapseToggle.addEventListener('click', () => {
     document.body.classList.toggle('sidebar-collapsed');
     const collapsed = document.body.classList.contains('sidebar-collapsed');
-    collapseToggle.innerHTML = `<i class="fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}"></i>`;
+    localStorage.setItem('admin-sidebar-collapsed', collapsed);
 });
 
 if (notificationToggle && notificationPanel) {
@@ -262,6 +270,9 @@ if (notificationToggle && notificationPanel) {
 
 // Dynamic topbar title từ active sidebar item
 document.addEventListener('DOMContentLoaded', () => {
+    // Remove preload class to enable transitions after initial render
+    document.body.classList.remove('preload');
+
     const active = document.querySelector('.sidebar-item.active');
     const tb = document.getElementById('topbarTitle');
     if (active && tb) {

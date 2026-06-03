@@ -23,29 +23,7 @@ if (!$animal) {
     <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
-    <style>
-
-        /* Styles for the static image button */
-        .static-button {
-            position: fixed; /* Fixes the button in the viewport */
-            bottom: 20px; /* Distance from the bottom */
-            right: 20px; /* Change left to right for bottom right positioning */
-            cursor: pointer; /* Pointer cursor on hover */
-            z-index: 1000; /* Ensure it appears above other elements */
-            text-align: center; /* Center-align the text below the image */
-        }
-
-        .static-button img {
-            width: 60px; /* Set the desired width for the image */
-            height: auto; /* Maintain aspect ratio */
-        }
-
-        .click-me {
-            color: white; /* Text color */
-            font-size: 14px; /* Font size for "Click Me" */
-            margin-top: 5px; /* Space between image and text */
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/client/animals.css">
 </head>
 <body>
 <?php
@@ -309,7 +287,7 @@ include '../header.php';
             localStorage.removeItem('introAnimal');
         };
     </script>
-    <div class="static-button" id="startIntro" style="margin-right: -100px">
+    <div class="static-button" id="startIntro">
         <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"

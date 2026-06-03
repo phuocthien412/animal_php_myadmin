@@ -1,0 +1,62 @@
+/* ============================================================
+   NEKOPARA — Admin Posts CSS
+   Extracted from view/admin/posts/view_post.php
+   ============================================================ */
+
+.detail-card {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.comments-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.comment-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.comment-card .meta {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.comment-card .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+
+.comment-card .actions form {
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .comments-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .detail-card {
+        padding: 16px;
+    }
+    .comment-card {
+        flex-direction: column;
+    }
+    .comment-card .actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

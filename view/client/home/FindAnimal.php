@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../../config/env.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,29 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
-    <style>
-
-        /* Styles for the static image button */
-        .static-button {
-            position: fixed; /* Fixes the button in the viewport */
-            bottom: 20px; /* Distance from the bottom */
-            right: 20px; /* Change left to right for bottom right positioning */
-            cursor: pointer; /* Pointer cursor on hover */
-            z-index: 1000; /* Ensure it appears above other elements */
-            text-align: center; /* Center-align the text below the image */
-        }
-
-        .static-button img {
-            width: 60px; /* Set the desired width for the image */
-            height: auto; /* Maintain aspect ratio */
-        }
-
-        .click-me {
-            color: white; /* Text color */
-            font-size: 14px; /* Font size for "Click Me" */
-            margin-top: 5px; /* Space between image and text */
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/client/home.css">
 </head>
 <body>
 <?php
@@ -190,7 +171,7 @@ include '../header.php';
         start();
     </script>
     <script src="~/js/script.js"></script>
-    <div class="static-button" id="startIntro" style="margin-right: -100px">
+    <div class="static-button" id="startIntro">
         <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"

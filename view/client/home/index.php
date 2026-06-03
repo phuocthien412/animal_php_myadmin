@@ -10,106 +10,7 @@ require_once __DIR__ . '/../../../config/env.php';
     <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
-    <style>
-        .home-intro-row {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            width: min(1100px, 100%);
-            margin: 0 auto;
-        }
-
-        .home-logo {
-            width: min(380px, 72vw);
-            height: auto;
-            max-width: 100%;
-        }
-
-        .home-hero {
-            margin-top: 0 !important;
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-        }
-
-        .home-intro-copy,
-        .home-intro-visual {
-            flex: 1 1 0;
-            min-width: 0;
-        }
-
-        .home-intro-copy p,
-        .home-intro-copy img {
-            max-width: 100%;
-        }
-
-        .intro-mobile-text {
-            font-size: clamp(18px, 4.5vw, 30px) !important;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 767.98px) {
-            .home-hero {
-                margin-top: 0 !important;
-                padding-top: 2.5rem !important;
-                padding-bottom: 1.5rem !important;
-            }
-
-            .home-logo {
-                width: min(240px, 72vw);
-            }
-
-            .home-intro-row {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .home-intro-row img {
-                margin-left: 0 !important;
-            }
-
-            .home-intro-copy {
-                width: 100%;
-            }
-
-            .home-intro-visual {
-                width: 100%;
-            }
-
-            .home-intro-row .intro-mobile-text {
-                font-size: clamp(18px, 5vw, 24px) !important;
-            }
-
-            .support-card {
-                padding: 1.25rem !important;
-            }
-
-            .support-card .btn {
-                width: 100%;
-            }
-        }
-
-
-        /* Styles for the static image button */
-        .static-button {
-            position: fixed; /* Fixes the button in the viewport */
-            bottom: 20px; /* Distance from the bottom */
-            right: 20px; /* Change left to right for bottom right positioning */
-            cursor: pointer; /* Pointer cursor on hover */
-            z-index: 1000; /* Ensure it appears above other elements */
-            text-align: center; /* Center-align the text below the image */
-        }
-
-        .static-button img {
-            width: 60px; /* Set the desired width for the image */
-            height: auto; /* Maintain aspect ratio */
-        }
-
-        .click-me {
-            color: white; /* Text color */
-            font-size: 14px; /* Font size for "Click Me" */
-            margin-top: 5px; /* Space between image and text */
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/client/home.css">
 </head>
 
 <body>
@@ -289,7 +190,7 @@ include '../header.php';
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
-    <div class="static-button" id="startIntro" style="margin-right: -100px">
+    <div class="static-button" id="startIntro">
         <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"

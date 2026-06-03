@@ -1,0 +1,43 @@
+/* ============================================================
+   NEKOPARA — Client Animals CSS
+   Extracted from view/client/animals/animals-list.php
+   and view/client/animals/view_animal.php
+   ============================================================ */
+
+/* ---- Animals List: Progress Bar ---- */
+.animal-name {
+    margin-right: 10px;
+    font-weight: bold;
+    animation: jump 0.5s infinite alternate;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 20px;
+    color: white;
+}
+
+@keyframes jump {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+/* ---- View Animal: Static Intro Button ---- */
+/* NOTE: .static-button and .click-me are also defined in client/home.css
+   (shared component). No need to re-declare here. */

@@ -46,37 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= __('reg_title') ?> - NEKOPARA</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        .login-container h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/client/users.css">
 </head>
-<body>
+<body class="add-user-body">
 <?php
 include '../header.php';
 ?>
 <section layout:fragment="content" style="padding: 0;">
 <section class="ClassAnimal" style="width:100%;">
-    <div class="login-container" style="margin: 0 auto;">
+    <div class="add-user-login-container" style="margin: 0 auto;">
         <h2><?= __('reg_title') ?></h2>
         <?php if ($error): ?>
             <div class="alert alert-danger">
@@ -96,7 +74,7 @@ include '../header.php';
                 <label for="phone"><?= __('form_phone') ?></label>
                 <input type="text" class="form-control" id="phone" name="phone">
             </div>
-            <div class="form-group hidden">
+            <div class="form-group add-user-hidden">
                 <label for="provider">Provider</label>
                 <input type="text" class="form-control" id="provider" name="provider" value="">
             </div>
@@ -104,7 +82,7 @@ include '../header.php';
                 <label for="username"><?= __('form_username') ?></label>
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
-            <div class="form-group hidden">
+            <div class="form-group add-user-hidden">
                 <label for="roles">Roles</label>
                 <select class="form-control" id="roles" name="roles[]" multiple>
                     <option value="2" selected>User</option> <!-- Assuming '2' is the ID for the 'user' role -->

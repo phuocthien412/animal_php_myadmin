@@ -1,0 +1,48 @@
+/* ============================================================
+   NEKOPARA — Admin Users CSS
+   Extracted from view/admin/users/editRole.php
+   ============================================================ */
+
+.role-form-card {
+    max-width: 520px;
+}
+
+.role-option-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.role-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .15s;
+}
+
+.role-option:has(input:checked) {
+    border-color: var(--green-primary);
+    background: var(--green-light);
+}
+
+.role-option input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    accent-color: var(--green-primary);
+}
+
+.role-option-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.role-option-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}

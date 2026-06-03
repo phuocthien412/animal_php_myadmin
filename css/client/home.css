@@ -1,0 +1,117 @@
+/* ============================================================
+   NEKOPARA — Client Home CSS
+   Extracted from view/client/home/index.php & FindAnimal.php
+   ============================================================ */
+
+/* ---- Home Index Page ---- */
+.home-intro-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: min(1100px, 100%);
+    margin: 0 auto;
+}
+
+.home-logo {
+    width: min(380px, 72vw);
+    height: auto;
+    max-width: 100%;
+}
+
+.home-hero {
+    margin-top: 0 !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.home-intro-copy,
+.home-intro-visual {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.home-intro-copy p,
+.home-intro-copy img {
+    max-width: 100%;
+}
+
+.intro-mobile-text {
+    font-size: clamp(18px, 4.5vw, 30px) !important;
+    line-height: 1.5;
+}
+
+/* ---- Shared: Static Intro Button (Assistant Widget) ---- */
+.static-button {
+    position: fixed;
+    top: 35%;
+    right: 40px;
+    cursor: pointer;
+    z-index: 1000;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.static-button img {
+    width: 60px;
+    height: auto;
+}
+
+.click-me {
+    color: white;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 767.98px) {
+    .home-hero {
+        margin-top: 0 !important;
+        padding-top: 2.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    .home-logo {
+        width: min(240px, 72vw);
+    }
+
+    .home-intro-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-intro-row img {
+        margin-left: 0 !important;
+    }
+
+    .home-intro-copy,
+    .home-intro-visual {
+        width: 100%;
+    }
+
+    .home-intro-row .intro-mobile-text {
+        font-size: clamp(18px, 5vw, 24px) !important;
+    }
+
+    .support-card {
+        padding: 1.25rem !important;
+    }
+
+    .support-card .btn {
+        width: 100%;
+    }
+
+    .static-button {
+        right: 12px;
+        bottom: 12px;
+        top: auto;
+    }
+
+    .static-button img {
+        width: 48px;
+    }
+
+    .click-me {
+        font-size: 18px !important;
+        margin-top: 2px;
+    }
+}

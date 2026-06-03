@@ -42,28 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>NEKOPARA — <?= __('admin_edit_user_role') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .role-form-card { max-width: 520px; }
-        .role-option-wrap {
-            display: flex; flex-direction: column; gap: 10px; margin-top: 8px;
-        }
-        .role-option {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px 16px;
-            border: 1.5px solid var(--border-medium);
-            border-radius: 10px;
-            cursor: pointer; transition: all .15s;
-        }
-        .role-option:has(input:checked) {
-            border-color: var(--green-primary);
-            background: var(--green-light);
-        }
-        .role-option input[type="checkbox"] {
-            width: 17px; height: 17px; cursor: pointer;
-            accent-color: var(--green-primary);
-        }
-        .role-option-name { font-size: 14px; font-weight: 600; }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/admin/users.css">
 </head>
 <body>
 <?php include '../../headerAdmin.php'; ?>

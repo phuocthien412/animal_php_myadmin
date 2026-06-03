@@ -1,133 +1,8 @@
 <?php
 require_once __DIR__ . '/../../config/env.php';
 ?>
-<!-- Premium Senior Dev Custom CSS Style for Footer -->
-<style>
-    .premium-footer {
-        background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        font-family: 'Be Vietnam Pro', sans-serif;
-        position: relative;
-        overflow: hidden;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* Animated RGB moving top border */
-    .rgb-border {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 3px;
-        width: 100%;
-        background: linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #00ff7f, #ff007f);
-        background-size: 300% 100%;
-        animation: rgbGlow 6s linear infinite;
-        z-index: 10;
-        box-shadow: 0 0 12px rgba(127, 0, 255, 0.6);
-    }
-
-    @keyframes rgbGlow {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 300% 50%; }
-    }
-
-    /* Subtle background grid pattern */
-    .footer-grid-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.006) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255, 255, 255, 0.006) 1px, transparent 1px);
-        background-size: 40px 40px;
-        pointer-events: none;
-    }
-
-    /* Premium Logo Hover Lift */
-    .footer-logo {
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
-    }
-    .footer-logo:hover {
-        transform: translateY(-4px) scale(1.06);
-        filter: drop-shadow(0 8px 20px rgba(0, 240, 255, 0.5));
-    }
-
-    /* Advanced Link Underline Animation */
-    .footer-link {
-        color: rgba(241, 245, 249, 0.75) !important;
-        text-decoration: none !important;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        position: relative;
-        display: inline-block;
-        padding-bottom: 2px;
-    }
-
-    .footer-link::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background: linear-gradient(90deg, #00f0ff, #7f00ff);
-        transition: width 0.3s ease;
-    }
-
-    .footer-link:hover {
-        color: #ffffff !important;
-        text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-        transform: translateX(4px);
-    }
-
-    .footer-link:hover::after {
-        width: 100%;
-    }
-
-    /* Contact Details Hover Text Glow */
-    .footer-contact-item {
-        color: rgba(241, 245, 249, 0.85);
-        transition: all 0.3s ease;
-    }
-    .footer-contact-item:hover {
-        color: #00f0ff;
-        text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-    }
-
-    /* 3D Social Media Buttons */
-    .social-icon-btn {
-        width: 42px;
-        height: 42px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(241, 245, 249, 0.75) !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .social-icon-btn:hover {
-        background: linear-gradient(135deg, #00f0ff, #7f00ff);
-        border-color: transparent;
-        color: #ffffff !important;
-        transform: translateY(-6px) scale(1.12);
-        box-shadow: 0 8px 20px rgba(127, 0, 255, 0.45);
-    }
-
-    /* Glowing Text Badge */
-    .glowing-brand {
-        background: linear-gradient(90deg, #00f0ff, #7f00ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 900;
-        letter-spacing: 1px;
-        text-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
-    }
-</style>
+<!-- Client Footer Styles -->
+<link rel="stylesheet" href="<?= $base ?>/css/client/footer.css">
 
 <footer class="premium-footer text-white pt-5 pb-4">
     <!-- RGB border top -->
@@ -190,55 +65,105 @@ require_once __DIR__ . '/../../config/env.php';
 </footer>
 
 <script>
-// Draggable Assistant Widget
-document.addEventListener('DOMContentLoaded', function() {
-    const assistantBtn = document.getElementById('startIntro');
-    if (!assistantBtn) return;
+// --- Reusable Draggable Class (Can make any fixed/absolute positioned element draggable) ---
+class Draggable {
+    constructor(element, options = {}) {
+        if (!element) return;
+        this.element = element;
+        this.options = Object.assign({
+            onDragStart: null,
+            onDrag: null,
+            onDragEnd: null,
+            boundary: true // Keep element within window boundaries
+        }, options);
 
-    let isDragging = false;
-    let hasDragged = false;
-    let startX, startY, initialX, initialY;
+        this.isDragging = false;
+        this.hasDragged = false;
+        this.startX = 0;
+        this.startY = 0;
+        this.initialX = 0;
+        this.initialY = 0;
 
-    // Prevent click if we actually dragged
-    assistantBtn.addEventListener('click', function(e) {
-        if (hasDragged) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-    }, true);
-
-    function dragStart(e) {
-        if (e.target.tagName.toLowerCase() === 'a') return; // Don't drag if clicking a link inside it
-        
-        if (e.type === "touchstart") {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        } else {
-            startX = e.clientX;
-            startY = e.clientY;
-            e.preventDefault(); // Prevent native image dragging and text selection
-        }
-
-        const rect = assistantBtn.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-
-        isDragging = true;
-        hasDragged = false;
-
-        assistantBtn.style.transition = 'none';
-        
-        assistantBtn.style.right = 'auto';
-        assistantBtn.style.bottom = 'auto';
-        assistantBtn.style.left = initialX + 'px';
-        assistantBtn.style.top = initialY + 'px';
+        this.init();
     }
 
-    function drag(e) {
-        if (!isDragging) return;
+    init() {
+        // Apply default drag styles
+        this.element.style.cursor = 'grab';
+        this.element.style.userSelect = 'none';
+        this.element.style.webkitUserSelect = 'none';
+        
+        // Prevent native HTML5 image dragging for internal images
+        const imgs = this.element.querySelectorAll('img');
+        imgs.forEach(img => {
+            img.setAttribute('draggable', 'false');
+            img.style.userSelect = 'none';
+            img.style.webkitUserSelect = 'none';
+        });
+
+        // Event listener bindings
+        this.dragStartHandler = this.dragStart.bind(this);
+        this.dragHandler = this.drag.bind(this);
+        this.dragEndHandler = this.dragEnd.bind(this);
+
+        this.element.addEventListener('mousedown', this.dragStartHandler);
+        this.element.addEventListener('touchstart', this.dragStartHandler, { passive: true });
+
+        // Intercept click event if a drag operation occurred
+        this.element.addEventListener('click', (e) => {
+            if (this.hasDragged) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }, true);
+    }
+
+    dragStart(e) {
+        // Ignore dragging if clicking a link or button inside the widget
+        if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a') || e.target.tagName.toLowerCase() === 'button' || e.target.closest('button')) {
+            return;
+        }
+
+        if (e.type === 'touchstart') {
+            this.startX = e.touches[0].clientX;
+            this.startY = e.touches[0].clientY;
+        } else {
+            this.startX = e.clientX;
+            this.startY = e.clientY;
+            e.preventDefault(); // Prevents cursor text-selection side-effects
+        }
+
+        const rect = this.element.getBoundingClientRect();
+        this.initialX = rect.left;
+        this.initialY = rect.top;
+
+        this.isDragging = true;
+        this.hasDragged = false;
+        this.element.style.cursor = 'grabbing';
+        this.element.style.transition = 'none'; // Disable transition during drag
+
+        // Force fixed positioning to make dragging responsive and viewport-relative
+        this.element.style.right = 'auto';
+        this.element.style.bottom = 'auto';
+        this.element.style.left = this.initialX + 'px';
+        this.element.style.top = this.initialY + 'px';
+
+        this.mousemoveBound = this.drag.bind(this);
+        this.mouseupBound = this.dragEnd.bind(this);
+
+        document.addEventListener('mousemove', this.mousemoveBound, { passive: false });
+        document.addEventListener('mouseup', this.mouseupBound);
+        document.addEventListener('touchmove', this.mousemoveBound, { passive: false });
+        document.addEventListener('touchend', this.mouseupBound);
+
+        if (this.options.onDragStart) this.options.onDragStart(this.element);
+    }
+
+    drag(e) {
+        if (!this.isDragging) return;
 
         let currentX, currentY;
-        if (e.type === "touchmove") {
+        if (e.type === 'touchmove') {
             currentX = e.touches[0].clientX;
             currentY = e.touches[0].clientY;
         } else {
@@ -246,40 +171,57 @@ document.addEventListener('DOMContentLoaded', function() {
             currentY = e.clientY;
         }
 
-        let dx = currentX - startX;
-        let dy = currentY - startY;
+        const dx = currentX - this.startX;
+        const dy = currentY - this.startY;
 
-        if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
-            hasDragged = true;
-            e.preventDefault(); // Prevent default only when dragging to allow scrolling otherwise
+        // Set threshold to distinguish drag from clicks
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            this.hasDragged = true;
+            // Prevent default behavior to avoid scrolling on mobile during drag
+            if (e.cancelable) e.preventDefault();
         }
 
-        let newX = initialX + dx;
-        let newY = initialY + dy;
+        let newX = this.initialX + dx;
+        let newY = this.initialY + dy;
 
-        const maxX = window.innerWidth - assistantBtn.offsetWidth;
-        const maxY = window.innerHeight - assistantBtn.offsetHeight;
-        
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+        if (this.options.boundary) {
+            const maxX = window.innerWidth - this.element.offsetWidth;
+            const maxY = window.innerHeight - this.element.offsetHeight;
+            newX = Math.max(0, Math.min(newX, maxX));
+            newY = Math.max(0, Math.min(newY, maxY));
+        }
 
-        assistantBtn.style.left = newX + "px";
-        assistantBtn.style.top = newY + "px";
+        this.element.style.left = newX + 'px';
+        this.element.style.top = newY + 'px';
+
+        if (this.options.onDrag) this.options.onDrag(this.element, newX, newY);
     }
 
-    function dragEnd(e) {
-        if (!isDragging) return;
-        isDragging = false;
-        assistantBtn.style.transition = 'transform 0.3s ease'; 
+    dragEnd() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.element.style.cursor = 'grab';
+        this.element.style.transition = 'transform 0.2s ease';
+
+        document.removeEventListener('mousemove', this.mousemoveBound);
+        document.removeEventListener('mouseup', this.mouseupBound);
+        document.removeEventListener('touchmove', this.mousemoveBound);
+        document.removeEventListener('touchend', this.mouseupBound);
+
+        if (this.options.onDragEnd) this.options.onDragEnd(this.element);
     }
+}
 
-    assistantBtn.addEventListener("mousedown", dragStart, false);
-    assistantBtn.addEventListener("dragstart", function(e) { e.preventDefault(); }); // Stop HTML5 native drag on images
-    document.addEventListener("mousemove", drag, {passive: false});
-    document.addEventListener("mouseup", dragEnd, false);
+// Global helper function to make any element draggable
+window.makeDraggable = function(element, options) {
+    return new Draggable(element, options);
+};
 
-    assistantBtn.addEventListener("touchstart", dragStart, {passive: true});
-    document.addEventListener("touchmove", drag, {passive: false});
-    document.addEventListener("touchend", dragEnd, false);
+// Initialize draggable helper assistant widget on load
+document.addEventListener('DOMContentLoaded', () => {
+    const assistantBtn = document.getElementById('startIntro');
+    if (assistantBtn) {
+        window.makeDraggable(assistantBtn);
+    }
 });
 </script>

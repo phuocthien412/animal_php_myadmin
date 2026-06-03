@@ -305,6 +305,7 @@ section {
     .static-button {
         right: 12px;
         bottom: 12px;
+        top: auto;
         transform: scale(0.9);
         transform-origin: bottom right;
     }

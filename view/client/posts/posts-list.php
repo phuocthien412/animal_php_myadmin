@@ -35,9 +35,7 @@ if ($showOnlyMyPosts) {
     <title><?= __('community') ?></title>
     <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="<?= $base ?>/css/client/posts.css">
 </head>
 
 <body>
@@ -114,28 +112,6 @@ if ($showOnlyMyPosts) {
                         $username = $userController->getUsernameById($post['user_id']);
                         ?>
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <style>
-                                .post-card-link {
-                                    display: block; 
-                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                                    transform: none !important;
-                                }
-                                .post-card-link:hover {
-                                    transform: translateY(-5px) !important;
-                                }
-                                .post-card-link .card {
-                                    transform: none !important;
-                                    direction: ltr !important;
-                                }
-                                .premium-glass-card {
-                                    background: rgba(15, 23, 42, 0.6) !important;
-                                    backdrop-filter: blur(24px) saturate(150%);
-                                    -webkit-backdrop-filter: blur(24px) saturate(150%);
-                                    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                                    color: #f8fafc !important;
-                                    border-radius: 20px;
-                                }
-                            </style>
                             <a href="<?= $base ?>/posts/detail/<?= htmlspecialchars($post['id_post']) ?>" class="text-decoration-none post-card-link">
                                 <div class="card h-100 shadow-lg border-0 premium-glass-card overflow-hidden">
                                     <div class="d-flex justify-content-between align-items-center p-3 border-bottom" style="border-color: rgba(255,255,255,0.08) !important;">

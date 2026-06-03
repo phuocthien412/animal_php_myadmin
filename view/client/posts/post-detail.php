@@ -49,7 +49,7 @@ foreach ($comments as $key => $comment) {
     <title>Post</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $base ?>/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= $base ?>/css/mystyle.css" />
+    <link rel="stylesheet" href="<?= $base ?>/css/client/posts.css" />
 </head>
 
 <body>
@@ -59,71 +59,7 @@ foreach ($comments as $key => $comment) {
             <div class="row align-items-stretch g-4">
                 <!-- Post Details -->
                 <div class="col-lg-7 mb-4 mb-lg-0">
-                <style>
-                    /* Premium Glassmorphism */
-                    .premium-glass {
-                        background: rgba(15, 23, 42, 0.6) !important; /* Dark slate with opacity */
-                        backdrop-filter: blur(24px) saturate(150%);
-                        -webkit-backdrop-filter: blur(24px) saturate(150%);
-                        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
-                        color: #f8fafc !important;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    }
-                    
-                    /* Custom Scrollbar for comments */
-                    #commentsWrapper::-webkit-scrollbar {
-                        width: 6px;
-                    }
-                    #commentsWrapper::-webkit-scrollbar-track {
-                        background: transparent;
-                    }
-                    #commentsWrapper::-webkit-scrollbar-thumb {
-                        background: rgba(255, 255, 255, 0.2);
-                        border-radius: 10px;
-                    }
-                    #commentsWrapper::-webkit-scrollbar-thumb:hover {
-                        background: rgba(255, 255, 255, 0.4);
-                    }
 
-                    /* Premium Input */
-                    .premium-input {
-                        background: rgba(255, 255, 255, 0.05) !important;
-                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                        color: white !important;
-                        border-radius: 30px !important;
-                        padding: 14px 24px;
-                        font-size: 0.95rem;
-                        transition: all 0.3s ease;
-                    }
-                    .premium-input:focus {
-                        background: rgba(255, 255, 255, 0.1) !important;
-                        border-color: rgba(255, 255, 255, 0.3) !important;
-                        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05) !important;
-                        outline: none;
-                    }
-                    .premium-input::placeholder {
-                        color: rgba(255, 255, 255, 0.4) !important;
-                    }
-                    
-                    /* Submit Button */
-                    .btn-submit-premium {
-                        background: #3b82f6;
-                        color: white;
-                        border: none;
-                        border-radius: 50%;
-                        width: 40px;
-                        height: 40px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        transition: all 0.2s ease;
-                    }
-                    .btn-submit-premium:hover {
-                        background: #2563eb;
-                        transform: scale(1.05);
-                    }
-                </style>
                 
                 <div class="card premium-glass border-0 rounded-4 overflow-hidden h-100 d-flex flex-column">
                     <!-- Image section -->

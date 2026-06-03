@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEKOPARA — Changelog Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#f2f8f5',
+                            100: '#e1eff8',
+                            200: '#c5e0d2',
+                            300: '#9bc8b0',
+                            400: '#6ca88a',
+                            500: '#4c8c6d',
+                            600: '#3a7055',
+                            700: '#2f5a45',
+                            800: '#274939',
+                            900: '#203d30',
+                            950: '#0f221a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b1310;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(15, 34, 26, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .code-block {
+            background: #070d0b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+    <script>
+        // Collapsible toggle handler
+        function toggleCard(btn) {
+            const card = btn.closest('.change-card');
+            const detail = card.querySelector('.hidden') || card.querySelector('div:nth-child(2)');
+            const icon = btn.querySelector('i');
+            
+            if (detail.classList.contains('hidden')) {
+                detail.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                detail.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Tab Filtering Handler
+        function filterTab(category) {
+            // Update active states of tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = 'tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition text-slate-400 hover:text-white';
+            });
+            
+            const activeBtn = document.getElementById('btn-tab-' + category);
+            if (activeBtn) {
+                activeBtn.className = 'tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition bg-emerald-500 text-forest-950';
+            }
+
+            // Show / Hide change cards based on category
+            const cards = document.querySelectorAll('.change-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-cat') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search text functionality
+        function searchChanges() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.change-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(query) || desc.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Bind to window for compatibility with inline attributes
+        window.toggleCard = toggleCard;
+        window.filterTab = filterTab;
+        window.searchChanges = searchChanges;
+    </script>
+</head>
+<body class="text-slate-200 min-height-screen font-sans selection:bg-emerald-500 selection:text-white pb-16">
+
+    <!-- Header Section -->
+    <header class="border-b border-emerald-950/50 bg-forest-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-dragon text-forest-950 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-display font-bold text-xl text-white tracking-wider">NEKOPARA</h1>
+                    <p class="text-xs text-emerald-500/80 uppercase tracking-widest font-semibold">Senior Developer Changelog Dashboard</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3 text-sm">
+                <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Hệ thống: Live HTML Preview
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+        <!-- Dashboard Intro / Hero Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden shadow-2xl">
+            <div class="absolute top-0 right-0 -mt-12 -mr-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-3 max-w-3xl">
+                    <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold text-xs uppercase tracking-wider">Báo cáo tổng hợp</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
+                        Lịch Sử Tối Ưu Hóa & Cải Tiến Giao Diện
+                    </h2>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Tổng hợp toàn bộ lịch sử tái cấu trúc mã nguồn CSS, tối ưu hóa responsive, dịch thuật i18n động, thiết kế thông báo Shadcn UI và hệ thống kéo thả nhân vật trợ lý theo chuẩn phát triển cao cấp.
+                    </p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 gap-4 w-full md:w-auto min-w-[280px]">
+                    <div class="bg-forest-950/40 p-4 rounded-2xl border border-emerald-950/50 text-center">
+                        <div class="text-3xl font-display font-black text-white">25+</div>
+                        <div class="text-xs text-slate-400 mt-1">Tệp đã chỉnh sửa</div>
+                    </div>
+                    <div class="bg-forest-950/40 p-4 rounded-2xl border border-emerald-950/50 text-center">
+                        <div class="text-3xl font-display font-black text-emerald-400">10</div>
+                        <div class="text-xs text-slate-400 mt-1">Module CSS bóc tách</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar & Filter Tabs -->
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 bg-forest-950/30 p-3 rounded-2xl border border-emerald-950/30">
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                <button onclick="filterTab('all')" id="btn-tab-all" class="tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition bg-emerald-500 text-forest-950">
+                    Tất cả
+                </button>
+                <button onclick="filterTab('layout')" id="btn-tab-layout" class="tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-layer-group mr-1.5"></i>Khung Giao Diện (Admin)
+                </button>
+                <button onclick="filterTab('client')" id="btn-tab-client" class="tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-user-gear mr-1.5"></i>Giao Diện Khách (Client)
+                </button>
+                <button onclick="filterTab('refactor')" id="btn-tab-refactor" class="tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-code-compare mr-1.5"></i>Tái Cấu Trúc CSS
+                </button>
+                <button onclick="filterTab('i18n')" id="btn-tab-i18n" class="tab-btn px-4 py-2 text-sm font-semibold rounded-xl transition text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-globe mr-1.5"></i>Đa Ngôn Ngữ (i18n)
+                </button>
+            </div>
+
+            <!-- Search input inside dashboard -->
+            <div class="relative w-full md:w-72">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-600/80">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="searchInput" onkeyup="searchChanges()" placeholder="Tìm kiếm thay đổi..." class="w-full pl-10 pr-4 py-2 text-sm rounded-xl bg-forest-950/80 border border-emerald-950/60 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-white placeholder-slate-500">
+            </div>
+        </div>
+
+        <!-- Changes List Container -->
+        <div class="space-y-6" id="changesContainer">
+
+            <!-- Card 1: Sidebar Collapse (Admin Layout) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="layout">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Layout</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Shadcn Style</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Nút thu gọn thanh bên (SidebarTrigger) & Ẩn hoàn toàn</h3>
+                        <p class="text-slate-400 text-sm">Thiết kế lại nút đóng mở thanh bên gọn gàng và bổ sung các chuyển động co giãn mượt mà không nhấp nháy.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Nút thu gọn mới</strong>: Tạo nút vuông góc bo tròn nhẹ, viền mảnh, nền trắng bóng đổ mỏng, thay thế mũi tên kép cũ bằng chevron hướng trái.</li>
+                                <li><strong>Ẩn hoàn toàn (Width = 0)</strong>: Sidebar co hoàn toàn về 0px, Topbar và Main content trượt sát lề trái, tăng không gian làm việc.</li>
+                                <li><strong>Xoay icon mượt mà</strong>: Icon chevron tự động xoay 180 độ pointing right khi thu gọn thông qua CSS transform transition.</li>
+                                <li><strong>Lưu trạng thái & Ngăn nháy (Flash)</strong>: Lưu trạng thái vào <code class="bg-forest-950 text-emerald-400 px-1 rounded">localStorage</code> và xử lý bằng inline script đầu thẻ body để khôi phục trạng thái tức thì trước khi render trang.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/headerAdmin.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/headerAdmin.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/css/admin.css" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> css/admin.css
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Draggable Helper Client (Client UI) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="client">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Client</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Mascos UI</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-amber-500/10 text-amber-400">Draggable</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Trợ lý Mascot kéo thả tự do & Sửa lỗi FindAnimal CSS</h3>
+                        <p class="text-slate-400 text-sm">Làm nhân vật trợ lý có thể kéo thả linh hoạt trên màn hình, căn chỉnh vị trí song song ô tải ảnh và sửa lỗi nạp CSS trên trang tìm kiếm.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Draggable Class tái sử dụng</strong>: Viết lớp Javascript kéo thả toàn diện trong footer, hỗ trợ kéo chuột trên PC và kéo ngón tay trên màn hình cảm ứng di động. Có giới hạn vùng hiển thị.</li>
+                                <li><strong>Chặn Click Nhầm</strong>: Tự động phân biệt kéo thả và click chuột thường (kéo thả thì không mở hướng dẫn, click thường vẫn mở intro bình thường).</li>
+                                <li><strong>Cân chỉnh vị trí ngang hàng</strong>: Thiết lập vị trí ban đầu ở <code class="bg-forest-950 text-emerald-400 px-1 rounded">top: 35%; right: 40px</code> nằm ngang ô tải ảnh trên desktop, tự động về góc dưới trên mobile.</li>
+                                <li><strong>Fix lỗi CSS FindAnimal.php</strong>: Bổ sung tệp nạp môi trường ở đầu trang FindAnimal để lấy chính xác đường dẫn gốc `$base`, khắc phục lỗi mascot bị căn giữa chết và mất hoàn toàn CSS.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/footer.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/client/footer.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/home/FindAnimal.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/client/home/FindAnimal.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/css/client/home.css" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> css/client/home.css
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Confirm Modals & Shadcn UI Toasts (Admin Layout) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="layout">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Layout</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Shadcn Components</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Hệ thống thông báo toàn cục Shadcn UI Toast & Custom Confirm</h3>
+                        <p class="text-slate-400 text-sm">Gỡ bỏ alert tĩnh lỗi thời, thay bằng Toast nổi góc trên và Custom Confirm Modal đóng gói chuyên nghiệp.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Shadcn UI Toast</strong>: Toast tự động bật lên ở góc phải với thanh tiến trình đếm ngược 4s chạy mượt và tự hủy DOM. Bỏ cơ chế Alert cũ ở đầu 7 trang admin.</li>
+                                <li><strong>Khử thông báo lặp (F5 bug)</strong>: Dùng Javascript `history.replaceState` tự động quét và xóa các tham số `?success=...` trên URL sau khi Toast kích hoạt để tránh bị dội lại thông báo khi tải lại trang.</li>
+                                <li><strong>Custom Confirm Modal</strong>: Tạo modal thay thế hàm `confirm()` mặc định của trình duyệt. Sửa lỗi Modal tự mở khi tải trang do xung đột CSS flexbox và thuộc tính `hidden`.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/footerAdmin.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/footerAdmin.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/css/admin/components.css" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> css/admin/components.css
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: CSS Separation (Refactor CSS) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="refactor">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-teal-500/10 text-teal-400">Refactor</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Tách CSS</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Bóc tách toàn bộ mã CSS Inline ra file CSS riêng biệt</h3>
+                        <p class="text-slate-400 text-sm">Di chuyển toàn bộ các đoạn mã thẻ `<style>` inline bên trong 15 file PHP sang các file CSS độc lập giúp cache trình duyệt tốt hơn.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Tránh lặp code</strong>: Phân chia cấu trúc thư mục rõ ràng thành `css/admin/` và `css/client/`.</li>
+                                <li><strong>Tăng hiệu suất tải trang</strong>: Trình duyệt có thể tải song song và lưu bộ nhớ đệm (cache), giảm kích thước phản hồi PHP.</li>
+                                <li><strong>Dọn dẹp code PHP</strong>: Loại bỏ hoàn toàn mã giao diện trộn lẫn trong logic PHP của các trang: `login.php`, `profile.php`, `view_post.php`, `animals-list.php`, v.v.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin CSS mới đã tạo:</h4>
+                            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/admin/components.css</div>
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/admin/posts.css</div>
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/admin/users.css</div>
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/client/header.css</div>
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/client/footer.css</div>
+                                <div class="p-1.5 rounded bg-forest-950/60 border border-emerald-950/20 text-emerald-400">css/client/home.css</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: ClassAnimal delete safety constraints (Admin Layout) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="layout">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Logic Database</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-red-500/10 text-red-400">Ràng buộc</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Ràng buộc xóa Lớp động vật & Vô hiệu hóa nút xóa</h3>
+                        <p class="text-slate-400 text-sm">Không cho phép xóa lớp động vật nếu vẫn còn động vật tồn tại trong lớp đó, tích hợp đếm số lượng loài động vật.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Đếm số lượng</strong>: Thêm cột hiển thị số lượng loài thuộc lớp vào bảng danh sách bằng truy vấn COUNT tối ưu.</li>
+                                <li><strong>Khóa nút xóa ở UI</strong>: Vô hiệu hóa hành vi click, giảm opacity của nút xóa nếu số lượng loài > 0. Hiển thị Toast cảnh báo lỗi ngay lập tức khi admin click thay vì mở modal confirm xóa.</li>
+                                <li><strong>Bảo vệ Backend</strong>: Kiểm tra lại ở controller xử lý xóa (trang `delete.php`), nếu phát hiện vi phạm sẽ rollback và bắn Toast lỗi, chống xóa trực tiếp qua URL.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/controller/ClassAnimalController.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> ClassAnimalController.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/classanimal-admin.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> classanimal-admin.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/delete.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/classanimals/delete.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Dynamic Language Translation i18n (i18n) -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="i18n">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Đa ngôn ngữ</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-purple-500/10 text-purple-400">Regex Translation</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Đa ngôn ngữ hóa (i18n) động cho nhật ký và ẩn bình luận</h3>
+                        <p class="text-slate-400 text-sm">Hỗ trợ tự động dịch nhật ký hành động động lưu trong cơ sở dữ liệu và cụm từ thông báo ẩn bình luận.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Regex Dynamic Translator</strong>: Nâng cấp hàm `__()` để tự động dịch các chuỗi tiếng Việt động ghi nhận từ controller (ví dụ: *Đã sửa thông tin động vật "..."* -> *Updated info for animal "..."*) thông qua bộ lọc Regular Expression thông minh.</li>
+                                <li><strong>Bảo mật ẩn comment</strong>: Tự động dịch nhãn bình luận bị khóa `[Đã ẩn bởi quản trị]` thành `[Hidden by admin]` khi hiển thị sang ngôn ngữ Tiếng Anh.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/lib/i18n.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> lib/i18n.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

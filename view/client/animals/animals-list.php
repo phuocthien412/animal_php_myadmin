@@ -49,40 +49,7 @@ if ($searchQuery !== '') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <style>
-        .animal-name {
-            margin-right: 10px; /* Space between name and progress bar */
-            font-weight: bold; /* Make the name bold */
-            animation: jump 0.5s infinite alternate; /* Jumping effect */
-        }
-
-        .progress-container {
-            width: 100%; /* Full width */
-            background-color: #ddd; /* Background color of the bar */
-            border-radius: 5px; /* Rounded corners */
-            position: relative; /* Position for absolute elements */
-        }
-
-        .progress-bar {
-            height: 20px; /* Height of the bar */
-            background-color: #4caf50; /* Color of the filled bar */
-            border-radius: 5px; /* Rounded corners */
-            position: relative; /* Position for absolute elements */
-        }
-
-        .progress-text {
-            position: absolute; /* Position for absolute positioning */
-            right: 10px; /* Align to the right */
-            top: 0; /* Center vertically */
-            line-height: 20px; /* Center text vertically */
-            color: white; /* Text color */
-        }
-
-        @keyframes jump {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-5px); }
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base ?>/css/client/animals.css">
 </head>
 <body>
 <?php
