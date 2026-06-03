@@ -75,7 +75,7 @@ $isAdmin = isset($_SESSION['roles']) && in_array('ADMIN', $_SESSION['roles']);
                 </td></tr>
                 <?php else: ?>
                 <?php foreach ($posts as $post): ?>
-                <tr onclick="if(window.getSelection().toString().length === 0 && !event.target.closest('.action-btns')) window.location='<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>'" style="cursor: pointer;" title="Nhấn vào để xem chi tiết">
+                <tr onclick="if(window.getSelection().toString().length === 0 && !event.target.closest('.action-btns')) window.location='<?= $base ?>/admin/posts/detail/<?= urlencode($post['id_post']) ?>'" style="cursor: pointer;" title="<?= htmlspecialchars(__('title_click_view_detail'), ENT_QUOTES) ?>">
                     <td><span style="font-size:12px;color:var(--text-muted);font-weight:500;">#<?= htmlspecialchars($post['id_post']) ?></span></td>
                     <td class="animal-img-cell">
                         <?php if (!empty($post['image'])): ?>

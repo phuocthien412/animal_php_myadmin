@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $postId = intval($_GET['id']);
     $post = $postController->getPostById($postId);
     if (!$post) {
-        die("Post not found.");
+        die(__("post_err_not_found"));
     }
     $username = $userController->getUsernameById($post['user_id']);
 } else {
-    die("Invalid request.");
+    die(__("post_err_invalid_id"));
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         <h2 class="mt-2"><?= htmlspecialchars($post['title']) ?></h2>
         
         <div class="mb-4" style="color: var(--text-muted); font-size: 14px;">
-            <i class="fa-solid fa-user"></i> <?= __('admin_posted_by') ?>: <strong><?= htmlspecialchars($username ?? 'Unknown') ?></strong>
+            <i class="fa-solid fa-user"></i> <?= __('admin_posted_by') ?>: <strong><?= htmlspecialchars($username ?? __('unknown')) ?></strong>
             <span style="margin: 0 10px;">|</span>
             <i class="fa-regular fa-calendar"></i> <?= __('table_date_posted') ?>: <?= htmlspecialchars($post['date'] ?? '—') ?>
         </div>
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                     <?php $cUser = $userController->getUserById($c['user_id']); ?>
                     <div class="comment-card">
                         <div style="flex:1">
-                            <div class="meta"><?= htmlspecialchars($cUser['username'] ?? 'Unknown') ?> <small class="text-muted">• <?= htmlspecialchars($c['date_time']) ?></small></div>
+                            <div class="meta"><?= htmlspecialchars($cUser['username'] ?? __('unknown')) ?> <small class="text-muted">• <?= htmlspecialchars($c['date_time']) ?></small></div>
                             <?php $isHidden = isset($c['hidden']) && intval($c['hidden']) === 1; ?>
                             <?php $hasOrig = $isHidden && !empty($c['orig_chat_data']); ?>
                             <div class="mt-2 comment-content" style="white-space:pre-wrap;">

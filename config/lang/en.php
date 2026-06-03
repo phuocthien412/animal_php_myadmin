@@ -279,6 +279,16 @@ return [
     'msg_delete_user_fail' => 'Failed to delete user',
     'msg_update_role_success' => 'Role updated successfully',
     'msg_update_fail' => 'Update failed',
+    'msg_hide_comment_success' => 'Comment hidden successfully',
+    'msg_hide_comment_fail' => 'Failed to hide comment',
+    'msg_unhide_comment_success' => 'Comment shown successfully',
+    'msg_unhide_comment_fail' => 'Failed to unhide comment',
+    'msg_bulk_delete_comment_success' => 'Successfully deleted %d comments of user',
+    'msg_add_comment_success' => 'Comment added successfully',
+    'msg_invalid_request' => 'Invalid request',
+    'msg_no_logged_in_user' => 'No logged in user found',
+    'title_click_view_detail' => 'Click to view details',
+    'unknown' => 'Unknown',
 
     // Forms
     'form_username' => 'Username',

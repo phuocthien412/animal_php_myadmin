@@ -278,6 +278,16 @@ return [
     'msg_delete_user_fail' => 'Xoá tài khoản thất bại',
     'msg_update_role_success' => 'Cập nhật quyền thành công',
     'msg_update_fail' => 'Cập nhật thất bại',
+    'msg_hide_comment_success' => 'Đã ẩn bình luận thành công',
+    'msg_hide_comment_fail' => 'Không thể ẩn bình luận',
+    'msg_unhide_comment_success' => 'Đã bỏ ẩn bình luận thành công',
+    'msg_unhide_comment_fail' => 'Không thể bỏ ẩn bình luận',
+    'msg_bulk_delete_comment_success' => 'Đã xoá %d bình luận của người dùng thành công',
+    'msg_add_comment_success' => 'Đã thêm bình luận thành công',
+    'msg_invalid_request' => 'Yêu cầu không hợp lệ',
+    'msg_no_logged_in_user' => 'Không có người dùng đang đăng nhập',
+    'title_click_view_detail' => 'Nhấn vào để xem chi tiết',
+    'unknown' => 'Không rõ',
 
     // Forms
     'form_username' => 'Tên đăng nhập',
