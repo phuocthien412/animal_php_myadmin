@@ -887,6 +887,176 @@
                 </div>
             </div>
 
+            <!-- Card 14: FindAnimal Intro.js Tour Hotfix -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="client">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Client</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-pink-500/10 text-pink-400">UI/UX</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Tour Fix</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Tinh chỉnh Giao diện Tour Hướng dẫn FindAnimal.php</h3>
+                        <p class="text-slate-400 text-sm font-light">Tinh chỉnh lại bước 1 của hướng dẫn Intro.js theo dạng chữ bên trái, hình bên phải không viền/đổ bóng, giữ nguyên thiết kế các bước còn lại.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="card-detail hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Bố cục Bước 1 cân đối</strong>: Thiết lập bố cục Flexbox nằm ngang với Chữ bên trái, Hình ảnh (<code>trailer1.gif</code>) bên phải, tương tự như bước 2 của trang chủ.</li>
+                                <li><strong>Bỏ viền và bóng của hình ảnh</strong>: Loại bỏ hoàn toàn viền bo góc và bóng đổ (box-shadow) của hình ảnh giới thiệu tại bước 1 để hiển thị tự nhiên.</li>
+                                <li><strong>Duy trì nhân vật trợ lý ở các bước 2-5</strong>: Đảm bảo các bước 2-5 hiển thị kèm hình ảnh nhân vật trợ lý ảo (<code>idle.gif</code>) một cách sinh động, thống nhất với trang chủ.</li>
+                                <li><strong>Dọn dẹp code dư thừa</strong>: Loại bỏ khối <code>&lt;style&gt;</code> ghi đè cục bộ trong trang vì các thuộc tính này đã được định nghĩa tối ưu trong tệp CSS dùng chung.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/home/FindAnimal.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/client/home/FindAnimal.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 15: Admin Delete Actions Class Load Hotfix -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="system">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-amber-500/10 text-amber-400">Hệ Thống</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Fix Bug</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-red-500/10 text-red-400">Backend</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Khắc phục lỗi nạp class Controller trong các file Delete Admin</h3>
+                        <p class="text-slate-400 text-sm font-light">Sửa lỗi Fatal Error: Class not found khi chạy các file xóa thông qua việc nạp file môi trường env.php.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="card-detail hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Fix lỗi Class Not Found</strong>: Nạp tệp <code>env.php</code> để khởi chạy đăng ký cơ chế Autoloading tự động cho lớp Controller.</li>
+                                <li><strong>Cải thiện độ ổn định</strong>: Đảm bảo các liên kết xóa trực tiếp (như xóa bình luận, xóa bài viết, xóa loài động vật) hoạt động chuẩn xác 100% không bị crash trang trắng.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/delete-comment.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/posts/delete-comment.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/delete-post.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/posts/delete-post.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/delete.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/animals/delete.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 16: Animal Addition & Uploader Validation Hotfix -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="system">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-amber-500/10 text-amber-400">Hệ Thống</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-emerald-500/10 text-emerald-400">Fix Bug</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Forms</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Sửa lỗi Thêm động vật & Validate File Uploader</h3>
+                        <p class="text-slate-400 text-sm font-light">Sửa lỗi redirect sai URL cũ khi thêm mới động vật thành công và lỗi form control not focusable do HTML5 Validation.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="card-detail hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Sửa đường dẫn redirect</strong>: Điều chỉnh Location header trong file <code>add_animal.php</code> sử dụng biến động <code>$base</code>, tránh trỏ sai về đường dẫn <code>/animal_php/...</code> không tồn tại.</li>
+                                <li><strong>Khắc phục lỗi form control focusable</strong>: Thay đổi việc sử dụng class <code>d-none</code> thành CSS ẩn hiển thị an toàn (opacity: 0, width/height: 0, absolute position, pointer-events: none) để trình duyệt có thể tự động focus phần tử khi HTML5 Validation (required) kích hoạt mà không crash Javascript.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/add_animal.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/animals/add_animal.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/components/file_uploader.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/components/file_uploader.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Card 15: Required Asterisk & Custom File Validation -->
+            <div class="change-card glass-card rounded-2xl overflow-hidden shadow-lg border border-emerald-950/50 hover:border-emerald-500/30 transition duration-300" data-cat="system">
+                <div class="p-6 flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-950/20">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-rose-500/10 text-rose-400">i18n & Validation</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-indigo-500/10 text-indigo-400">Forms</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">Thêm dấu sao đỏ required & Validate Chọn Ảnh với Custom Toast</h3>
+                        <p class="text-slate-400 text-sm font-light">Thêm dấu sao bắt buộc màu đỏ (*) cạnh nhãn các trường required; xử lý dịch tiêu đề 'Thêm động vật mới' và custom validation file chọn ảnh bằng JavaScript ngăn chặn lỗi focus của trình duyệt.</p>
+                    </div>
+                    <button onclick="toggleCard(this)" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition self-stretch sm:self-auto flex items-center justify-center gap-1">
+                        Chi tiết <i class="fa-solid fa-chevron-down transition duration-200"></i>
+                    </button>
+                </div>
+                <!-- Card Detail -->
+                <div class="card-detail hidden p-6 bg-forest-950/25 border-t border-emerald-950/10 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Chức năng & Tối ưu:</h4>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Sửa dịch tên tiêu đề</strong>: Đảm bảo key <code>admin_animals_add_title</code> hoạt động chuẩn xác trong <code>vi.php</code> và <code>en.php</code>.</li>
+                                <li><strong>Dấu sao đỏ (*)</strong>: Bổ sung dấu sao đỏ trực quan cạnh nhãn của tất cả các input bắt buộc như Tên, Lớp, Giới thiệu, Ngoại hình, Nơi sinh sống, và Tải ảnh.</li>
+                                <li><strong>Custom File Validation</strong>: Sử dụng thuộc tính <code>data-required="true"</code> trên các input file để tránh trình duyệt validate lỗi. Khi submit biểu mẫu, JavaScript trong <code>footerAdmin.php</code> tự động check và hiển thị thông báo Toast cảnh báo thiếu file chi tiết (ví dụ: "Vui lòng chọn: Hình ảnh đại diện (Avatar)...").</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-white uppercase text-xs tracking-wider text-emerald-400">Tệp tin liên quan:</h4>
+                            <div class="space-y-2">
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/add_animal.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/animals/add_animal.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/update_animal.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/animals/update_animal.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/components/file_uploader.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/admin/components/file_uploader.php
+                                </a>
+                                <a href="file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/footerAdmin.php" class="block p-2 rounded bg-forest-950/60 border border-emerald-950/30 hover:border-emerald-500/30 transition text-emerald-400 text-xs font-mono">
+                                    <i class="fa-solid fa-file-code mr-1"></i> view/footerAdmin.php
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 

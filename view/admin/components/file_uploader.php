@@ -15,7 +15,7 @@ function renderFileUploader($id, $name, $label, $currentValue = '', $imageFolder
     global $base;
     $previewContainerId = $id . 'PreviewContainer';
     $multipleAttr = $isMultiple ? 'multiple' : '';
-    $requiredAttr = $required ? 'required' : '';
+    $requiredAttr = $required ? 'data-required="true"' : '';
     $isMultipleVal = $isMultiple ? 'true' : 'false';
     
     // Check if media is video
@@ -41,7 +41,7 @@ function renderFileUploader($id, $name, $label, $currentValue = '', $imageFolder
     ?>
     <div class="mb-4 p-3 rounded-3" style="background: rgba(248, 249, 250, 0.7); border: 1px dashed rgba(0, 123, 255, 0.25);">
         <label class="form-label font-weight-bold d-block mb-3" style="color: var(--slate-dark);">
-            <i class="fa-solid <?= $icon ?> text-primary me-2"></i><?= htmlspecialchars($label) ?>
+            <i class="fa-solid <?= $icon ?> text-primary me-2"></i><?= htmlspecialchars($label) ?><?php if ($required): ?> <span class="text-danger">*</span><?php endif; ?>
         </label>
         <div class="d-flex align-items-center gap-3 flex-wrap">
             <!-- Current file thumbnail -->
@@ -64,7 +64,7 @@ function renderFileUploader($id, $name, $label, $currentValue = '', $imageFolder
                 <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="document.getElementById('<?= htmlspecialchars($id) ?>').click()">
                     <i class="fa-solid fa-upload me-1"></i> <?= __('uploader_choose') ?? 'Chọn file' ?>
                 </button>
-                <input type="file" id="<?= htmlspecialchars($id) ?>" name="<?= htmlspecialchars($name) ?>" <?= $multipleAttr ?> <?= $requiredAttr ?> class="d-none" accept="<?= htmlspecialchars($accept) ?>" onclick="this.value = null" onchange="validateAndPreviewFile(this, '<?= htmlspecialchars($previewContainerId) ?>', <?= $isMultipleVal ?>)">
+                <input type="file" id="<?= htmlspecialchars($id) ?>" name="<?= htmlspecialchars($name) ?>" <?= $multipleAttr ?> <?= $requiredAttr ?> style="opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;" accept="<?= htmlspecialchars($accept) ?>" onclick="this.value = null" onchange="validateAndPreviewFile(this, '<?= htmlspecialchars($previewContainerId) ?>', <?= $isMultipleVal ?>)">
                 <div class="text-muted mt-2" style="font-size: 11px;">
                     <?= $isMultiple ? (__('uploader_multiple_hint') ?? 'Có thể chọn nhiều tệp tin. ') : (__('uploader_single_hint') ?? 'Hỗ trợ tệp tin. ') ?><?= __('uploader_max_size') ?? 'Tối đa 10MB.' ?>
                 </div>

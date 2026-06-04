@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../config/env.php';
 
 $commentController = new CommentController();
 $commentController->authorize('ADMIN', '/Login');

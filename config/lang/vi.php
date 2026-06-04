@@ -267,6 +267,7 @@ return [
     // Controllers / Flash Messages
     'msg_delete_animal_success' => 'Xoá động vật thành công',
     'msg_update_animal_success' => 'Cập nhật động vật thành công',
+    'msg_add_animal_success' => 'Thêm động vật thành công',
     'msg_update_classanimal_success' => 'Cập nhật lớp động vật thành công',
     'msg_delete_comment_success' => 'Xoá bình luận thành công',
     'msg_unauthorized' => 'Không có quyền truy cập',
@@ -421,6 +422,7 @@ return [
     'btn_add_new' => 'Thêm mới',
     'confirm_add_animal' => 'Bạn có chắc chắn muốn thêm động vật này vào hệ thống?',
     'confirm_add_animal_title' => 'Xác nhận thêm mới',
+    'admin_animals_add_title' => 'Thêm động vật mới',
     'admin_animals_edit_title' => 'Cập nhật động vật',
     'confirm_update_animal' => 'Bạn có chắc chắn muốn lưu các thay đổi cho động vật này?',
     'confirm_update_animal_title' => 'Xác nhận cập nhật',
@@ -457,4 +459,5 @@ return [
     'uploader_multiple_hint' => 'Có thể chọn nhiều tệp tin. ',
     'uploader_single_hint' => 'Hỗ trợ tệp tin. ',
     'uploader_max_size' => 'Tối đa 10MB.',
+    'msg_please_select' => 'Vui lòng chọn',
 ];

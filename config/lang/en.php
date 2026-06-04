@@ -268,6 +268,7 @@ return [
     // Controllers / Flash Messages
     'msg_delete_animal_success' => 'Animal deleted successfully',
     'msg_update_animal_success' => 'Animal updated successfully',
+    'msg_add_animal_success' => 'Animal added successfully',
     'msg_update_classanimal_success' => 'Class Animal updated successfully',
     'msg_delete_comment_success' => 'Comment deleted successfully',
     'msg_unauthorized' => 'Unauthorized access',
@@ -422,6 +423,7 @@ return [
     'btn_add_new' => 'Add New',
     'confirm_add_animal' => 'Are you sure you want to add this animal?',
     'confirm_add_animal_title' => 'Confirm Addition',
+    'admin_animals_add_title' => 'Add New Animal',
     'admin_animals_edit_title' => 'Update Animal',
     'confirm_update_animal' => 'Are you sure you want to save changes for this animal?',
     'confirm_update_animal_title' => 'Confirm Update',
@@ -458,4 +460,5 @@ return [
     'uploader_multiple_hint' => 'Multiple files allowed. ',
     'uploader_single_hint' => 'Supported file. ',
     'uploader_max_size' => 'Max 10MB.',
+    'msg_please_select' => 'Please select',
 ];

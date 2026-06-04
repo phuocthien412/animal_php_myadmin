@@ -307,6 +307,40 @@ document.addEventListener('click', function(e) {
 
 // Xử lý riêng cho form submit để không bị bỏ qua HTML5 Validation (như required, max, min...)
 document.addEventListener('submit', function(e) {
+    if (e.defaultPrevented) return;
+    
+    // Kiểm tra các trường file bắt buộc (data-required="true")
+    const form = e.target;
+    const requiredFiles = form.querySelectorAll('input[type="file"][data-required="true"]');
+    let missingLabels = [];
+    
+    requiredFiles.forEach(function(input) {
+        if (!input.files || input.files.length === 0) {
+            const currentInput = form.querySelector('input[name="current_' + input.id + '"]');
+            if (!currentInput || !currentInput.value) {
+                const container = input.closest('.mb-4');
+                const labelEl = container ? container.querySelector('label') : null;
+                let labelText = labelEl ? labelEl.textContent.trim() : 'Hình ảnh';
+                labelText = labelText.replace(/[\*\s\:\-\,]+$/, '').trim();
+                missingLabels.push(labelText);
+            }
+        }
+    });
+    
+    if (missingLabels.length > 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const prefix = '<?= __('msg_please_select') ?? 'Vui lòng chọn' ?>';
+        const msg = prefix + ': ' + missingLabels.join(', ');
+        if (window.showToast) {
+            window.showToast(msg, 'danger');
+        } else {
+            alert(msg);
+        }
+        return;
+    }
+
     // e.submitter là nút submit đã được bấm
     if (e.submitter && e.submitter.hasAttribute('data-confirm')) {
         e.preventDefault(); // Chặn form submit ngay lập tức sau khi HTML5 validation đã pass

@@ -29,30 +29,41 @@ include '../header.php';
     <div class="container mt-5 mb-5" style="position: relative; z-index: 2;">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <div class="glass-upload-card text-center p-4 p-md-5" style="background: rgba(15, 34, 26, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
-                    <h2 class="fw-bold mb-3 text-white" style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; letter-spacing: -0.025em; text-shadow: 0 4px 12px rgba(0,0,0,0.5);"><i class="fa-solid fa-camera-retro text-emerald-400 mr-2"></i><?= __('find_animal_title') ?></h2>
-                    <p class="text-slate-300 mb-5" style="font-size: 1.1rem;"><?= __('find_animal_subtitle') ?></p>
+                <!-- Luminous Frosted Glass Card -->
+                <div class="glass-upload-card text-center p-4 p-md-5" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 30px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 40px rgba(16, 185, 129, 0.2); position: relative; overflow: hidden; animation: fadeInUp 0.8s ease-out;">
                     
-                    <div class="upload-area mb-4" id="upload-area" style="background: rgba(5, 11, 8, 0.4); border: 2px dashed rgba(16, 185, 129, 0.4); border-radius: 16px; padding: 40px 20px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.borderColor='rgba(16, 185, 129, 0.8)'; this.style.background='rgba(16, 185, 129, 0.05)';" onmouseout="this.style.borderColor='rgba(16, 185, 129, 0.4)'; this.style.background='rgba(5, 11, 8, 0.4)';">
-                        <i class="fas fa-cloud-upload-alt fa-4x mb-4 text-emerald-500"></i>
-                        <h5 class="mb-2 text-white fw-bold"><?= __('find_animal_drag_drop') ?></h5>
-                        <p class="text-slate-400 small mb-4"><?= __('find_animal_or') ?></p>
-                        <button type="button" class="btn rounded-pill px-5 py-2.5 fw-bold" style="background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); transition: all 0.2s;" onmouseover="this.style.background='rgba(16, 185, 129, 0.2)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.1)'">
-                            <?= __('find_animal_choose_file') ?>
+                    <!-- Decorative glow behind text -->
+                    <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 200px; height: 100px; background: rgba(52, 211, 153, 0.4); filter: blur(60px); z-index: 0;"></div>
+
+                    <h2 class="fw-bold mb-3 text-white" style="position: relative; z-index: 1; font-family: 'Outfit', sans-serif; font-size: 2.8rem; letter-spacing: -0.025em; text-shadow: 0 4px 15px rgba(0,0,0,0.6);"><i class="fa-solid fa-camera-retro text-emerald-300 me-3" style="filter: drop-shadow(0 0 10px rgba(52,211,153,0.8));"></i><?= __('find_animal_title') ?></h2>
+                    <p class="text-white mb-5" style="position: relative; z-index: 1; font-size: 1.15rem; font-weight: 300; text-shadow: 0 2px 4px rgba(0,0,0,0.8); letter-spacing: 0.5px;"><?= __('find_animal_subtitle') ?></p>
+                    
+                    <div class="upload-area mb-4" id="upload-area" style="position: relative; z-index: 1; background: rgba(0, 0, 0, 0.2); border: 2px dashed rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 50px 20px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: inset 0 0 20px rgba(0,0,0,0.2);" onmouseover="this.style.borderColor='rgba(52, 211, 153, 1)'; this.style.background='rgba(52, 211, 153, 0.1)'; this.style.transform='translateY(-5px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.2), inset 0 0 20px rgba(52,211,153,0.2)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.6)'; this.style.background='rgba(0, 0, 0, 0.2)'; this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='inset 0 0 20px rgba(0,0,0,0.2)';">
+                        
+                        <div class="upload-icon-container" style="transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                            <i class="fas fa-cloud-upload-alt fa-4x mb-4 text-emerald-400" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));"></i>
+                        </div>
+                        <h5 class="mb-2 text-white fw-bold" style="text-shadow: 0 2px 4px rgba(0,0,0,0.8); font-size: 1.3rem; letter-spacing: 0.5px;"><?= __('find_animal_drag_drop') ?></h5>
+                        <p class="text-gray-300 small mb-4" style="text-shadow: 0 1px 2px rgba(0,0,0,0.8);"><?= __('find_animal_or') ?></p>
+                        
+                        <button type="button" class="btn rounded-pill px-5 py-2.5 fw-bold" style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); color: #064e3b; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(255,255,255,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.3)';">
+                            <i class="fa-solid fa-folder-open me-2"></i><?= __('find_animal_choose_file') ?>
                         </button>
                         <input type="file" id="image-upload" class="d-none" accept="image/*">
                     </div>
 
-                    <div id="image-container" class="preview-container mb-4" style="display: none; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                    <div id="image-container" class="preview-container mb-4" style="position: relative; z-index: 1; display: none; border-radius: 20px; overflow: hidden; border: 3px solid rgba(52, 211, 153, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 30px rgba(52,211,153,0.3); padding: 5px; background: rgba(0,0,0,0.4);">
+                        <!-- The JS will insert the <img> tag here. The wrapper padding makes it look like a glowing frame. -->
                     </div>
-                    <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-sm rounded-pill mb-4 shadow-sm fw-bold px-4 py-2" style="display: none; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    
+                    <button type="button" onclick="resetUpload()" id="reset-btn" class="btn btn-sm rounded-pill mb-4 shadow-sm fw-bold px-4 py-2" style="position: relative; z-index: 1; display: none; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px); transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='white';" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.4)';">
                         <i class="fas fa-undo me-1"></i> <?= __('find_animal_choose_other') ?>
                     </button>
                     
                     <div id="label-container" class="d-none"></div>
                     
-                    <button type="button" onclick="predict()" id="search-btn" class="btn btn-lg rounded-pill w-100 fw-bold shadow-lg py-3" style="display: none; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; letter-spacing: 0.5px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <i class="fas fa-magic me-2"></i> <?= __('find_animal_detect_search') ?>
+                    <button type="button" onclick="predict()" id="search-btn" class="btn btn-lg rounded-pill w-100 fw-bold shadow-lg py-3 mt-2" style="position: relative; z-index: 1; display: block; background: linear-gradient(135deg, #10b981, #059669); color: white; border: 1px solid rgba(255,255,255,0.3); font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'; this.style.boxShadow='0 15px 35px rgba(16, 185, 129, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 25px rgba(16, 185, 129, 0.4)';">
+                        <i class="fas fa-magic me-2 text-emerald-100"></i> <?= __('find_animal_detect_search') ?>
                     </button>
                 </div>
             </div>
@@ -109,10 +120,13 @@ include '../header.php';
             reader.onload = function (e) {
                 const image = document.createElement("img");
                 image.src = e.target.result;
-                image.className = "img-fluid rounded shadow-sm";
-                image.style.maxHeight = "250px";
-                image.style.objectFit = "contain";
+                image.className = "img-fluid shadow-lg";
+                image.style.maxHeight = "350px";
+                image.style.objectFit = "cover";
                 image.style.width = "100%";
+                image.style.borderRadius = "14px";
+                image.style.display = "block";
+                image.style.animation = "fadeIn 0.5s ease-out";
                 imageContainer.innerHTML = "";
                 imageContainer.appendChild(image);
                 
@@ -127,7 +141,6 @@ include '../header.php';
         function resetUpload() {
             imageContainer.style.display = "none";
             imageContainer.innerHTML = "";
-            document.getElementById("search-btn").style.display = "none";
             document.getElementById("reset-btn").style.display = "none";
             document.getElementById("upload-area").style.display = "block";
             document.getElementById("image-upload").value = "";
@@ -175,7 +188,7 @@ include '../header.php';
         <img src="<?= $base ?>/images/idle.gif" alt="Start Intro"
              style="max-width: 100%; max-height: 250px; height: auto; width: auto;">
         <div class="click-me"
-             style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;">
+             style="color: white; text-shadow: 0 4px 12px rgba(0,0,0,0.8);  font-size: 30px;">
             <?= __('need_help') ?>
         </div>
     </div>
@@ -191,16 +204,14 @@ include '../header.php';
                     {
                         element: document.querySelector('#someElement0'),
                         intro: `
-                        <div class="container">
-                            <div class="row align-items-center text-left">
-                                <div class="col-md-6 p-3">
-                                    <p class="text-white fw-bold fs-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-                                        <?= __('find_animal_tour_step1') ?>
-                                    </p>
-                                </div>
-                                <div class="col-md-6 text-center">
-                                    <img src="<?= $base ?>/images/trailer1.gif" alt="Description of Image" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
-                                </div>
+                        <div style="display: flex; align-items: center; text-align: left; width: 800px; max-width: 90vw;">
+                            <div class="home-intro-copy" style="padding: 10px; height: auto;" >
+                                <p class="intro-mobile-text" style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; margin: 0; line-height: 1.4;" >
+                                    <?= __('find_animal_tour_step1') ?>
+                                </p>
+                            </div>
+                            <div class="home-intro-visual">
+                                <img src="<?= $base ?>/images/trailer1.gif" alt="Preview" style="max-width: 100%; width: min(500px, 100%); height: auto; object-fit: cover; margin-left: 0;" >
                             </div>
                         </div>
                     `
@@ -208,38 +219,66 @@ include '../header.php';
                     {
                         element: document.querySelector('#upload-area'),
                         intro: `
-                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                        <div style="display: flex; align-items: center; text-align: left; width: 600px; max-width: 90vw;">
+                            <div class="home-intro-visual" style="flex-shrink: 0; margin-right: 20px;">
+                                <img src="<?= $base ?>/images/idle.gif" alt="Assistant" style="width: 120px; height: auto; object-fit: contain;">
+                            </div>
+                            <div class="home-intro-copy" style="padding: 10px; flex-grow: 1;">
+                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 26px; margin: 0; line-height: 1.4;" >
                                      <?= __('find_animal_tour_step2') ?>
-                                 </p>
-                `,
-                        position: 'bottom' // Position tooltip directly below the text
+                                </p>
+                            </div>
+                        </div>
+                        `,
+                        position: 'bottom'
                     },
                     {
                         element: document.querySelector('#upload-area'),
                         intro: `
-                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                        <div style="display: flex; align-items: center; text-align: left; width: 600px; max-width: 90vw;">
+                            <div class="home-intro-visual" style="flex-shrink: 0; margin-right: 20px;">
+                                <img src="<?= $base ?>/images/idle.gif" alt="Assistant" style="width: 120px; height: auto; object-fit: contain;">
+                            </div>
+                            <div class="home-intro-copy" style="padding: 10px; flex-grow: 1;">
+                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 26px; margin: 0; line-height: 1.4;" >
                                      <?= __('find_animal_tour_step3') ?>
-                                 </p>
-                `,
-                        position: 'bottom' // Position tooltip directly below the text
+                                </p>
+                            </div>
+                        </div>
+                        `,
+                        position: 'bottom'
                     },
                     {
                         element: document.querySelector('#search-btn'),
                         intro: `
-                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                        <div style="display: flex; align-items: center; text-align: left; width: 600px; max-width: 90vw;">
+                            <div class="home-intro-visual" style="flex-shrink: 0; margin-right: 20px;">
+                                <img src="<?= $base ?>/images/idle.gif" alt="Assistant" style="width: 120px; height: auto; object-fit: contain;">
+                            </div>
+                            <div class="home-intro-copy" style="padding: 10px; flex-grow: 1;">
+                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 26px; margin: 0; line-height: 1.4;" >
                                      <?= __('find_animal_tour_step4') ?>
-                                 </p>
-                `,
-                        position: 'bottom' // Position tooltip directly below the text
+                                </p>
+                            </div>
+                        </div>
+                        `,
+                        position: 'bottom'
                     },
                     {
                         element: document.querySelector('#search-btn'),
                         intro: `
-                                 <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;  font-size: 30px;" >
+                        <div style="display: flex; align-items: center; text-align: left; width: 600px; max-width: 90vw;">
+                            <div class="home-intro-visual" style="flex-shrink: 0; margin-right: 20px;">
+                                <img src="<?= $base ?>/images/idle.gif" alt="Assistant" style="width: 120px; height: auto; object-fit: contain;">
+                            </div>
+                            <div class="home-intro-copy" style="padding: 10px; flex-grow: 1;">
+                                <p style="color: white; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black; font-size: 26px; margin: 0; line-height: 1.4;" >
                                      <?= __('find_animal_tour_step5') ?>
-                                 </p>
-                `,
-                        position: 'bottom' // Position tooltip directly below the text
+                                </p>
+                            </div>
+                        </div>
+                        `,
+                        position: 'bottom'
                     },
 
                 ],

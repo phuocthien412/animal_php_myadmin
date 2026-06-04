@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../config/env.php';
 
 $postController = new PostController();
 $postController->authorize('ADMIN', '/Login');

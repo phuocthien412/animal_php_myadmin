@@ -102,12 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                     <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;"><?= __('admin_general_info') ?></h4>
                     
                     <div class="mb-3">
-                        <label for="name" class="form-label font-weight-bold"><?= __('form_animal_name') ?>:</label>
+                        <label for="name" class="form-label font-weight-bold"><?= __('form_animal_name') ?> <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($animal['name']) ?>" required>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="classanimals_id" class="form-label font-weight-bold"><?= __('form_animal_class') ?>:</label>
+                        <label for="classanimals_id" class="form-label font-weight-bold"><?= __('form_animal_class') ?> <span class="text-danger">*</span></label>
                         <select class="form-select" id="classanimals_id" name="classanimals_id" required>
                             <option value="" disabled><?= __('form_animal_class_select') ?></option>
                             <?php foreach ($classAnimals as $classAnimal): ?>
@@ -119,17 +119,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="gioi_thieu_text" class="form-label font-weight-bold"><?= __('form_animal_intro') ?></label>
+                        <label for="gioi_thieu_text" class="form-label font-weight-bold"><?= __('form_animal_intro') ?> <span class="text-danger">*</span></label>
                         <textarea class="form-control" id="gioi_thieu_text" name="gioi_thieu_text" rows="4" required><?= htmlspecialchars($animal['gioi_thieu_text']) ?></textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="ngoai_hinh_text" class="form-label font-weight-bold"><?= __('form_animal_appearance') ?></label>
+                        <label for="ngoai_hinh_text" class="form-label font-weight-bold"><?= __('form_animal_appearance') ?> <span class="text-danger">*</span></label>
                         <textarea class="form-control" id="ngoai_hinh_text" name="ngoai_hinh_text" rows="4" required><?= htmlspecialchars($animal['ngoai_hinh_text']) ?></textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="noi_sinh_song_text" class="form-label font-weight-bold"><?= __('form_animal_habitat') ?></label>
+                        <label for="noi_sinh_song_text" class="form-label font-weight-bold"><?= __('form_animal_habitat') ?> <span class="text-danger">*</span></label>
                         <textarea class="form-control" id="noi_sinh_song_text" name="noi_sinh_song_text" rows="4" required><?= htmlspecialchars($animal['noi_sinh_song_text']) ?></textarea>
                     </div>
                 </div>

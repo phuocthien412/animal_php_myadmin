@@ -50,12 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h4 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;"><?= __('admin_class_info') ?></h4>
             
             <div class="mb-3">
-                <label for="name" class="form-label font-weight-bold"><?= __('table_class_name') ?>:</label>
+                <label for="name" class="form-label font-weight-bold"><?= __('table_class_name') ?> <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             
             <div class="mb-3">
-                <label for="info" class="form-label font-weight-bold"><?= __('admin_class_intro') ?>:</label>
+                <label for="info" class="form-label font-weight-bold"><?= __('admin_class_intro') ?> <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="info" name="info" rows="6" required></textarea>
             </div>
             

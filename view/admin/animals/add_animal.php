@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Redirect to the animal list page after successful submission
-    header("Location: /animal_php/admin/animals");
+    header("Location: " . $base . "/admin/animals?success=" . urlencode(__('msg_add_animal_success') ?? 'Thêm động vật thành công'));
     exit();
 }
 ?>
@@ -79,21 +79,21 @@ require_once __DIR__ . '/../components/file_uploader.php';
     <div class="form-container">
         <h2><?= __('admin_animals_add_title') ?? 'Thêm động vật' ?></h2>
         
-        <form action="<?= $base ?>/admin/animals/add" method="POST" enctype="multipart/form-data">
+        <form id="addAnimalForm" action="<?= $base ?>/admin/animals/add" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name"><?= __('form_animal_name') ?></label>
+                <label for="name"><?= __('form_animal_name') ?> <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="gioi_thieu_text"><?= __('form_animal_intro') ?></label>
+                <label for="gioi_thieu_text"><?= __('form_animal_intro') ?> <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="gioi_thieu_text" name="gioi_thieu_text" required></textarea>
             </div>
             <div class="form-group">
-                <label for="ngoai_hinh_text"><?= __('form_animal_appearance') ?></label>
+                <label for="ngoai_hinh_text"><?= __('form_animal_appearance') ?> <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="ngoai_hinh_text" name="ngoai_hinh_text" required></textarea>
             </div>
             <div class="form-group">
-                <label for="noi_sinh_song_text"><?= __('form_animal_habitat') ?></label>
+                <label for="noi_sinh_song_text"><?= __('form_animal_habitat') ?> <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="noi_sinh_song_text" name="noi_sinh_song_text" required></textarea>
             </div>
             <?php renderFileUploader('avatar', 'avatar', __('form_animal_avatar'), '', '', 'image/*', false, true); ?>
@@ -104,7 +104,7 @@ require_once __DIR__ . '/../components/file_uploader.php';
 
             <?php renderFileUploader('list_images', 'list_images[]', __('form_animal_gallery'), '', '', 'image/*', true, false); ?>
             <div class="form-group">
-                <label for="classanimals_id"><?= __('form_animal_class') ?></label>
+                <label for="classanimals_id"><?= __('form_animal_class') ?> <span class="text-danger">*</span></label>
                 <select class="form-control" id="classanimals_id" name="classanimals_id" required>
                     <option value="" disabled selected><?= __('form_animal_class_select') ?></option>
                     <?php foreach ($classAnimals as $classAnimal): ?>

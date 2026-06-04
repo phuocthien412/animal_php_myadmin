@@ -127,3 +127,21 @@ Dưới đây là danh sách toàn bộ các file đã được chỉnh sửa đ
   - Tích hợp sự kiện JavaScript trên nút xóa bị vô hiệu hóa, khi bấm sẽ hiển thị thông báo Toast cảnh báo lỗi màu đỏ ngay lập tức: *"Không thể xóa lớp động vật này vì đang chứa động vật!"* thay vì hiển thị modal xác nhận xóa như thông thường.
   - Duy trì kiểm tra an toàn ở backend tại [delete.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/classanimals/delete.php) để ngăn chặn truy cập xóa trực tiếp qua URL.
 
+## 11. Tổng Hợp Thay Đổi - Tinh chỉnh Giao diện Tour Hướng dẫn FindAnimal.php
+- **Bố cục Bước 1 cân đối**: Cấu trúc lại bước 1 của Intro.js tour trong [FindAnimal.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/client/home/FindAnimal.php) bằng Flexbox, bố cục hiển thị Chữ bên trái, Hình ảnh (`trailer1.gif`) bên phải.
+- **Bỏ viền và bóng đổ hình ảnh**: Loại bỏ thuộc tính `border-radius: 12px` và `box-shadow` khỏi thẻ ảnh giới thiệu trong bước 1 để hình ảnh hiển thị tự nhiên, mượt mà trên nền tối overlay.
+- **Duy trì nhân vật trợ lý ở các bước 2-5**: Đảm bảo các bước 2-5 hiển thị kèm hình ảnh nhân vật trợ lý ảo (`idle.gif`) một cách sinh động, thống nhất với giao diện trang chủ.
+- **Khử style CSS dư thừa**: Xóa bỏ thẻ `<style>` override cục bộ tại `<head>` do các thuộc tính liên quan đã được CSS toàn cục xử lý.
+
+## 12. Tổng Hợp Thay Đổi - Khắc phục lỗi nạp class Controller trong các file Delete Admin
+- **Fix lỗi Class Not Found**: Bổ sung `require_once __DIR__ . '/../../../config/env.php';` vào đầu các tệp tin [delete-comment.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/delete-comment.php), [delete.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/delete.php), và [delete-post.php](file:///c:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/posts/delete-post.php).
+- **Nguyên nhân**: Khi các file này được gọi trực tiếp hoặc qua liên kết xóa, chúng khởi tạo các Controller tương ứng mà thiếu file nạp môi trường hệ thống, dẫn đến việc Autoloading không được đăng ký và PHP báo lỗi Fatal Error: Class not found. Việc bổ sung giúp cơ chế Autoload hoạt động hoàn hảo và các thao tác xóa chạy trơn tru.
+
+## 13. Tổng Hợp Thay Đổi - Sửa lỗi Thêm động vật & Cải thiện validate File Uploader
+- **Sửa đường dẫn redirect sau khi thêm mới**: Đổi đường dẫn chuyển hướng sau khi tạo động vật thành công trong [add_animal.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/animals/add_animal.php) từ đường dẫn cứng cũ `/animal_php/admin/animals` sang đường dẫn động dùng `$base`, ngăn chặn lỗi quay lại URL không tồn tại.
+- **Khắc phục lỗi "invalid form control is not focusable"**: Thay thế class `d-none` (ẩn hiển thị) bằng các thuộc tính CSS ẩn hiển thị an toàn (`opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;`) trong [file_uploader.php](file:///C:/laragon/www/animal_php_myadmin/animal_php_myadmin/view/admin/components/file_uploader.php). Nhờ đó, trình duyệt vẫn có thể focus được vào phần tử khi gặp lỗi validation (required) mà không gây ra lỗi javascript chặn submit form.
+- **Bổ sung từ khóa ngôn ngữ**: Thêm từ khóa thông báo `msg_add_animal_success` vào các file ngôn ngữ `vi.php` và `en.php`.
+
+
+
+
